@@ -1,0 +1,82 @@
+version: '3.8'
+services:
+  api:
+    build: ./backend
+    container_name: enzyme_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/data
+    environment:
+      - ENZYME_DATA_DIR=/data
+      - ENZYME_JWT_SECRET=change_this_secret
+    depends_on:
+      - mod-smol
+      - mod-af2
+      - mod-dock
+      - mod-md
+      - mod-analysis
+  frontend:
+    build: ./frontend
+    container_name: enzyme_frontend
+    ports:
+      - "3000:80"
+    volumes:
+      - ./data:/data
+    depends_on:
+      - api
+  mod-smol:
+    build: ./modules/smol
+    container_name: enzyme_mod_smol
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./data:/data
+    environment:
+      - ENZYME_DATA_DIR=/data
+  mod-af2:
+    build: ./modules/af2
+    container_name: enzyme_mod_af2
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./data:/data
+    environment:
+      - ENZYME_DATA_DIR=/data
+  mod-dock:
+    build: ./modules/dock
+    container_name: enzyme_mod_dock
+    ports:
+      - "8003:8003"
+    volumes:
+      - ./data:/data
+    environment:
+      - ENZYME_DATA_DIR=/data
+  mod-md:
+    build: ./modules/md
+    container_name: enzyme_mod_md
+    ports:
+      - "8004:8004"
+    volumes:
+      - ./data:/data
+    environment:
+      - ENZYME_DATA_DIR=/data
+  mod-analysis:
+    build: ./modules/analysis
+    container_name: enzyme_mod_analysis
+    ports:
+      - "8005:8005"
+    volumes:
+      - ./data:/data
+    environment:
+      - ENZYME_DATA_DIR=/data
+
+volumes:
+  data:
+    driver: local
+
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
