@@ -7,9 +7,11 @@ services:
       - "8000:8000"
     volumes:
       - ./data:/data
+      - ./frontend/dist:/app/static
     environment:
       - ENZYME_DATA_DIR=/data
       - ENZYME_JWT_SECRET=change_this_secret
+      - ENZYME_STATIC_DIR=/app/static
     depends_on:
       - mod-smol
       - mod-af2
