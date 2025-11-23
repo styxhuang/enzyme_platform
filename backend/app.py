@@ -8,14 +8,16 @@ import uuid
 import shutil
 from datetime import datetime, timedelta
 from typing import Optional, List
-from fastapi import FastAPI, Depends, HTTPException, status, Request, Response
+from fastapi import FastAPI, Depends, HTTPException, status, Request, Response, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import httpx
+from fastapi.staticfiles import StaticFiles
 
 DATA_DIR = os.getenv("ENZYME_DATA_DIR", os.path.join(os.getcwd(), "data"))
 DB_PATH = os.path.join(DATA_DIR, "meta.sqlite")
 JWT_SECRET = os.getenv("ENZYME_JWT_SECRET", "dev_secret")
+STATIC_DIR = os.getenv("ENZYME_STATIC_DIR")
 
 app = FastAPI()
 app.add_middleware(
@@ -30,6 +32,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+if STATIC_DIR and os.path.isdir(STATIC_DIR):
+    app.mount("/ui", StaticFiles(directory=STATIC_DIR, html=True), name="ui")
 
 def ensure_dirs():
     os.makedirs(DATA_DIR, exist_ok=True)
@@ -205,50 +210,73 @@ def create_job(req: Request, data: JobCreate):
         with httpx.Client(timeout=300) as client:
             payload = {"job_id": job_id}
             payload.update(data.inputs)
+            if data.type == "dock":
+                # resolve structure file paths to absolute user paths
+                def resolve_path(p: Optional[str]) -> Optional[str]:
+                    if not p:
+                        return None
+                    name = os.path.basename(p)
+                    return os.path.join(DATA_DIR, uid, "structure", name)
+                if payload.get("receptor") and isinstance(payload["receptor"], dict):
+                    rp = payload["receptor"].get("path")
+                    payload["receptor"]["path"] = resolve_path(rp)
+                if payload.get("ligand") and isinstance(payload["ligand"], dict):
+                    lp = payload["ligand"].get("path")
+                    payload["ligand"]["path"] = resolve_path(lp)
             resp = client.post(url, json=payload)
         if resp.status_code != 200:
             raise RuntimeError(f"module_error:{resp.status_code}")
         out = resp.json()
         outputs = out.get("outputs", {})
         job_dir = os.path.join(DATA_DIR, job_id, "outputs")
-        # write outputs from module into job_dir (single source of truth)
         os.makedirs(job_dir, exist_ok=True)
-        written = {}
-        # props
-        props_items = outputs.get("props_items") or []
-        props_path = os.path.join(job_dir, "props.json")
-        with open(props_path, "w", encoding="utf-8") as f:
-            json.dump({"items": props_items}, f, ensure_ascii=False)
-        written["props"] = "props.json"
-        # molblocks -> out.sdf and per-molecule sdf
-        molblocks = outputs.get("molblocks") or []
-        smiles_list = outputs.get("smiles_list") or []
-        out_sdf_path = os.path.join(job_dir, "out.sdf")
-        with open(out_sdf_path, "w", encoding="utf-8") as f:
-            for mb in molblocks:
-                f.write(mb)
-                f.write("\n$$$$\n")
-        written["sdf"] = "out.sdf"
-        sdf_list = []
-        for i, mb in enumerate(molblocks):
-            p = os.path.join(job_dir, f"mol_{i}.sdf")
-            with open(p, "w", encoding="utf-8") as f:
-                f.write(mb)
-            sdf_list.append({"index": i, "sdf": f"mol_{i}.sdf", "smiles": smiles_list[i] if i < len(smiles_list) else ""})
-        # png_list -> per-molecule png
-        png_list = outputs.get("png_list") or []
-        for i, b64 in enumerate(png_list):
-            if not b64:
-                continue
-            import base64
-            data = base64.b64decode(b64)
-            with open(os.path.join(job_dir, f"mol_{i}.png"), "wb") as f:
-                f.write(data)
-            # attach png path
-            if i < len(sdf_list):
-                sdf_list[i]["png"] = f"mol_{i}.png"
-        # persist outputs json returned to client
-        persisted_outputs = {"sdf": written.get("sdf"), "props": written.get("props"), "sdf_list": sdf_list}
+        persisted_outputs = {}
+        if data.type == "smol":
+            written = {}
+            props_items = outputs.get("props_items") or []
+            with open(os.path.join(job_dir, "props.json"), "w", encoding="utf-8") as f:
+                json.dump({"items": props_items}, f, ensure_ascii=False)
+            written["props"] = "props.json"
+            molblocks = outputs.get("molblocks") or []
+            smiles_list = outputs.get("smiles_list") or []
+            with open(os.path.join(job_dir, "out.sdf"), "w", encoding="utf-8") as f:
+                for mb in molblocks:
+                    f.write(mb); f.write("\n$$$$\n")
+            written["sdf"] = "out.sdf"
+            sdf_list = []
+            for i, mb in enumerate(molblocks):
+                p = os.path.join(job_dir, f"mol_{i}.sdf")
+                with open(p, "w", encoding="utf-8") as f:
+                    f.write(mb)
+                entry = {"index": i, "sdf": f"mol_{i}.sdf", "smiles": smiles_list[i] if i < len(smiles_list) else ""}
+                png_list = outputs.get("png_list") or []
+                if i < len(png_list) and png_list[i]:
+                    import base64
+                    data_b = base64.b64decode(png_list[i])
+                    pngp = os.path.join(job_dir, f"mol_{i}.png")
+                    with open(pngp, "wb") as pf:
+                        pf.write(data_b)
+                    entry["png"] = f"mol_{i}.png"
+                sdf_list.append(entry)
+            persisted_outputs = {"sdf": written.get("sdf"), "props": written.get("props"), "sdf_list": sdf_list}
+        elif data.type == "dock":
+            # write docking outputs
+            pose_sdf = outputs.get("pose_sdf")
+            pose_png = outputs.get("pose_png")
+            scores = outputs.get("scores") or {}
+            if pose_sdf:
+                with open(os.path.join(job_dir, "pose.sdf"), "w", encoding="utf-8") as f:
+                    f.write(pose_sdf)
+                persisted_outputs["pose_sdf"] = "pose.sdf"
+            if pose_png:
+                import base64
+                data_b = base64.b64decode(pose_png)
+                with open(os.path.join(job_dir, "pose.png"), "wb") as pf:
+                    pf.write(data_b)
+                persisted_outputs["pose_png"] = "pose.png"
+            with open(os.path.join(job_dir, "scores.json"), "w", encoding="utf-8") as f:
+                json.dump(scores, f, ensure_ascii=False)
+            persisted_outputs["scores"] = "scores.json"
         cur.execute("UPDATE jobs SET outputs_json=?, status=? WHERE id=?", (
             json.dumps(persisted_outputs), "succeeded", job_id
         ))
@@ -327,3 +355,81 @@ def list_job_files(job_id: str):
             sz = 0
         files.append({"name": name, "size": sz})
     return {"files": files}
+
+@app.get("/user/structure/file/{name}")
+def get_user_structure(req: Request, name: str):
+    uid = auth_user(req)
+    if not uid:
+        raise HTTPException(status_code=401, detail="unauthorized")
+    d = os.path.join(DATA_DIR, uid, "structure")
+    path = os.path.join(d, os.path.basename(name))
+    if not os.path.exists(path):
+        raise HTTPException(status_code=404, detail="not_found")
+    ext = os.path.splitext(path)[1].lower()
+    mt = "application/octet-stream"
+    if ext in (".pdb", ".ent"):
+        mt = "chemical/x-pdb"
+    elif ext in (".sdf", ".mol"):
+        mt = "chemical/x-mdl-sdfile"
+    elif ext in (".cif", ".mmcif"):
+        mt = "chemical/x-cif"
+    with open(path, "rb") as f:
+        data = f.read()
+    return Response(content=data, media_type=mt)
+
+@app.get("/public/structure/{name}")
+def get_public_structure(name: str):
+    target = None
+    base = DATA_DIR
+    for uid in os.listdir(base):
+        d = os.path.join(base, uid, "structure")
+        p = os.path.join(d, os.path.basename(name))
+        if os.path.exists(p):
+            target = p
+            break
+    if not target:
+        raise HTTPException(status_code=404, detail="not_found")
+    ext = os.path.splitext(target)[1].lower()
+    mt = "application/octet-stream"
+    if ext in (".pdb", ".ent"):
+        mt = "chemical/x-pdb"
+    elif ext in (".sdf", ".mol"):
+        mt = "chemical/x-mdl-sdfile"
+    elif ext in (".cif", ".mmcif"):
+        mt = "chemical/x-cif"
+    with open(target, "rb") as f:
+        data = f.read()
+    return Response(content=data, media_type=mt)
+def user_structure_dir(uid: str) -> str:
+    d = os.path.join(DATA_DIR, uid, "structure")
+    os.makedirs(d, exist_ok=True)
+    return d
+
+@app.get("/user/structure/list")
+def structure_list(req: Request):
+    uid = auth_user(req)
+    if not uid:
+        raise HTTPException(status_code=401, detail="unauthorized")
+    d = user_structure_dir(uid)
+    files = []
+    for name in os.listdir(d):
+        fp = os.path.join(d, name)
+        if os.path.isfile(fp):
+            try:
+                sz = os.path.getsize(fp)
+            except Exception:
+                sz = 0
+            files.append({"name": name, "size": sz})
+    return {"files": files}
+
+@app.post("/user/structure/upload")
+def structure_upload(req: Request, file: UploadFile = File(...)):
+    uid = auth_user(req)
+    if not uid:
+        raise HTTPException(status_code=401, detail="unauthorized")
+    d = user_structure_dir(uid)
+    dst = os.path.join(d, os.path.basename(file.filename))
+    data = file.file.read()
+    with open(dst, "wb") as f:
+        f.write(data)
+    return {"ok": True, "name": os.path.basename(file.filename)}
