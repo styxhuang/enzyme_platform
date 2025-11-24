@@ -1,0 +1,546 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>酶研究平台</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="vendor/molstar/molstar.css">
+    <style>
+      :root { --bg:#f6f7fb; --surface:#ffffff; --fg:#0b1220; --muted:#6b7280; --border:#e6e6e6; --accent:#4f46e5; --accent-weak:#eef2ff; }
+      * { box-sizing:border-box; }
+      html, body { height:100%; }
+      body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin:0; background:var(--bg); color:var(--fg); }
+      .layout { display:grid; grid-template-columns: 240px 1fr; min-height:100vh; }
+      .nav { background:var(--surface); border-right:1px solid var(--border); padding:12px; position:relative; }
+      .nav h1 { font-size:16px; margin:0 0 8px 0; font-weight:600; }
+      .nav a { display:block; padding:8px 10px; margin:3px 0; border-radius:8px; text-decoration:none; color:var(--fg); }
+      .nav a.active { background:var(--accent-weak); color:#1e3a8a; }
+      .content { display:flex; flex-direction:column; gap:10px; padding:12px; }
+      .topbar { display:flex; justify-content:space-between; align-items:center; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:8px 10px; }
+      .title { font-size:14px; font-weight:600; }
+      .user { font-size:12px; color:var(--muted); }
+      .grid2 { display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
+      .twoCol { display:grid; grid-template-columns: 1fr 1fr; gap:10px; align-items:start; }
+      .group { display:flex; flex-direction:column; gap:6px; }
+      .label { font-size:12px; color:var(--muted); }
+      .card { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:10px; }
+      .row { display:flex; gap:8px; align-items:center; }
+      .list { border-top:1px solid var(--border); margin-top:8px; }
+      .list div { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); }
+      .pill { display:inline-block; padding:3px 8px; font-size:12px; border-radius:999px; background:var(--accent-weak); color:#1e3a8a; }
+      input, textarea, select { font: inherit; padding:8px 10px; border:1px solid var(--border); border-radius:8px; outline:none; background:#fff; color:var(--fg); transition: all .15s ease; }
+      input::placeholder, textarea::placeholder { color:var(--muted); }
+      input:focus, textarea:focus, select:focus { border-color:#c7d2fe; box-shadow:0 0 0 2px rgba(79,70,229,0.15); }
+      button { font: inherit; padding:8px 12px; border-radius:8px; background:var(--accent); color:#fff; border:0; transition: background .15s ease, transform .05s ease; }
+      button:hover { filter:brightness(0.95); }
+      button:active { transform: translateY(1px); }
+      .login-panel { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:10px; }
+      .login-box { display:flex; flex-direction:column; gap:8px; }
+      .login-header { display:flex; justify-content:space-between; align-items:center; }
+      .field { display:flex; flex-direction:column; gap:6px; }
+      .field span { font-size:12px; color:var(--muted); }
+      .wfull { width:100%; }
+      .hint { font-size:12px; color:var(--muted); }
+      .avatar { width:28px; height:28px; border-radius:50%; background:var(--accent-weak); color:#1e3a8a; display:flex; align-items:center; justify-content:center; font-weight:600; }
+    </style>
+    
+  </head>
+  <body>
+    <div class="layout">
+      <div class="nav">
+        <h1>酶研究平台</h1>
+        
+        <a href="#smol" id="tab-smol">小分子预测</a>
+        <a href="#dock" id="tab-dock">分子对接</a>
+        <a href="#md" id="tab-md">分子动力学</a>
+        <a href="#analysis" id="tab-analysis">分析</a>
+        <a href="#af2" id="tab-af2">AlphaFold 接口</a>
+        <a href="#jobs" id="tab-jobs">作业</a>
+        <div class="login-panel" style="position:absolute; left:16px; bottom:16px; right:16px;">
+          <div id="login-box" class="login-box">
+            <div class="login-header">
+              <div class="title">登录</div>
+              <span class="pill">本地</span>
+            </div>
+            <label class="field">
+              <span>用户名</span>
+              <input id="login-email" placeholder="默认 admin" />
+            </label>
+            <label class="field">
+              <span>密码</span>
+              <input id="login-pass" type="password" placeholder="默认 admin" />
+            </label>
+            <button class="wfull" onclick="login()">登录</button>
+            <div class="hint">默认账号：admin / admin</div>
+          </div>
+          <div id="user-box" style="display:none;" class="row">
+            <div id="user-avatar" class="avatar">U</div>
+            <span id="user-label" style="font-weight:600"></span>
+            <button onclick="logout()">退出</button>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="topbar">
+          <div class="title">酶研究平台</div>
+          <div class="user"><span id="user-top"></span></div>
+        </div>
+        
+        <div id="view-smol" style="display:none" class="grid2">
+          <div class="card">
+            <div class="title">步骤 1：输入分子</div>
+            <textarea id="smiles" rows="6" placeholder="每行一个 SMILES" style="width:100%; margin-top:6px"></textarea>
+            <div class="title" style="margin-top:6px">步骤 2：参数</div>
+            <div class="row" style="margin-top:6px">
+              <input id="num-confs" type="number" value="3" style="width:110px" />
+              <select id="minimize" style="width:140px"><option>MMFF94</option><option>UFF</option></select>
+              <button id="smol-btn" onclick="submitSmol()">提交</button>
+            </div>
+            <div class="hint" style="margin-top:6px">粘贴 SMILES 即可，参数默认即可运行</div>
+          </div>
+          <div class="card">
+            <div class="row" style="justify-content:space-between">
+              <div class="title">结果</div>
+              <span class="pill" id="smol-summary"></span>
+            </div>
+            <div id="smol-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap:10px; margin-top:8px"></div>
+            <div style="margin-top:10px">
+              <div class="title">理化性质</div>
+              <div id="smol-table" style="overflow:auto; margin-top:6px"></div>
+            </div>
+          </div>
+        </div>
+        <div id="view-dock" class="card" style="display:none">
+          <div class="twoCol">
+            <div class="card group">
+              <div class="title">配体</div>
+              <div class="label">SMILES（可选）</div>
+              <input id="ligand-smiles" placeholder="如 CCC 或 c1ccccc1" />
+              <div class="label">或从结构库选择</div>
+              <div class="row"><button onclick="loadStruct()">库</button><select id="ligand-select" style="flex:1"></select></div>
+              <div class="label">或上传文件</div>
+              <div class="row"><input type="file" id="ligand-file"/><button onclick="uploadStruct('ligand-file')">上传</button></div>
+              <div class="title" style="margin-top:8px">受体</div>
+              <div class="label">从结构库选择</div>
+              <div class="row"><button onclick="loadStruct()">库</button><select id="receptor-select" style="flex:1" onchange="previewReceptor()"></select></div>
+              <div class="label">或上传文件</div>
+              <div class="row"><input type="file" id="receptor-file"/><button onclick="uploadStruct('receptor-file','receptor')">上传</button></div>
+              <div class="title" style="margin-top:8px">对接设置</div>
+              <div class="row"><input id="cx" type="number" value="0"/><input id="cy" type="number" value="0"/><input id="cz" type="number" value="0"/></div>
+              <div class="row" style="margin-top:6px"><input id="sx" type="number" value="20"/><input id="sy" type="number" value="20"/><input id="sz" type="number" value="20"/></div>
+              <div class="row" style="margin-top:6px"><label>exhaustiveness</label><input id="exh" type="number" value="8"/></div>
+              <div class="hint">保持默认即可运行</div>
+            </div>
+            <div class="card group" style="position:sticky; top:8px">
+              <div class="row" style="justify-content:space-between"><div class="title">运行结果</div><button id="dock-btn" onclick="submitDock()">运行</button></div>
+              <div id="dock-3d" style="width:100%;height:240px;border:1px solid var(--border);border-radius:8px"></div>
+              <div id="dock-table" style="margin-top:8px"></div>
+              <div id="dock-log" class="hint" style="margin-top:6px"></div>
+            </div>
+          </div>
+        </div>
+        <div id="view-md" class="card" style="display:none"><h2>分子动力学</h2><p>占位接口</p></div>
+        <div id="view-analysis" class="card" style="display:none"><h2>分析</h2><p>占位接口</p></div>
+        <div id="view-af2" class="card" style="display:none"><h2>AlphaFold 接口</h2><p>仅定义接口，不做推理</p></div>
+        <div id="view-jobs" class="card" style="display:none">
+          <h2>作业列表</h2>
+          <button onclick="loadJobs()">刷新</button>
+          <div class="list" id="jobs-list"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const api = location.hostname === 'localhost' ? 'http://localhost:8000' : (location.origin.replace(':3000', ':8000'))
+      const tabs = ['smol','dock','md','analysis','af2','jobs']
+      function show(tab){
+        tabs.forEach(t=>{
+          document.getElementById('tab-'+t).classList.remove('active')
+          document.getElementById('view-'+t).style.display = (t===tab)?'block':'none'
+        })
+        document.getElementById('tab-'+tab).classList.add('active')
+      }
+      window.addEventListener('hashchange',()=>{ const t=location.hash.slice(1)||'smol'; show(t) })
+      show(location.hash.slice(1)||'smol')
+      async function login(){
+        try {
+          const email = document.getElementById('login-email').value || 'admin'
+          const password = document.getElementById('login-pass').value || 'admin'
+          const r = await fetch(api+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'include',body:JSON.stringify({email,password})})
+          if(r.ok){
+            await refreshUser()
+            show('smol')
+          } else { alert('登录失败') }
+        } catch(e){
+          alert('网络或跨域错误，请检查后端是否运行与CORS设置')
+        }
+      }
+      async function logout(){
+        await fetch(api+'/auth/logout',{method:'POST',credentials:'include'})
+        document.getElementById('login-box').style.display='block'
+        document.getElementById('user-box').style.display='none'
+      }
+      async function refreshUser(){
+        const r = await fetch(api+'/auth/me',{credentials:'include'})
+        if(r.ok){
+          const j = await r.json()
+          document.getElementById('user-label').textContent = `已登录：${j.email}`
+          document.getElementById('user-top').textContent = j.email
+          const initial = (j.email || 'U').charAt(0).toUpperCase()
+          const av = document.getElementById('user-avatar')
+          if(av) av.textContent = initial
+          document.getElementById('login-box').style.display='none'
+          document.getElementById('user-box').style.display='flex'
+        }
+      }
+      refreshUser().catch(()=>{})
+      async function submitSmol(){
+        const btn = document.getElementById('smol-btn'); if(btn) btn.disabled = true
+        const smiles = document.getElementById('smiles').value.split('\n').map(s=>s.trim()).filter(s=>s)
+        const num_confs = parseInt(document.getElementById('num-confs').value,10)
+        const minimize = document.getElementById('minimize').value
+        try {
+          const r = await fetch(api+'/jobs',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'include',body:JSON.stringify({type:'smol',inputs:{smiles,num_confs,minimize}})})
+          const j = await r.json()
+          const id = j.job_id
+          const d = await fetch(`${api}/jobs/${id}`,{credentials:'include'})
+          const job = await d.json()
+          const status = job.status || 'unknown'
+          document.getElementById('smol-summary').textContent = `状态：${status}`
+          const grid = document.getElementById('smol-grid')
+          grid.innerHTML = ''
+          let props = []
+          if(job.outputs && job.outputs.props){
+            try {
+              const pr = await fetch(`${api}/files/${id}/${job.outputs.props}`)
+              const pj = await pr.json()
+              props = pj.items || []
+            } catch(e){ props = [] }
+          }
+          const list = (job.outputs && job.outputs.sdf_list) ? job.outputs.sdf_list : []
+          for(const item of list){
+            const card = document.createElement('div')
+            card.className = 'card'
+            const c2d = document.createElement('div')
+            const img2d = document.createElement('img')
+            img2d.width = 260; img2d.height = 160
+            img2d.style.objectFit = 'contain'
+            const c3d = document.createElement('div')
+            c3d.style.width = '100%'; c3d.style.height = '220px'; c3d.style.border = '1px solid var(--border)'; c3d.style.borderRadius = '10px'; c3d.style.marginTop = '8px'
+            const title = document.createElement('div')
+            title.className = 'row'
+            title.style.justifyContent = 'space-between'
+            title.innerHTML = `<div class="pill">${item.smiles}</div><a href="${api}/files/${id}/${item.sdf}" target="_blank">下载SDF</a>`
+            card.appendChild(title)
+            card.appendChild(c2d)
+            c2d.appendChild(img2d)
+            card.appendChild(c3d)
+            img2d.src = `${api}/files/${id}/${item.png}`
+            renderSDF3D(c3d, `${api}/files/${id}/${item.sdf}`)
+            const p = props.find(x=>x.smiles===item.smiles)
+            if(p){
+              const tbl = document.createElement('div')
+              tbl.style.marginTop = '8px'
+              tbl.innerHTML = `<div class="row"><span class="pill">MW ${p.MW.toFixed(2)}</span><span class="pill">logP ${p.logP.toFixed(2)}</span><span class="pill">TPSA ${p.TPSA.toFixed(2)}</span><span class="pill">HBD ${p.HBD}</span><span class="pill">HBA ${p.HBA}</span><span class="pill">RotB ${p.RotB}</span></div>`
+              card.appendChild(tbl)
+            }
+            grid.appendChild(card)
+          }
+          if(list.length === 0){
+            const card = document.createElement('div')
+            card.className = 'card'
+            const c3d = document.createElement('div')
+            c3d.style.width = '100%'; c3d.style.height = '220px'; c3d.style.border = '1px solid var(--border)'; c3d.style.borderRadius = '10px'; c3d.style.marginTop = '8px'
+            const title = document.createElement('div')
+            title.className = 'row'
+            title.style.justifyContent = 'space-between'
+            const smi0 = smiles[0] || ''
+            title.innerHTML = `<div class="pill">${smi0}</div><a href="${api}/files/${id}/${job.outputs.sdf}" target="_blank">下载SDF</a>`
+            card.appendChild(title)
+            card.appendChild(c3d)
+            renderSDF3D(c3d, `${api}/files/${id}/${job.outputs.sdf}`)
+            const p = props.find(x=>x.smiles===smi0) || props[0]
+            if(p){
+              const tbl = document.createElement('div')
+              tbl.style.marginTop = '8px'
+              tbl.innerHTML = `<div class="row"><span class="pill">MW ${p.MW.toFixed(2)}</span><span class="pill">logP ${p.logP.toFixed(2)}</span><span class="pill">TPSA ${p.TPSA.toFixed(2)}</span><span class="pill">HBD ${p.HBD}</span><span class="pill">HBA ${p.HBA}</span><span class="pill">RotB ${p.RotB}</span></div>`
+              card.appendChild(tbl)
+            }
+            grid.appendChild(card)
+          }
+          if(props.length){
+            const table = document.getElementById('smol-table')
+            const header = `<tr><th>SMILES</th><th>MW</th><th>logP</th><th>TPSA</th><th>HBD</th><th>HBA</th><th>RotB</th></tr>`
+            const rows = props.map(p=>`<tr><td>${p.smiles}</td><td>${p.MW.toFixed(2)}</td><td>${p.logP.toFixed(2)}</td><td>${p.TPSA.toFixed(2)}</td><td>${p.HBD}</td><td>${p.HBA}</td><td>${p.RotB}</td></tr>`).join('')
+            table.innerHTML = `<table style="width:100%; border-collapse:collapse"><thead>${header}</thead><tbody>${rows}</tbody></table>`
+          }
+        } catch(e){
+          alert('提交失败，请确认后端与mod-smol容器已启动')
+        } finally { if(btn) btn.disabled = false }
+      }
+      async function loadJobs(){
+        const r = await fetch(api+'/jobs',{credentials:'include'})
+        const arr = await r.json()
+        const el = document.getElementById('jobs-list')
+        el.innerHTML = ''
+        arr.forEach(x=>{ const d=document.createElement('div'); d.innerHTML = `<span>${x.id}</span><span>${x.type}</span><span>${x.status}</span>`; el.appendChild(d) })
+      }
+      async function loadStruct(){
+        const r = await fetch(api+'/user/structure/list',{credentials:'include'})
+        const j = await r.json()
+        const files = j.files||[]
+        const rsel = document.getElementById('receptor-select')
+        const lsel = document.getElementById('ligand-select')
+        rsel.innerHTML = ''; lsel.innerHTML=''
+        files.forEach(f=>{
+          const o1 = document.createElement('option'); o1.value=f.name; o1.textContent=f.name; rsel.appendChild(o1)
+          const o2 = document.createElement('option'); o2.value=f.name; o2.textContent=f.name; lsel.appendChild(o2)
+        })
+      }
+      async function uploadStruct(inputId){
+        const el = document.getElementById(inputId)
+        if(!el.files||!el.files[0]) return alert('请选择文件')
+        const fd = new FormData(); fd.append('file', el.files[0])
+        const r = await fetch(api+'/user/structure/upload',{method:'POST',credentials:'include',body:fd})
+        if(r.ok){
+          const j = await r.json()
+          alert('上传成功')
+          await loadStruct()
+          if(inputId==='receptor-file'){ const rs = document.getElementById('receptor-select'); rs.value = j.name; previewReceptor() }
+        } else { alert('上传失败') }
+      }
+      async function submitDock(){
+        const btn = document.getElementById('dock-btn'); if(btn) btn.disabled = true
+        const receptor_name = document.getElementById('receptor-select').value
+        const ligand_name = document.getElementById('ligand-select').value
+        const ligand_smiles = document.getElementById('ligand-smiles').value
+        const center = [parseFloat(document.getElementById('cx').value),parseFloat(document.getElementById('cy').value),parseFloat(document.getElementById('cz').value)]
+        const size = [parseFloat(document.getElementById('sx').value),parseFloat(document.getElementById('sy').value),parseFloat(document.getElementById('sz').value)]
+        const exh = parseInt(document.getElementById('exh').value,10)
+        const inputs = {receptor:{path: receptor_name||null}, ligand:{path: ligand_name||null, smiles:ligand_smiles||null}, center, size, exhaustiveness:exh}
+        const r = await fetch(api+'/jobs',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'include',body:JSON.stringify({type:'dock',inputs})})
+        const j = await r.json()
+        const id = j.job_id
+        const d = await fetch(`${api}/jobs/${id}`,{credentials:'include'}); const job = await d.json()
+        const out = job.outputs||{}
+        const el = document.getElementById('dock-result')
+        el.innerHTML = ''
+        const info = document.createElement('div')
+        info.innerHTML = `<span>${id}</span><span>${job.status}</span>`
+        el.appendChild(info)
+        if(out.scores){
+          const rr = await fetch(`${api}/files/${id}/${out.scores}`)
+          const sj = await rr.json()
+          const table = document.getElementById('dock-table')
+          const head = `<tr><th>SMILES</th><th>能量</th><th>中心</th><th>尺寸</th><th>耗时参数</th></tr>`
+          const rows = (sj.items||[]).map(it=>`<tr><td>${it.smiles||''}</td><td>${it.score||''}</td><td>${(sj.center||[]).join(',')}</td><td>${(sj.size||[]).join(',')}</td><td>${sj.exhaustiveness||''}</td></tr>`).join('')
+          table.innerHTML = `<table style="width:100%; border-collapse:collapse"><thead>${head}</thead><tbody>${rows||'<tr><td colspan=5>暂无结果</td></tr>'}</tbody></table>`
+        }
+        if(out.pose_sdf){ await renderPoseMolstar(id, out.pose_sdf) }
+        if(btn) btn.disabled = false
+      }
+      loadStruct().catch(()=>{})
+      async function previewReceptor(){
+        const name = document.getElementById('receptor-select').value
+        if(!name) return
+        const rawUrl = `${api}/public/structure/${encodeURIComponent(name)}`
+        const blob = await toBlobUrl(rawUrl)
+        const ext = (name.split('.').pop()||'').toLowerCase()
+        const target = document.getElementById('dock-3d')
+        if(['pdb','ent'].includes(ext)){
+          await renderMolstar(target, blob, 'pdb', 'cartoon')
+        } else if(['cif','mmcif'].includes(ext)){
+          await renderMolstar(target, blob, 'cif', 'cartoon')
+        } else if(['sdf','mol'].includes(ext)){
+          await renderMolstar(target, blob, 'sdf', 'ball_and_stick')
+        } else {
+          target.innerHTML = '<div class="hint">暂不支持该格式预览，请使用 PDB/SDF</div>'
+        }
+      }
+    </script>
+    
+    <script>
+      async function fetchTextUrl(url){
+        const r = await fetch(url, {credentials:'include'})
+        if(!r.ok){ logDock(`fetch_fail ${r.status} ${url}`); throw new Error('fetch_failed') }
+        const t = await r.text()
+        logDock(`text_ok len=${t.length} url=${url}`)
+        return t
+      }
+      function blobUrlFromText(text){
+        const b = new Blob([text], { type: 'text/plain' })
+        const u = URL.createObjectURL(b)
+        logDock(`blob_from_text size=${b.size}`)
+        return u
+      }
+      function logDock(msg){ const el=document.getElementById('dock-log'); if(el){ const d=document.createElement('div'); d.textContent=msg; el.appendChild(d) } console.log('[dock]',msg) }
+      async function renderMolstar(container, dataText, format, style){
+        container.innerHTML = ''
+        const ViewerCtor = (window.molstar && window.molstar.Viewer) || (window.Molstar && window.Molstar.Viewer)
+        if(!ViewerCtor){
+          container.innerHTML = '<div class="hint">Mol* 未加载，请检查本地文件</div>'
+          logDock('viewer_ctor_missing')
+          return
+        }
+        try {
+          const v = new ViewerCtor(container, {
+            layoutIsExpanded: false,
+            layoutShowControls: false,
+            viewportShowExpand: false,
+            collapseLeftPanel: true,
+          })
+          logDock(`load_start format=${format}`)
+          let ok = false
+          if(typeof v.loadStructureFromData === 'function'){
+            try { await v.loadStructureFromData({ data: dataText, format }); ok = true } catch(e){ logDock('load_data_object_fail ' + String(e)) }
+            if(!ok){ try { await v.loadStructureFromData(dataText, format); ok = true } catch(e){ logDock('load_data_string_fail ' + String(e)) } }
+          }
+          if(!ok && typeof v.loadStructureFromUrl === 'function'){
+            const u = blobUrlFromText(dataText)
+            try { await v.loadStructureFromUrl(u, format, { isBinary: false }); ok = true } catch(e){ logDock('load_url_fail ' + String(e)) }
+          }
+          if(!ok) throw new Error('molstar_load_failed')
+          if(v.setBackground) v.setBackground('white')
+          try {
+            if(typeof v.applyRepresentation === 'function') {
+              v.applyRepresentation(style === 'cartoon' ? 'cartoon' : 'ball_and_stick')
+            } else if(typeof v.setStructureRepresentation === 'function') {
+              v.setStructureRepresentation(style === 'cartoon' ? 'cartoon' : 'ball_and_stick')
+            }
+          } catch(e) {}
+          logDock('load_done')
+        } catch(e){
+          container.innerHTML = '<div class="hint">Mol* 加载失败</div>'
+          logDock(`viewer_error ${String(e)}`)
+        }
+      }
+      function renderSDF3D(container, url){
+        container.innerHTML = ''
+        const canvas = document.createElement('canvas')
+        const cw = container.clientWidth || 300
+        const ch = container.clientHeight || 220
+        canvas.width = cw
+        canvas.height = ch
+        container.appendChild(canvas)
+        const ctx = canvas.getContext('2d')
+        let atoms = [], bonds = []
+        let angle = 0
+        fetch(url, {credentials:'include'}).then(r=>r.text()).then(txt=>{
+          const lines = txt.split(/\r?\n/)
+          let i = 3
+          let counts = lines[i] ? lines[i].trim().split(/\s+/).map(Number) : [0,0]
+          const nat = counts[0]||0, nb = counts[1]||0
+          for(let k=0;k<nat;k++){
+            const L = lines[i+1+k]
+            const x = parseFloat(L.slice(0,10)), y = parseFloat(L.slice(10,20)), z = parseFloat(L.slice(20,30))
+            const el = L.slice(31,34).trim()
+            atoms.push({x,y,z,el})
+          }
+          for(let k=0;k<nb;k++){
+            const L = lines[i+1+nat+k]
+            const a1 = parseInt(L.slice(0,3))-1, a2 = parseInt(L.slice(3,6))-1
+            bonds.push({a1,a2})
+          }
+          draw()
+        }).catch(()=>{
+          ctx.fillStyle = '#999'; ctx.fillText('无法加载3D', 10, 20)
+        })
+        function proj(p){
+          const s = Math.sin(angle), c = Math.cos(angle)
+          const rx = p.x*c - p.z*s
+          const rz = p.x*s + p.z*c
+          const ry = p.y
+          const d = 4/(4+rz)
+          return {x: canvas.width*0.5 + rx*50*d, y: canvas.height*0.5 - ry*50*d}
+        }
+        function draw(){
+          ctx.clearRect(0,0,canvas.width,canvas.height)
+          ctx.lineWidth = 2; ctx.strokeStyle = '#94a3b8'
+          bonds.forEach(b=>{
+            const p1 = proj(atoms[b.a1]); const p2 = proj(atoms[b.a2])
+            ctx.beginPath(); ctx.moveTo(p1.x,p1.y); ctx.lineTo(p2.x,p2.y); ctx.stroke()
+          })
+          atoms.forEach(a=>{
+            const p = proj(a)
+            ctx.beginPath(); ctx.arc(p.x,p.y,6,0,Math.PI*2)
+            ctx.fillStyle = '#1e3a8a'; ctx.fill()
+            ctx.strokeStyle = '#0ea5e9'; ctx.stroke()
+          })
+        }
+        angle = 0; draw()
+        window.addEventListener('resize',()=>{ canvas.width = container.clientWidth; canvas.height = container.clientHeight; draw() })
+      }
+    </script>
+    <script>
+      function renderPDB3D(container, url){
+        container.innerHTML = ''
+        const canvas = document.createElement('canvas')
+        const cw = container.clientWidth || 300
+        const ch = container.clientHeight || 220
+        canvas.width = cw
+        canvas.height = ch
+        container.appendChild(canvas)
+        const ctx = canvas.getContext('2d')
+        let atoms = []
+        let angle = 0
+        fetch(url, {credentials:'include'}).then(r=>r.text()).then(txt=>{
+          const lines = txt.split(/\r?\n/)
+          for(const L of lines){
+            if(L.startsWith('ATOM') || L.startsWith('HETATM')){
+              const x = parseFloat(L.slice(30,38))
+              const y = parseFloat(L.slice(38,46))
+              const z = parseFloat(L.slice(46,54))
+              atoms.push({x,y,z})
+            }
+          }
+          draw()
+        }).catch(()=>{ ctx.fillStyle='#999'; ctx.fillText('无法加载PDB',10,20) })
+        function proj(p){
+          const s=Math.sin(angle), c=Math.cos(angle)
+          const rx = p.x*c - p.z*s
+          const rz = p.x*s + p.z*c
+          const ry = p.y
+          const d = 4/(4+rz)
+          return {x: canvas.width*0.5 + rx*2*d, y: canvas.height*0.5 - ry*2*d}
+        }
+        function draw(){
+          ctx.clearRect(0,0,canvas.width,canvas.height)
+          atoms.forEach(a=>{ const p=proj(a); ctx.beginPath(); ctx.arc(p.x,p.y,2,0,Math.PI*2); ctx.fillStyle='#475569'; ctx.fill() })
+        }
+        angle = 0; draw()
+        window.addEventListener('resize',()=>{ canvas.width = container.clientWidth; canvas.height = container.clientHeight; draw() })
+      }
+    </script>
+    <script>
+      async function previewReceptor(){
+        const name = document.getElementById('receptor-select').value
+        if(!name) return
+        const rawUrl = `${api}/user/structure/file/${encodeURIComponent(name)}`
+        const dataText = await fetchTextUrl(rawUrl)
+        const ext = (name.split('.').pop()||'').toLowerCase()
+        const target = document.getElementById('dock-3d')
+        logDock(`preview ${name} ext=${ext}`)
+        if(['pdb','ent'].includes(ext)){
+          renderMolstar(target, dataText, 'pdb', 'cartoon')
+        } else if(['cif','mmcif'].includes(ext)){
+          renderMolstar(target, dataText, 'cif', 'cartoon')
+        } else if(['sdf','mol'].includes(ext)){
+          renderMolstar(target, dataText, 'sdf', 'ball_and_stick')
+        } else {
+          target.innerHTML = '<div class="hint">暂不支持该格式预览，请使用 PDB/SDF</div>'
+          logDock('unsupported_ext')
+        }
+      }
+      async function renderPoseMolstar(jobId, posePath){
+        const rawUrl = `${api}/files/${jobId}/${posePath}`
+        const dataText = await fetchTextUrl(rawUrl)
+        const target = document.getElementById('dock-3d')
+        logDock(`pose ${posePath}`)
+        renderMolstar(target, dataText, 'sdf', 'ball_and_stick')
+      }
+    </script>
+    <script src="vendor/molstar/molstar.js"></script>
+  </body>
+  </html>
