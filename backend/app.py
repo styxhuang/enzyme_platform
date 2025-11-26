@@ -23,8 +23,12 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
+        "http://localhost:7006",
+        "http://127.0.0.1:7006",
+        "http://localhost:7010",
+        "http://127.0.0.1:7010",
+        "http://localhost:4173",
+        "http://127.0.0.1:4173",
         "http://localhost:5500",
         "http://127.0.0.1:5500",
     ],
@@ -361,7 +365,7 @@ def get_user_structure(req: Request, name: str):
     uid = auth_user(req)
     if not uid:
         raise HTTPException(status_code=401, detail="unauthorized")
-    d = os.path.join(DATA_DIR, uid, "structure")
+    d = user_structure_dir(uid)
     path = os.path.join(d, os.path.basename(name))
     if not os.path.exists(path):
         raise HTTPException(status_code=404, detail="not_found")
@@ -380,7 +384,7 @@ def get_user_structure(req: Request, name: str):
 @app.get("/public/structure/{name}")
 def get_public_structure(name: str):
     target = None
-    base = DATA_DIR
+    base = os.getenv("UPLOAD_ASSETS", DATA_DIR)
     for uid in os.listdir(base):
         d = os.path.join(base, uid, "structure")
         p = os.path.join(d, os.path.basename(name))
@@ -401,7 +405,12 @@ def get_public_structure(name: str):
         data = f.read()
     return Response(content=data, media_type=mt)
 def user_structure_dir(uid: str) -> str:
-    d = os.path.join(DATA_DIR, uid, "structure")
+    # Use UPLOAD_ASSETS environment variable if available, otherwise fallback to default
+    base_dir = os.getenv("UPLOAD_ASSETS")
+    if base_dir:
+        d = os.path.join(base_dir, uid, "structure")
+    else:
+        d = os.path.join(DATA_DIR, uid, "structure")
     os.makedirs(d, exist_ok=True)
     return d
 

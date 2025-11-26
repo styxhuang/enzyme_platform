@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Build artifacts (molstar files are copied from node_modules during build)
+# Uncomment the following line if you want to exclude vendor files from git
+# dist/vendor/molstar/*.js
+# dist/vendor/molstar/*.css
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+

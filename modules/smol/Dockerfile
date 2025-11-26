@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/devcontainers/python:1-3.11-bullseye
 WORKDIR /app
 ENV PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
-RUN pip install --no-cache-dir fastapi uvicorn rdkit-pypi pillow
+RUN pip install --no-cache-dir "numpy<2.0.0" fastapi uvicorn rdkit-pypi pillow
 COPY app.py /app/app.py
 ENV ENZYME_DATA_DIR=/data
 EXPOSE 8001

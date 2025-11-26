@@ -4,12 +4,13 @@ services:
     build: ./backend
     container_name: enzyme_api
     ports:
-      - "8000:8000"
+      - "7010:8000"
     volumes:
       - ./data:/data
       - ./frontend/dist:/app/static
     environment:
       - ENZYME_DATA_DIR=/data
+      - UPLOAD_ASSETS=/data/assets
       - ENZYME_JWT_SECRET=change_this_secret
       - ENZYME_STATIC_DIR=/app/static
     depends_on:
@@ -22,7 +23,7 @@ services:
     build: ./frontend
     container_name: enzyme_frontend
     ports:
-      - "3000:80"
+      - "7006:80"
     volumes:
       - ./data:/data
     depends_on:
@@ -31,7 +32,7 @@ services:
     build: ./modules/smol
     container_name: enzyme_mod_smol
     ports:
-      - "8001:8001"
+      - "7001:8001"
     volumes:
       - ./data:/data
     environment:
@@ -40,7 +41,7 @@ services:
     build: ./modules/af2
     container_name: enzyme_mod_af2
     ports:
-      - "8002:8002"
+      - "7002:8002"
     volumes:
       - ./data:/data
     environment:
@@ -49,16 +50,19 @@ services:
     build: ./modules/dock
     container_name: enzyme_mod_dock
     ports:
-      - "8003:8003"
+      - "7003:8003"
     volumes:
       - ./data:/data
     environment:
       - ENZYME_DATA_DIR=/data
+      - VINA_SERVICE_URL=http://mod-vina:8006/run
+    depends_on:
+      - mod-vina
   mod-md:
     build: ./modules/md
     container_name: enzyme_mod_md
     ports:
-      - "8004:8004"
+      - "7004:8004"
     volumes:
       - ./data:/data
     environment:
@@ -67,7 +71,16 @@ services:
     build: ./modules/analysis
     container_name: enzyme_mod_analysis
     ports:
-      - "8005:8005"
+      - "7005:8005"
+    volumes:
+      - ./data:/data
+    environment:
+      - ENZYME_DATA_DIR=/data
+  mod-vina:
+    build: ./modules/vina
+    container_name: enzyme_mod_vina
+    ports:
+      - "7007:8006"
     volumes:
       - ./data:/data
     environment:

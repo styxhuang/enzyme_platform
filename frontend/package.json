@@ -1,0 +1,21 @@
+{
+  "name": "enzyme-frontend",
+  "version": "1.0.0",
+  "description": "Enzyme Platform front-end static assets served via Node.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon --watch server.js --watch dist server.js",
+    "start": "node server.js",
+    "build": "node scripts/build.js",
+    "prebuild": "npm install"
+  },
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.19.2",
+    "molstar": "^5.4.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
