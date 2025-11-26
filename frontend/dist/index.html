@@ -3,544 +3,1135 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>酶研究平台</title>
+    <title>酶研究平台 | Enzyme Platform</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="vendor/molstar/molstar.css">
+    <link rel="icon" href="data:,">
     <style>
-      :root { --bg:#f6f7fb; --surface:#ffffff; --fg:#0b1220; --muted:#6b7280; --border:#e6e6e6; --accent:#4f46e5; --accent-weak:#eef2ff; }
+      :root { 
+        --bg: #f8fafc; 
+        --surface: #ffffff; 
+        --fg: #0f172a; 
+        --muted: #64748b; 
+        --border: #e2e8f0; 
+        --accent: #4f46e5; 
+        --accent-hover: #4338ca;
+        --accent-weak: #eef2ff; 
+        --danger: #ef4444;
+        --success: #10b981;
+      }
       * { box-sizing:border-box; }
-      html, body { height:100%; }
-      body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin:0; background:var(--bg); color:var(--fg); }
-      .layout { display:grid; grid-template-columns: 240px 1fr; min-height:100vh; }
-      .nav { background:var(--surface); border-right:1px solid var(--border); padding:12px; position:relative; }
-      .nav h1 { font-size:16px; margin:0 0 8px 0; font-weight:600; }
-      .nav a { display:block; padding:8px 10px; margin:3px 0; border-radius:8px; text-decoration:none; color:var(--fg); }
-      .nav a.active { background:var(--accent-weak); color:#1e3a8a; }
-      .content { display:flex; flex-direction:column; gap:10px; padding:12px; }
-      .topbar { display:flex; justify-content:space-between; align-items:center; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:8px 10px; }
-      .title { font-size:14px; font-weight:600; }
-      .user { font-size:12px; color:var(--muted); }
-      .grid2 { display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
-      .twoCol { display:grid; grid-template-columns: 1fr 1fr; gap:10px; align-items:start; }
-      .group { display:flex; flex-direction:column; gap:6px; }
-      .label { font-size:12px; color:var(--muted); }
-      .card { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:10px; }
-      .row { display:flex; gap:8px; align-items:center; }
-      .list { border-top:1px solid var(--border); margin-top:8px; }
-      .list div { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); }
-      .pill { display:inline-block; padding:3px 8px; font-size:12px; border-radius:999px; background:var(--accent-weak); color:#1e3a8a; }
-      input, textarea, select { font: inherit; padding:8px 10px; border:1px solid var(--border); border-radius:8px; outline:none; background:#fff; color:var(--fg); transition: all .15s ease; }
-      input::placeholder, textarea::placeholder { color:var(--muted); }
-      input:focus, textarea:focus, select:focus { border-color:#c7d2fe; box-shadow:0 0 0 2px rgba(79,70,229,0.15); }
-      button { font: inherit; padding:8px 12px; border-radius:8px; background:var(--accent); color:#fff; border:0; transition: background .15s ease, transform .05s ease; }
-      button:hover { filter:brightness(0.95); }
-      button:active { transform: translateY(1px); }
-      .login-panel { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:10px; }
-      .login-box { display:flex; flex-direction:column; gap:8px; }
-      .login-header { display:flex; justify-content:space-between; align-items:center; }
-      .field { display:flex; flex-direction:column; gap:6px; }
-      .field span { font-size:12px; color:var(--muted); }
-      .wfull { width:100%; }
-      .hint { font-size:12px; color:var(--muted); }
-      .avatar { width:28px; height:28px; border-radius:50%; background:var(--accent-weak); color:#1e3a8a; display:flex; align-items:center; justify-content:center; font-weight:600; }
+      html, body { height:100%; overflow: hidden; } /* Prevent body scroll for full-app layout */
+      body { font-family: 'Inter', system-ui, sans-serif; margin:0; background:var(--bg); color:var(--fg); font-size: 14px; line-height: 1.5; }
+      
+      /* Layout Framework */
+      .app-layout { display:grid; grid-template-columns: 64px 1fr; height:100vh; }
+      
+      /* Sidebar Navigation (Slim) */
+      .sidebar { background: #1e293b; color: white; display:flex; flex-direction:column; align-items:center; padding: 16px 0; gap: 16px; z-index: 10; }
+      .sidebar-item { width: 40px; height: 40px; border-radius: 8px; display:flex; align-items:center; justify-content:center; color: #94a3b8; cursor: pointer; transition: all 0.2s; text-decoration: none; font-weight: 600; font-size: 18px; }
+      .sidebar-item:hover { background: #334155; color: white; }
+      .sidebar-item.active { background: var(--accent); color: white; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+      .sidebar-spacer { flex: 1; }
+      
+      /* Main Content Area */
+      .main-area { position: relative; height: 100%; overflow: hidden; display: flex; flex-direction: column; }
+      
+      /* Top Bar */
+      .topbar { height: 50px; border-bottom: 1px solid var(--border); background: var(--surface); display:flex; align-items:center; justify-content:space-between; padding: 0 20px; flex-shrink: 0; }
+      .brand { font-weight: 600; font-size: 16px; color: var(--fg); }
+      .user-profile { display:flex; align-items:center; gap: 10px; font-size: 13px; }
+      .avatar-circle { width: 28px; height: 28px; border-radius: 50%; background: var(--accent-weak); color: var(--accent); display:flex; align-items:center; justify-content:center; font-weight: 600; font-size: 12px; }
+
+      /* Views Container */
+      .views-container { flex: 1; overflow: auto; position: relative; }
+      .view-panel { display: none; height: 100%; }
+      .view-panel.active { display: block; }
+
+      /* Common Components */
+      .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
+      .btn { display: inline-flex; align-items: center; justify-content: center; padding: 8px 16px; border-radius: 6px; font-weight: 500; cursor: pointer; transition: all 0.15s; border: 1px solid transparent; font-size: 13px; }
+      .btn-primary { background: var(--accent); color: white; }
+      .btn-primary:hover { background: var(--accent-hover); }
+      .btn-secondary { background: white; border-color: var(--border); color: var(--fg); }
+      .btn-secondary:hover { background: var(--bg); }
+      .btn-sm { padding: 4px 10px; font-size: 12px; }
+      .input-group { margin-bottom: 12px; }
+      .input-label { display: block; font-size: 12px; font-weight: 500; color: var(--muted); margin-bottom: 4px; }
+      .form-control { width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; transition: border-color 0.15s; outline: none; }
+      .form-control:focus { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-weak); }
+      
+      /* --- DOCKING MODULE LAYOUT --- */
+      .dock-layout { display: grid; grid-template-columns: 320px 1fr; height: 100%; }
+      .dock-controls { background: var(--surface); border-right: 1px solid var(--border); overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 16px; z-index: 5; }
+      .dock-viewer { position: relative; background: #e2e8f0; overflow: hidden; }
+      
+      /* 3D Viewer Container */
+      #dock-3d { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+      
+      /* Floating Results Panel */
+      .dock-results-float { position: absolute; bottom: 20px; right: 20px; width: 300px; max-height: 400px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border: 1px solid var(--border); border-radius: 8px; display: flex; flex-direction: column; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); z-index: 10; display: none; }
+      .dock-results-header { padding: 10px 16px; border-bottom: 1px solid var(--border); font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+      .dock-results-list { overflow-y: auto; flex: 1; }
+      .result-item { padding: 8px 16px; border-bottom: 1px solid var(--border); cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+      .result-item:hover { background: var(--accent-weak); }
+      .result-item.active { background: var(--accent-weak); border-left: 3px solid var(--accent); }
+      
+      /* Section Header in Controls */
+      .section-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+      .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+      
+      /* File List Item */
+      .file-item { display: flex; align-items: center; padding: 6px 10px; background: var(--bg); border-radius: 6px; margin-bottom: 4px; font-size: 13px; border: 1px solid transparent; cursor: pointer; }
+      .file-item:hover { border-color: var(--border); }
+      .file-item.active { background: var(--accent-weak); color: var(--accent); border-color: var(--accent-weak); font-weight: 500; }
+      
+      /* Coordinate Grid */
+      .coord-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+      
+      /* Log Console */
+      #dock-log { font-family: 'Menlo', monospace; font-size: 11px; color: var(--muted); background: var(--bg); padding: 10px; border-radius: 6px; max-height: 150px; overflow-y: auto; border: 1px solid var(--border); white-space: pre-wrap; }
+
+      /* Loading Overlay */
+      .loader-overlay { position: absolute; top:0; left:0; right:0; bottom:0; background: rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; z-index: 20; backdrop-filter: blur(2px); display: none; }
+      .spinner { width: 30px; height: 30px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      /* Login Page Styles */
+      .login-container { height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--bg); }
+      .login-card { width: 100%; max-width: 400px; padding: 40px; }
     </style>
-    
   </head>
   <body>
-    <div class="layout">
-      <div class="nav">
-        <h1>酶研究平台</h1>
-        
-        <a href="#smol" id="tab-smol">小分子预测</a>
-        <a href="#dock" id="tab-dock">分子对接</a>
-        <a href="#md" id="tab-md">分子动力学</a>
-        <a href="#analysis" id="tab-analysis">分析</a>
-        <a href="#af2" id="tab-af2">AlphaFold 接口</a>
-        <a href="#jobs" id="tab-jobs">作业</a>
-        <div class="login-panel" style="position:absolute; left:16px; bottom:16px; right:16px;">
-          <div id="login-box" class="login-box">
-            <div class="login-header">
-              <div class="title">登录</div>
-              <span class="pill">本地</span>
+  
+    <!-- LOGIN VIEW -->
+    <div id="login-view" class="login-container" style="display: none;">
+      <div class="card login-card">
+        <h2 style="margin: 0 0 24px 0; text-align: center; color: var(--fg);">酶研究平台</h2>
+        <div class="input-group">
+          <label class="input-label">邮箱</label>
+          <input id="login-email" class="form-control" value="admin" placeholder="admin" />
             </div>
-            <label class="field">
-              <span>用户名</span>
-              <input id="login-email" placeholder="默认 admin" />
-            </label>
-            <label class="field">
-              <span>密码</span>
-              <input id="login-pass" type="password" placeholder="默认 admin" />
-            </label>
-            <button class="wfull" onclick="login()">登录</button>
-            <div class="hint">默认账号：admin / admin</div>
+        <div class="input-group">
+          <label class="input-label">密码</label>
+          <input id="login-pass" type="password" class="form-control" value="admin" placeholder="admin" />
           </div>
-          <div id="user-box" style="display:none;" class="row">
-            <div id="user-avatar" class="avatar">U</div>
-            <span id="user-label" style="font-weight:600"></span>
-            <button onclick="logout()">退出</button>
+        <button onclick="login()" class="btn btn-primary" style="width: 100%; margin-top: 16px;">登 录</button>
+        <div style="margin-top: 16px; text-align: center; color: var(--muted); font-size: 12px;">默认账号: admin / admin</div>
           </div>
         </div>
+
+    <!-- MAIN APP VIEW -->
+    <div id="app-view" class="app-layout" style="display: none;">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="sidebar-item" style="background: rgba(255,255,255,0.1); color: white;">E</div>
+        <div style="height: 20px;"></div>
+        <a href="#dock" onclick="show('dock')" id="tab-dock" class="sidebar-item" title="分子对接">D</a>
+        <a href="#smol" onclick="show('smol')" id="tab-smol" class="sidebar-item" title="小分子预测">S</a>
+        <a href="#md" onclick="show('md')" id="tab-md" class="sidebar-item" title="分子动力学">M</a>
+        <a href="#analysis" onclick="show('analysis')" id="tab-analysis" class="sidebar-item" title="分析">A</a>
+        <a href="#af2" onclick="show('af2')" id="tab-af2" class="sidebar-item" title="AlphaFold">F</a>
+        <div class="sidebar-spacer"></div>
+        <a href="#jobs" onclick="show('jobs')" id="tab-jobs" class="sidebar-item" title="任务列表">J</a>
+        <div onclick="logout()" class="sidebar-item" title="退出" style="color: var(--danger);">✕</div>
       </div>
-      <div class="content">
+
+      <!-- Main Area -->
+      <div class="main-area">
+        <!-- Topbar -->
         <div class="topbar">
-          <div class="title">酶研究平台</div>
-          <div class="user"><span id="user-top"></span></div>
+          <div class="brand" id="page-title">分子对接 Docking</div>
+          <div class="user-profile">
+            <span id="user-label">Admin</span>
+            <div class="avatar-circle">A</div>
+          </div>
         </div>
         
-        <div id="view-smol" style="display:none" class="grid2">
-          <div class="card">
-            <div class="title">步骤 1：输入分子</div>
-            <textarea id="smiles" rows="6" placeholder="每行一个 SMILES" style="width:100%; margin-top:6px"></textarea>
-            <div class="title" style="margin-top:6px">步骤 2：参数</div>
-            <div class="row" style="margin-top:6px">
-              <input id="num-confs" type="number" value="3" style="width:110px" />
-              <select id="minimize" style="width:140px"><option>MMFF94</option><option>UFF</option></select>
-              <button id="smol-btn" onclick="submitSmol()">提交</button>
+        <!-- Views Container -->
+        <div class="views-container">
+          
+          <!-- DOCK VIEW -->
+          <div id="view-dock" class="view-panel">
+            <div class="dock-layout">
+              <!-- Left Controls -->
+              <div class="dock-controls">
+                
+                <!-- Step 1: Receptor -->
+                <div>
+                  <div class="section-title">1. 受体 (Receptor)</div>
+                  <div class="input-group">
+                    <button onclick="document.getElementById('receptor-file').click()" class="btn btn-secondary btn-sm" style="width:100%">
+                      + 上传 PDB/SDF 文件
+                    </button>
+                    <input type="file" id="receptor-file" style="display:none" onchange="uploadStruct(this)" accept=".pdb,.sdf,.mol,.ent">
             </div>
-            <div class="hint" style="margin-top:6px">粘贴 SMILES 即可，参数默认即可运行</div>
+                  <div id="receptor-list" style="max-height: 150px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; padding: 4px;">
+                    <!-- List items injected by JS -->
+                    <div style="padding: 8px; color: var(--muted); text-align: center; font-size: 12px;">暂无文件</div>
           </div>
-          <div class="card">
-            <div class="row" style="justify-content:space-between">
-              <div class="title">结果</div>
-              <span class="pill" id="smol-summary"></span>
             </div>
-            <div id="smol-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap:10px; margin-top:8px"></div>
-            <div style="margin-top:10px">
-              <div class="title">理化性质</div>
-              <div id="smol-table" style="overflow:auto; margin-top:6px"></div>
+
+                <!-- Step 2: Ligand -->
+                <div>
+                  <div class="section-title">2. 配体 (Ligand)</div>
+                  <div class="input-group">
+                    <label class="input-label">输入 SMILES</label>
+                    <textarea id="dock-smiles" class="form-control" rows="2" placeholder="例如: c1ccccc1O"></textarea>
             </div>
-          </div>
-        </div>
-        <div id="view-dock" class="card" style="display:none">
-          <div class="twoCol">
-            <div class="card group">
-              <div class="title">配体</div>
-              <div class="label">SMILES（可选）</div>
-              <input id="ligand-smiles" placeholder="如 CCC 或 c1ccccc1" />
-              <div class="label">或从结构库选择</div>
-              <div class="row"><button onclick="loadStruct()">库</button><select id="ligand-select" style="flex:1"></select></div>
-              <div class="label">或上传文件</div>
-              <div class="row"><input type="file" id="ligand-file"/><button onclick="uploadStruct('ligand-file')">上传</button></div>
-              <div class="title" style="margin-top:8px">受体</div>
-              <div class="label">从结构库选择</div>
-              <div class="row"><button onclick="loadStruct()">库</button><select id="receptor-select" style="flex:1" onchange="previewReceptor()"></select></div>
-              <div class="label">或上传文件</div>
-              <div class="row"><input type="file" id="receptor-file"/><button onclick="uploadStruct('receptor-file','receptor')">上传</button></div>
-              <div class="title" style="margin-top:8px">对接设置</div>
-              <div class="row"><input id="cx" type="number" value="0"/><input id="cy" type="number" value="0"/><input id="cz" type="number" value="0"/></div>
-              <div class="row" style="margin-top:6px"><input id="sx" type="number" value="20"/><input id="sy" type="number" value="20"/><input id="sz" type="number" value="20"/></div>
-              <div class="row" style="margin-top:6px"><label>exhaustiveness</label><input id="exh" type="number" value="8"/></div>
-              <div class="hint">保持默认即可运行</div>
-            </div>
-            <div class="card group" style="position:sticky; top:8px">
-              <div class="row" style="justify-content:space-between"><div class="title">运行结果</div><button id="dock-btn" onclick="submitDock()">运行</button></div>
-              <div id="dock-3d" style="width:100%;height:240px;border:1px solid var(--border);border-radius:8px"></div>
-              <div id="dock-table" style="margin-top:8px"></div>
-              <div id="dock-log" class="hint" style="margin-top:6px"></div>
-            </div>
+                  <div class="input-group">
+                     <label class="input-label">或 上传配体文件 (.sdf)</label>
+                     <input type="file" id="ligand-file" class="form-control" accept=".sdf,.mol">
           </div>
         </div>
-        <div id="view-md" class="card" style="display:none"><h2>分子动力学</h2><p>占位接口</p></div>
-        <div id="view-analysis" class="card" style="display:none"><h2>分析</h2><p>占位接口</p></div>
-        <div id="view-af2" class="card" style="display:none"><h2>AlphaFold 接口</h2><p>仅定义接口，不做推理</p></div>
-        <div id="view-jobs" class="card" style="display:none">
-          <h2>作业列表</h2>
-          <button onclick="loadJobs()">刷新</button>
-          <div class="list" id="jobs-list"></div>
+
+                <!-- Step 3: Box Config -->
+                <div>
+                  <div class="section-title">3. 对接盒子 (Binding Box)</div>
+                  <div class="input-group">
+                    <label class="input-label">Center (X, Y, Z)</label>
+                    <div class="coord-grid">
+                      <input id="center_x" type="number" class="form-control" placeholder="X" onchange="updateBoxViz()">
+                      <input id="center_y" type="number" class="form-control" placeholder="Y" onchange="updateBoxViz()">
+                      <input id="center_z" type="number" class="form-control" placeholder="Z" onchange="updateBoxViz()">
+            </div>
+                    <div style="margin-top: 6px; display: flex; gap: 8px; justify-content: flex-end;">
+                        <button id="btn-pick-center" onclick="togglePickCenter()" class="btn btn-secondary btn-sm" title="在视图中点击原子">🎯 点选中心</button>
+                        <button onclick="autoCenterBox()" class="btn btn-secondary btn-sm" title="使用受体几何中心">自动居中</button>
+            </div>
+          </div>
+                  <div class="input-group">
+                    <label class="input-label">Size (Å)</label>
+                    <div class="coord-grid">
+                      <input id="size_x" type="number" class="form-control" value="20" onchange="updateBoxViz()">
+                      <input id="size_y" type="number" class="form-control" value="20" onchange="updateBoxViz()">
+                      <input id="size_z" type="number" class="form-control" value="20" onchange="updateBoxViz()">
+        </div>
+        </div>
+                  <div class="input-group">
+                    <label class="input-label">Exhaustiveness (穷举度)</label>
+                    <input id="exhaustiveness" type="number" class="form-control" value="8">
+      </div>
+                  <div class="input-group">
+                     <label style="font-size: 12px; display: flex; align-items: center; gap: 6px;">
+                       <input type="checkbox" id="show-box" checked onchange="updateBoxViz()"> 显示盒子 (Show Box)
+                     </label>
+    </div>
+                </div>
+
+                <!-- Action -->
+                <div style="margin-top: auto;">
+                   <button onclick="runDock()" class="btn btn-primary" style="width: 100%; height: 40px; font-size: 14px;">
+                     开始对接 (Run Docking)
+                   </button>
+                </div>
+
+                <!-- Log -->
+                <div id="dock-log">日志控制台就绪...</div>
+              </div>
+
+              <!-- Right Viewer -->
+              <div class="dock-viewer">
+                <div id="dock-3d"></div>
+                
+                <div class="loader-overlay" id="dock-loader">
+                  <div style="text-align: center;">
+                    <div class="spinner" style="margin: 0 auto 10px auto;"></div>
+                    <div style="font-weight: 600; color: var(--fg);">正在处理...</div>
+                  </div>
+                </div>
+
+                <!-- Results Panel (Hidden initially) -->
+                <div id="dock-results" class="dock-results-float">
+                  <div class="dock-results-header">
+                    <span>对接结果</span>
+                    <button onclick="document.getElementById('dock-results').style.display='none'" style="background:none; border:none; cursor:pointer; font-size:16px;">&times;</button>
+                  </div>
+                  <div id="dock-results-list" class="dock-results-list">
+                    <!-- Results injected here -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SMOL VIEW -->
+          <div id="view-smol" class="view-panel">
+            <div class="dock-layout">
+              <!-- Left Controls -->
+              <div class="dock-controls">
+                <div>
+                   <div class="section-title">1. 输入分子 (Input)</div>
+                   <div class="input-group">
+                     <label class="input-label">SMILES (每行一个)</label>
+                     <textarea id="smol-smiles" class="form-control" rows="5" placeholder="例如:&#10;c1ccccc1O&#10;CC(=O)Oc1ccccc1C(=O)O"></textarea>
+                   </div>
+                </div>
+
+                <div>
+                   <div class="section-title">2. 参数 (Parameters)</div>
+                   <div class="input-group">
+                     <label class="input-label">生成构象数 (Num Confs)</label>
+                     <input id="smol-num" type="number" class="form-control" value="1">
+                   </div>
+                   <div class="input-group">
+                     <label class="input-label">力场 (Force Field)</label>
+                     <select id="smol-ff" class="form-control">
+                       <option value="MMFF94">MMFF94</option>
+                       <option value="UFF">UFF</option>
+                     </select>
+                   </div>
+                </div>
+
+                <div style="margin-top: auto;">
+                   <button onclick="runSmol()" class="btn btn-primary" style="width: 100%; height: 40px;">
+                     生成 3D 结构 (Generate)
+                   </button>
+                </div>
+                
+                <div id="smol-log" style="margin-top: 16px; font-family: monospace; font-size: 11px; color: var(--muted); white-space: pre-wrap;"></div>
+            </div>
+
+              <!-- Right Viewer & Results -->
+              <div class="dock-viewer" style="display: flex; flex-direction: column;">
+                <!-- 3D Area -->
+                <div style="flex: 1; position: relative; min-height: 0;">
+                   <div id="smol-3d" style="width:100%; height:100%;"></div>
+                   <div class="loader-overlay" id="smol-loader">
+                      <div class="spinner"></div>
+            </div>
+          </div>
+                
+                <!-- Properties Table -->
+                <div style="height: 200px; background: var(--surface); border-top: 1px solid var(--border); overflow: auto;">
+                  <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                    <thead style="position: sticky; top: 0; background: #f1f5f9; z-index: 5;">
+                      <tr>
+                        <th style="padding: 8px; text-align: left; border-bottom: 1px solid var(--border); width:40px">#</th>
+                        <th style="padding: 8px; text-align: left; border-bottom: 1px solid var(--border);">SMILES</th>
+                        <th style="padding: 8px; text-align: left; border-bottom: 1px solid var(--border);">MW</th>
+                        <th style="padding: 8px; text-align: left; border-bottom: 1px solid var(--border);">LogP</th>
+                        <th style="padding: 8px; text-align: left; border-bottom: 1px solid var(--border);">TPSA</th>
+                        <th style="padding: 8px; text-align: left; border-bottom: 1px solid var(--border);">HBD</th>
+                        <th style="padding: 8px; text-align: left; border-bottom: 1px solid var(--border);">HBA</th>
+                      </tr>
+                    </thead>
+                    <tbody id="smol-table-body">
+                      <tr><td colspan="7" style="padding: 20px; text-align: center; color: var(--muted);">暂无数据</td></tr>
+                    </tbody>
+                  </table>
+        </div>
+            </div>
+            </div>
+          </div>
+          <div id="view-md" class="view-panel" style="padding: 20px;"><h2>分子动力学 (Comming Soon)</h2></div>
+          <div id="view-analysis" class="view-panel" style="padding: 20px;"><h2>分析 (Comming Soon)</h2></div>
+          <div id="view-af2" class="view-panel" style="padding: 20px;"><h2>AlphaFold (Comming Soon)</h2></div>
+          <div id="view-jobs" class="view-panel" style="padding: 20px;">
+            <h2>任务列表</h2>
+            <div id="jobs-list"></div>
+        </div>
+
         </div>
       </div>
     </div>
+
+    <!-- Scripts -->
+    <script src="vendor/molstar/molstar.js"></script>
     <script>
-      const api = location.hostname === 'localhost' ? 'http://localhost:8000' : (location.origin.replace(':3000', ':8000'))
-      const tabs = ['smol','dock','md','analysis','af2','jobs']
-      function show(tab){
-        tabs.forEach(t=>{
-          document.getElementById('tab-'+t).classList.remove('active')
-          document.getElementById('view-'+t).style.display = (t===tab)?'block':'none'
-        })
-        document.getElementById('tab-'+tab).classList.add('active')
-      }
-      window.addEventListener('hashchange',()=>{ const t=location.hash.slice(1)||'smol'; show(t) })
-      show(location.hash.slice(1)||'smol')
-      async function login(){
+      // Configuration
+      const api = location.hostname === 'localhost' ? 'http://localhost:7010' : (location.origin.replace(':3000', ':8000').replace(':7006', ':7010').replace(':5500', ':7010'));
+      
+      // State
+      let currentUser = null;
+      let molstarInstance = null;
+      let currentReceptorName = null;
+
+      // --- APP INIT ---
+      async function init() {
+        // Check auth
         try {
-          const email = document.getElementById('login-email').value || 'admin'
-          const password = document.getElementById('login-pass').value || 'admin'
-          const r = await fetch(api+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'include',body:JSON.stringify({email,password})})
-          if(r.ok){
-            await refreshUser()
-            show('smol')
-          } else { alert('登录失败') }
-        } catch(e){
-          alert('网络或跨域错误，请检查后端是否运行与CORS设置')
+          await refreshUser();
+          show('dock');
+          loadReceptorList();
+        } catch(e) {
+          document.getElementById('login-view').style.display = 'flex';
         }
       }
-      async function logout(){
-        await fetch(api+'/auth/logout',{method:'POST',credentials:'include'})
-        document.getElementById('login-box').style.display='block'
-        document.getElementById('user-box').style.display='none'
+
+      // --- VIEW NAVIGATION ---
+      function show(viewId) {
+        // Update sidebar active state
+        document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
+        const tab = document.getElementById('tab-' + viewId);
+        if(tab) tab.classList.add('active');
+
+        // Update main view
+        document.querySelectorAll('.view-panel').forEach(el => el.classList.remove('active'));
+        document.getElementById('view-' + viewId).classList.add('active');
+        
+        // Update title
+        const titles = {
+          'dock': '分子对接 Docking',
+          'smol': '小分子预测 Small Molecule',
+          'md': '分子动力学 Dynamics',
+          'jobs': '任务列表 Jobs'
+        };
+        document.getElementById('page-title').textContent = titles[viewId] || '酶研究平台';
+
+        // Refresh lists if needed
+        if(viewId === 'dock') loadReceptorList();
+        if(viewId === 'jobs') loadJobs();
       }
-      async function refreshUser(){
-        const r = await fetch(api+'/auth/me',{credentials:'include'})
-        if(r.ok){
-          const j = await r.json()
-          document.getElementById('user-label').textContent = `已登录：${j.email}`
-          document.getElementById('user-top').textContent = j.email
-          const initial = (j.email || 'U').charAt(0).toUpperCase()
-          const av = document.getElementById('user-avatar')
-          if(av) av.textContent = initial
-          document.getElementById('login-box').style.display='none'
-          document.getElementById('user-box').style.display='flex'
-        }
+
+      // --- DOCKING LOGIC ---
+      
+      // Box Visualization State
+      let boxStructureRef = null;
+      let boxCenter = { x: null, y: null, z: null };
+
+      async function updateBoxViz() {
+         if(!molstarInstance) return;
+         const showBox = document.getElementById('show-box').checked;
+         const plugin = molstarInstance.plugin;
+         
+         // Remove previous box
+         if (boxStructureRef) {
+             const state = plugin.state.data;
+             const update = state.build();
+             update.delete(boxStructureRef);
+             await update.commit();
+             boxStructureRef = null;
+         }
+         
+         if(!showBox) return;
+
+         const cx = parseFloat(document.getElementById('center_x').value) || 0;
+         const cy = parseFloat(document.getElementById('center_y').value) || 0;
+         const cz = parseFloat(document.getElementById('center_z').value) || 0;
+         const sx = parseFloat(document.getElementById('size_x').value) || 20;
+         const sy = parseFloat(document.getElementById('size_y').value) || 20;
+         const sz = parseFloat(document.getElementById('size_z').value) || 20;
+         
+         // Create a fake molecule representing the box (8 corners, connected)
+         // We use SDF format which allows defining atoms and bonds easily
+         const hx = sx/2, hy = sy/2, hz = sz/2;
+         const corners = [
+            [cx-hx, cy-hy, cz-hz], // 0
+            [cx+hx, cy-hy, cz-hz], // 1
+            [cx-hx, cy+hy, cz-hz], // 2
+            [cx+hx, cy+hy, cz-hz], // 3
+            [cx-hx, cy-hy, cz+hz], // 4
+            [cx+hx, cy-hy, cz+hz], // 5
+            [cx-hx, cy+hy, cz+hz], // 6
+            [cx+hx, cy+hy, cz+hz]  // 7
+         ];
+         
+         // Bonds to form a cube
+         const bonds = [
+             [0,1], [0,2], [0,4], // from 0
+             [1,3], [1,5], // from 1
+             [2,3], [2,6], // from 2
+             [3,7], // from 3
+             [4,5], [4,6], // from 4
+             [5,7], // from 5
+             [6,7]  // from 6
+         ];
+         
+         // Construct SDF string
+         let sdf = "\n  MolStar Box\n\n";
+         sdf += "  8 12  0  0  0  0  0  0  0  0999 V2000\n";
+         corners.forEach(c => {
+             sdf += `${c[0].toFixed(4).padStart(10)}${c[1].toFixed(4).padStart(10)}${c[2].toFixed(4).padStart(10)} H   0  0  0  0  0  0  0  0  0  0  0  0\n`;
+         });
+         bonds.forEach(b => {
+             // SDF bond block: 1st atom, 2nd atom, type (1=single)
+             sdf += `${(b[0]+1).toString().padStart(3)}${(b[1]+1).toString().padStart(3)}  1  0  0  0  0\n`;
+         });
+         sdf += "M  END\n$$$$";
+         
+         try {
+             // Load this "molecule"
+             const data = await plugin.builders.data.rawData({ data: sdf, label: 'Docking Box' });
+             const traj = await plugin.builders.structure.parseTrajectory(data, 'sdf');
+             const model = await plugin.builders.structure.createModel(traj);
+             const structure = await plugin.builders.structure.createStructure(model);
+             
+             // Apply Stick representation
+             const style = { 
+                 type: 'stick', 
+                 params: { 
+                     sizeTheme: { name: 'uniform', params: { value: 0.1 } }, // Very thin sticks
+                     colorTheme: { name: 'uniform', params: { value: 0x00FFFF } }, // Cyan color
+                     roughness: 1
+                 } 
+             };
+             
+             const repr = await plugin.builders.structure.representation.addRepresentation(structure, style);
+             
+             // Store ref for removal
+             boxStructureRef = data.ref; 
+             
+             console.log(`Box drawn: [${cx},${cy},${cz}]`);
+         } catch(e) {
+             console.warn('Draw box failed', e);
+         }
       }
-      refreshUser().catch(()=>{})
-      async function submitSmol(){
-        const btn = document.getElementById('smol-btn'); if(btn) btn.disabled = true
-        const smiles = document.getElementById('smiles').value.split('\n').map(s=>s.trim()).filter(s=>s)
-        const num_confs = parseInt(document.getElementById('num-confs').value,10)
-        const minimize = document.getElementById('minimize').value
+      
+      // Picking Logic
+      let isPickingCenter = false;
+      function togglePickCenter() {
+         isPickingCenter = !isPickingCenter;
+         const btn = document.getElementById('btn-pick-center');
+         
+         if(isPickingCenter) {
+            btn.classList.add('btn-primary');
+            btn.classList.remove('btn-secondary');
+            btn.textContent = '点击原子...';
+         } else {
+            btn.classList.remove('btn-primary');
+            btn.classList.add('btn-secondary');
+            btn.textContent = '🎯 点选中心';
+         }
+      }
+      
+      function updateCenterInputs(x, y, z) {
+         document.getElementById('center_x').value = x.toFixed(2);
+         document.getElementById('center_y').value = y.toFixed(2);
+         document.getElementById('center_z').value = z.toFixed(2);
+         boxCenter = { x, y, z };
+         updateBoxViz(); // Trigger redraw if implemented
+         logDock(`Picked Center: ${x.toFixed(2)}, ${y.toFixed(2)}, ${z.toFixed(2)}`);
+      }
+
+      async function loadReceptorList() {
         try {
-          const r = await fetch(api+'/jobs',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'include',body:JSON.stringify({type:'smol',inputs:{smiles,num_confs,minimize}})})
-          const j = await r.json()
-          const id = j.job_id
-          const d = await fetch(`${api}/jobs/${id}`,{credentials:'include'})
-          const job = await d.json()
-          const status = job.status || 'unknown'
-          document.getElementById('smol-summary').textContent = `状态：${status}`
-          const grid = document.getElementById('smol-grid')
-          grid.innerHTML = ''
-          let props = []
-          if(job.outputs && job.outputs.props){
-            try {
-              const pr = await fetch(`${api}/files/${id}/${job.outputs.props}`)
-              const pj = await pr.json()
-              props = pj.items || []
-            } catch(e){ props = [] }
+          const r = await fetch(api + '/user/structure/list', {credentials: 'include'});
+          if(!r.ok) return;
+          const data = await r.json();
+          const listEl = document.getElementById('receptor-list');
+          listEl.innerHTML = '';
+          
+          if(data.files.length === 0) {
+            listEl.innerHTML = '<div style="padding: 8px; color: var(--muted); text-align: center; font-size: 12px;">暂无文件，请上传</div>';
+            return;
           }
-          const list = (job.outputs && job.outputs.sdf_list) ? job.outputs.sdf_list : []
-          for(const item of list){
-            const card = document.createElement('div')
-            card.className = 'card'
-            const c2d = document.createElement('div')
-            const img2d = document.createElement('img')
-            img2d.width = 260; img2d.height = 160
-            img2d.style.objectFit = 'contain'
-            const c3d = document.createElement('div')
-            c3d.style.width = '100%'; c3d.style.height = '220px'; c3d.style.border = '1px solid var(--border)'; c3d.style.borderRadius = '10px'; c3d.style.marginTop = '8px'
-            const title = document.createElement('div')
-            title.className = 'row'
-            title.style.justifyContent = 'space-between'
-            title.innerHTML = `<div class="pill">${item.smiles}</div><a href="${api}/files/${id}/${item.sdf}" target="_blank">下载SDF</a>`
-            card.appendChild(title)
-            card.appendChild(c2d)
-            c2d.appendChild(img2d)
-            card.appendChild(c3d)
-            img2d.src = `${api}/files/${id}/${item.png}`
-            renderSDF3D(c3d, `${api}/files/${id}/${item.sdf}`)
-            const p = props.find(x=>x.smiles===item.smiles)
-            if(p){
-              const tbl = document.createElement('div')
-              tbl.style.marginTop = '8px'
-              tbl.innerHTML = `<div class="row"><span class="pill">MW ${p.MW.toFixed(2)}</span><span class="pill">logP ${p.logP.toFixed(2)}</span><span class="pill">TPSA ${p.TPSA.toFixed(2)}</span><span class="pill">HBD ${p.HBD}</span><span class="pill">HBA ${p.HBA}</span><span class="pill">RotB ${p.RotB}</span></div>`
-              card.appendChild(tbl)
-            }
-            grid.appendChild(card)
-          }
-          if(list.length === 0){
-            const card = document.createElement('div')
-            card.className = 'card'
-            const c3d = document.createElement('div')
-            c3d.style.width = '100%'; c3d.style.height = '220px'; c3d.style.border = '1px solid var(--border)'; c3d.style.borderRadius = '10px'; c3d.style.marginTop = '8px'
-            const title = document.createElement('div')
-            title.className = 'row'
-            title.style.justifyContent = 'space-between'
-            const smi0 = smiles[0] || ''
-            title.innerHTML = `<div class="pill">${smi0}</div><a href="${api}/files/${id}/${job.outputs.sdf}" target="_blank">下载SDF</a>`
-            card.appendChild(title)
-            card.appendChild(c3d)
-            renderSDF3D(c3d, `${api}/files/${id}/${job.outputs.sdf}`)
-            const p = props.find(x=>x.smiles===smi0) || props[0]
-            if(p){
-              const tbl = document.createElement('div')
-              tbl.style.marginTop = '8px'
-              tbl.innerHTML = `<div class="row"><span class="pill">MW ${p.MW.toFixed(2)}</span><span class="pill">logP ${p.logP.toFixed(2)}</span><span class="pill">TPSA ${p.TPSA.toFixed(2)}</span><span class="pill">HBD ${p.HBD}</span><span class="pill">HBA ${p.HBA}</span><span class="pill">RotB ${p.RotB}</span></div>`
-              card.appendChild(tbl)
-            }
-            grid.appendChild(card)
-          }
-          if(props.length){
-            const table = document.getElementById('smol-table')
-            const header = `<tr><th>SMILES</th><th>MW</th><th>logP</th><th>TPSA</th><th>HBD</th><th>HBA</th><th>RotB</th></tr>`
-            const rows = props.map(p=>`<tr><td>${p.smiles}</td><td>${p.MW.toFixed(2)}</td><td>${p.logP.toFixed(2)}</td><td>${p.TPSA.toFixed(2)}</td><td>${p.HBD}</td><td>${p.HBA}</td><td>${p.RotB}</td></tr>`).join('')
-            table.innerHTML = `<table style="width:100%; border-collapse:collapse"><thead>${header}</thead><tbody>${rows}</tbody></table>`
-          }
-        } catch(e){
-          alert('提交失败，请确认后端与mod-smol容器已启动')
-        } finally { if(btn) btn.disabled = false }
-      }
-      async function loadJobs(){
-        const r = await fetch(api+'/jobs',{credentials:'include'})
-        const arr = await r.json()
-        const el = document.getElementById('jobs-list')
-        el.innerHTML = ''
-        arr.forEach(x=>{ const d=document.createElement('div'); d.innerHTML = `<span>${x.id}</span><span>${x.type}</span><span>${x.status}</span>`; el.appendChild(d) })
-      }
-      async function loadStruct(){
-        const r = await fetch(api+'/user/structure/list',{credentials:'include'})
-        const j = await r.json()
-        const files = j.files||[]
-        const rsel = document.getElementById('receptor-select')
-        const lsel = document.getElementById('ligand-select')
-        rsel.innerHTML = ''; lsel.innerHTML=''
-        files.forEach(f=>{
-          const o1 = document.createElement('option'); o1.value=f.name; o1.textContent=f.name; rsel.appendChild(o1)
-          const o2 = document.createElement('option'); o2.value=f.name; o2.textContent=f.name; lsel.appendChild(o2)
-        })
-      }
-      async function uploadStruct(inputId){
-        const el = document.getElementById(inputId)
-        if(!el.files||!el.files[0]) return alert('请选择文件')
-        const fd = new FormData(); fd.append('file', el.files[0])
-        const r = await fetch(api+'/user/structure/upload',{method:'POST',credentials:'include',body:fd})
-        if(r.ok){
-          const j = await r.json()
-          alert('上传成功')
-          await loadStruct()
-          if(inputId==='receptor-file'){ const rs = document.getElementById('receptor-select'); rs.value = j.name; previewReceptor() }
-        } else { alert('上传失败') }
-      }
-      async function submitDock(){
-        const btn = document.getElementById('dock-btn'); if(btn) btn.disabled = true
-        const receptor_name = document.getElementById('receptor-select').value
-        const ligand_name = document.getElementById('ligand-select').value
-        const ligand_smiles = document.getElementById('ligand-smiles').value
-        const center = [parseFloat(document.getElementById('cx').value),parseFloat(document.getElementById('cy').value),parseFloat(document.getElementById('cz').value)]
-        const size = [parseFloat(document.getElementById('sx').value),parseFloat(document.getElementById('sy').value),parseFloat(document.getElementById('sz').value)]
-        const exh = parseInt(document.getElementById('exh').value,10)
-        const inputs = {receptor:{path: receptor_name||null}, ligand:{path: ligand_name||null, smiles:ligand_smiles||null}, center, size, exhaustiveness:exh}
-        const r = await fetch(api+'/jobs',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'include',body:JSON.stringify({type:'dock',inputs})})
-        const j = await r.json()
-        const id = j.job_id
-        const d = await fetch(`${api}/jobs/${id}`,{credentials:'include'}); const job = await d.json()
-        const out = job.outputs||{}
-        const el = document.getElementById('dock-result')
-        el.innerHTML = ''
-        const info = document.createElement('div')
-        info.innerHTML = `<span>${id}</span><span>${job.status}</span>`
-        el.appendChild(info)
-        if(out.scores){
-          const rr = await fetch(`${api}/files/${id}/${out.scores}`)
-          const sj = await rr.json()
-          const table = document.getElementById('dock-table')
-          const head = `<tr><th>SMILES</th><th>能量</th><th>中心</th><th>尺寸</th><th>耗时参数</th></tr>`
-          const rows = (sj.items||[]).map(it=>`<tr><td>${it.smiles||''}</td><td>${it.score||''}</td><td>${(sj.center||[]).join(',')}</td><td>${(sj.size||[]).join(',')}</td><td>${sj.exhaustiveness||''}</td></tr>`).join('')
-          table.innerHTML = `<table style="width:100%; border-collapse:collapse"><thead>${head}</thead><tbody>${rows||'<tr><td colspan=5>暂无结果</td></tr>'}</tbody></table>`
+
+          data.files.forEach(f => {
+            const div = document.createElement('div');
+            div.className = `file-item ${currentReceptorName === f.name ? 'active' : ''}`;
+            div.textContent = f.name;
+            div.onclick = () => selectReceptor(f.name);
+            listEl.appendChild(div);
+          });
+        } catch(e) {
+          console.error('Load list failed', e);
         }
-        if(out.pose_sdf){ await renderPoseMolstar(id, out.pose_sdf) }
-        if(btn) btn.disabled = false
       }
-      loadStruct().catch(()=>{})
-      async function previewReceptor(){
-        const name = document.getElementById('receptor-select').value
-        if(!name) return
-        const rawUrl = `${api}/public/structure/${encodeURIComponent(name)}`
-        const blob = await toBlobUrl(rawUrl)
-        const ext = (name.split('.').pop()||'').toLowerCase()
-        const target = document.getElementById('dock-3d')
-        if(['pdb','ent'].includes(ext)){
-          await renderMolstar(target, blob, 'pdb', 'cartoon')
-        } else if(['cif','mmcif'].includes(ext)){
-          await renderMolstar(target, blob, 'cif', 'cartoon')
-        } else if(['sdf','mol'].includes(ext)){
-          await renderMolstar(target, blob, 'sdf', 'ball_and_stick')
+
+      async function selectReceptor(name) {
+        currentReceptorName = name;
+        loadReceptorList(); // Update UI active state
+        
+        // Auto preview
+        await previewReceptor(name);
+      }
+
+      async function uploadStruct(input) {
+        if(!input.files || !input.files[0]) return;
+        const file = input.files[0];
+        const fd = new FormData();
+        fd.append('file', file);
+        
+        logDock(`Uploading ${file.name}...`);
+        try {
+          const r = await fetch(api + '/user/structure/upload', {method:'POST', body:fd, credentials:'include'});
+          if(r.ok) {
+            logDock('Upload success');
+            await loadReceptorList();
+            selectReceptor(file.name); // Auto select and preview
+          } else {
+            logDock('Upload failed');
+          }
+        } catch(e) {
+          logDock('Upload error: ' + e.message);
+        }
+        input.value = ''; // Reset
+      }
+
+      async function ensureViewer() {
+        if(molstarInstance) return molstarInstance;
+        
+        const container = document.getElementById('dock-3d');
+        // Try npm package logic first, then window global
+        let ViewerClass;
+        try {
+            if (typeof require !== 'undefined') ViewerClass = require('molstar').Viewer;
+        } catch(e) {}
+        if (!ViewerClass) ViewerClass = (window.molstar && window.molstar.Viewer) || (window.Molstar && window.Molstar.Viewer);
+
+        if(!ViewerClass) {
+          container.innerHTML = 'Mol* load failed';
+          return null;
+        }
+
+        molstarInstance = await ViewerClass.create(container, {
+          layoutIsExpanded: false,
+          layoutShowControls: false,
+          collapseLeftPanel: true,
+          viewportShowExpand: false,
+          layoutShowSequence: false,
+          layoutShowLog: false
+        });
+        
+        // Set simple background
+        const plugin = molstarInstance.plugin;
+        if(plugin.canvas3d) {
+            const renderer = plugin.canvas3d.props.renderer;
+            plugin.canvas3d.setProps({ renderer: { ...renderer, backgroundColor: { r: 248, g: 250, b: 252 } } }); // var(--bg)
+        }
+        
+        return molstarInstance;
+      }
+
+      async function previewReceptor(name) {
+        showLoader(true);
+        logDock(`Fetching ${name}...`);
+        
+        try {
+          // 1. Fetch data
+          const res = await fetch(`${api}/user/structure/file/${encodeURIComponent(name)}`, {credentials:'include'});
+          if(!res.ok) throw new Error(res.statusText);
+          const text = await res.text();
+          
+          // 2. Load into Mol*
+          const v = await ensureViewer();
+          if(!v) throw new Error('Viewer init failed');
+          
+          // Clear previous
+          v.plugin.clear();
+
+          const ext = name.split('.').pop().toLowerCase();
+          await v.loadStructureFromData(text, ext, { dataLabel: name });
+          
+          // Apply Cartoon representation for proteins
+          const plugin = v.plugin;
+          if(plugin.managers && plugin.managers.structure) {
+             // Simple way to apply cartoon preset
+             const structures = plugin.managers.structure.hierarchy.current.structures;
+             if(structures.length > 0) {
+                await plugin.managers.structure.component.applyPreset(structures, 'auto');
+             }
+          }
+
+          logDock(`Receptor loaded: ${name}`);
+          
+          // 3. Auto Center Calculation
+          autoCenterFromPDB(text);
+          
+          // Initialize Picking Subscription if not already
+          initPicking(v);
+          
+        } catch(e) {
+          logDock(`Error: ${e.message}`);
+          console.error(e);
+        } finally {
+          showLoader(false);
+        }
+      }
+      
+      let pickSubscription = null;
+      function initPicking(viewer) {
+         if(pickSubscription) return;
+         
+         const plugin = viewer.plugin;
+         if (!plugin || !plugin.behaviors || !plugin.behaviors.interaction) {
+             console.warn('Plugin interaction behavior not found');
+             return;
+         }
+
+         console.log('Initializing picking subscription...');
+         pickSubscription = plugin.behaviors.interaction.click.subscribe(e => {
+             // Only process if picking mode is active
+             if(!isPickingCenter) return;
+             
+             console.log('Click event received', e);
+             if(e.current && e.current.loci) {
+                 console.log('Loci kind:', e.current.loci.kind);
+                 if(e.current.loci.kind === 'element-loci') {
+                       try {
+                          const p = e.position;
+                          if (p && typeof p.length === 'number' && p.length === 3) {
+                              const cx = p[0];
+                              const cy = p[1];
+                              const cz = p[2];
+                              updateCenterInputs(cx, cy, cz);
+                              document.getElementById('size_x').value = 20;
+                              document.getElementById('size_y').value = 20;
+                              document.getElementById('size_z').value = 20;
+                              updateBoxViz();
+                              logDock(`Picked Center: ${cx.toFixed(2)}, ${cy.toFixed(2)}, ${cz.toFixed(2)} (Size reset to 20)`);
+                              return;
+                          }
+                          const loci = e.current.loci;
+                          const unit = loci.elements[0].unit;
+                          const indices = loci.elements[0].indices;
+                          const firstEi = indices[0];
+                          const atomIndex = unit.elements[firstEi];
+                          const residueIndex = unit.model.atomicHierarchy.residueAtomSegments.index[atomIndex];
+                          
+                          const atomStart = unit.model.atomicHierarchy.residueAtomSegments.offsets[residueIndex];
+                          const atomEnd = unit.model.atomicHierarchy.residueAtomSegments.offsets[residueIndex + 1];
+                          
+                          let xSum=0, ySum=0, zSum=0, count=0;
+                          const pos = [0, 0, 0];
+                          const elements = unit.elements;
+                          for (let ei = 0; ei < elements.length; ei++) {
+                              const ai = elements[ei];
+                              if (ai >= atomStart && ai < atomEnd) {
+                                  unit.conformation.invariantPosition(ei, pos);
+                                  xSum += pos[0];
+                                  ySum += pos[1];
+                                  zSum += pos[2];
+                                  count++;
+                              }
+                          }
+                          
+                          if (count > 0) {
+                              const cx = xSum / count;
+                              const cy = ySum / count;
+                              const cz = zSum / count;
+                              
+                              updateCenterInputs(cx, cy, cz);
+                              
+                              // Auto set box size to 20 (as requested)
+                              document.getElementById('size_x').value = 20;
+                              document.getElementById('size_y').value = 20;
+                              document.getElementById('size_z').value = 20;
+                              updateBoxViz();
+                              
+                              logDock(`Picked Residue Center: ${cx.toFixed(2)}, ${cy.toFixed(2)}, ${cz.toFixed(2)} (Size reset to 20)`);
+                          }
+                       } catch(err) {
+                          console.warn('Pick residue center failed', err);
+                        } finally {
+                           togglePickCenter();
+                        }
+                }
+            }
+         });
+      }
+
+      function autoCenterFromPDB(text) {
+        // Simple parser to find geometric center of ATOM records
+        const lines = text.split('\n');
+        let xSum=0, ySum=0, zSum=0, count=0;
+        
+        for(let line of lines) {
+          if(line.startsWith('ATOM') || line.startsWith('HETATM')) {
+             const x = parseFloat(line.substring(30, 38));
+             const y = parseFloat(line.substring(38, 46));
+             const z = parseFloat(line.substring(46, 54));
+             if(!isNaN(x) && !isNaN(y) && !isNaN(z)) {
+               xSum += x; ySum += y; zSum += z;
+               count++;
+             }
+          }
+        }
+        
+        if(count > 0) {
+          const cx = (xSum/count).toFixed(2);
+          const cy = (ySum/count).toFixed(2);
+          const cz = (zSum/count).toFixed(2);
+          updateCenterInputs(parseFloat(cx), parseFloat(cy), parseFloat(cz)); // Use helper
+          // Log is handled by updateCenterInputs
+        }
+      }
+      
+      function autoCenterBox() {
+          if(currentReceptorName) previewReceptor(currentReceptorName); 
+          else alert('请先选择受体');
+      }
+
+      async function runDock() {
+         if(!currentReceptorName) return alert('请选择受体');
+         
+         const smiles = document.getElementById('dock-smiles').value;
+         if(!smiles) return alert('请输入配体 SMILES');
+         
+        const cx = boxCenter.x != null ? boxCenter.x : parseFloat(document.getElementById('center_x').value);
+        const cy = boxCenter.y != null ? boxCenter.y : parseFloat(document.getElementById('center_y').value);
+        const cz = boxCenter.z != null ? boxCenter.z : parseFloat(document.getElementById('center_z').value);
+         
+        if([cx,cy,cz].some(v => typeof v !== 'number' || isNaN(v))) return alert('请设置对接盒子中心');
+
+        const sx = parseFloat(document.getElementById('size_x').value);
+        const sy = parseFloat(document.getElementById('size_y').value);
+        const sz = parseFloat(document.getElementById('size_z').value);
+        const ex = parseInt(document.getElementById('exhaustiveness').value);
+
+        const payload = {
+           type: 'dock',
+           inputs: {
+              receptor: { path: currentReceptorName },
+              ligand: { smiles: smiles },
+              center: [cx, cy, cz],
+              size: [sx, sy, sz],
+              exhaustiveness: ex
+           }
+        };
+
+        logDock(`Vina Box Input:\n center=(${(cx.toFixed ? cx.toFixed(2) : cx)} , ${(cy.toFixed ? cy.toFixed(2) : cy)} , ${(cz.toFixed ? cz.toFixed(2) : cz)})\n size=(${sx}, ${sy}, ${sz})\n exhaustiveness=${ex}`);
+        try {
+           const r = await fetch(api+'/jobs', {
+              method:'POST', 
+              headers:{'Content-Type':'application/json'},
+              body:JSON.stringify(payload),
+              credentials:'include'
+           });
+           if(r.ok) {
+              const job = await r.json();
+              logDock('Job response: ' + JSON.stringify(job));
+              if (!job.job_id) {
+                 logDock('Error: No job_id in response');
+                 return;
+              }
+              logDock('Job submitted. ID: ' + job.job_id);
+              pollJob(job.job_id);
         } else {
-          target.innerHTML = '<div class="hint">暂不支持该格式预览，请使用 PDB/SDF</div>'
+              logDock('Submit failed: ' + r.status);
+           }
+        } catch(e) {
+           logDock('Error: '+e.message);
         }
       }
-    </script>
-    
-    <script>
-      async function fetchTextUrl(url){
-        const r = await fetch(url, {credentials:'include'})
-        if(!r.ok){ logDock(`fetch_fail ${r.status} ${url}`); throw new Error('fetch_failed') }
-        const t = await r.text()
-        logDock(`text_ok len=${t.length} url=${url}`)
-        return t
+
+      async function pollJob(jobId) {
+        showLoader(true);
+        const interval = setInterval(async () => {
+           try {
+              const r = await fetch(`${api}/jobs/${jobId}`, {credentials:'include'});
+              const j = await r.json();
+              // Fix: Backend returns 'succeeded'
+              if(j.status === 'succeeded' || j.status === 'completed') {
+                 clearInterval(interval);
+                 showLoader(false);
+                 logDock('Docking completed!');
+                 loadDockResult(jobId, j.outputs);
+              } else if(j.status === 'failed') {
+                 clearInterval(interval);
+                 showLoader(false);
+                 logDock('Job failed.');
+              }
+           } catch(e) {
+              clearInterval(interval);
+              showLoader(false);
+           }
+        }, 2000);
       }
-      function blobUrlFromText(text){
-        const b = new Blob([text], { type: 'text/plain' })
-        const u = URL.createObjectURL(b)
-        logDock(`blob_from_text size=${b.size}`)
-        return u
+
+      async function loadDockResult(jobId, outputs) {
+         // Load Pose SDF
+         if(outputs.pose_sdf) {
+            try {
+               const url = `${api}/files/${jobId}/${outputs.pose_sdf}`;
+               const r = await fetch(url, {credentials:'include'});
+               const sdf = await r.text();
+               
+               const v = await ensureViewer();
+               // Load pose
+               await v.loadStructureFromData(sdf, 'sdf', { dataLabel: 'Docked Pose' });
+               
+               // Apply ball & stick to pose
+               // (Ideally we should select the last loaded structure)
+               const plugin = v.plugin;
+               // Simple representation update logic would go here
+               
+               // Show results panel
+               const resultsPanel = document.getElementById('dock-results');
+               const list = document.getElementById('dock-results-list');
+               resultsPanel.style.display = 'flex';
+               list.innerHTML = '';
+               
+               // Parse scores if available
+               if(outputs.scores && outputs.scores.items) {
+                  outputs.scores.items.forEach((item, idx) => {
+                     const div = document.createElement('div');
+                     div.className = 'result-item';
+                     div.innerHTML = `<span>Pose ${idx+1}</span> <b>${item.score}</b>`;
+                     // On click, we could isolate this model if multi-model SDF
+                     list.appendChild(div);
+                  });
+               } else {
+                   list.innerHTML = '<div style="padding:10px">Result loaded.</div>';
+               }
+
+            } catch(e) {
+               logDock('Load result failed: '+e.message);
+            }
+         }
       }
-      function logDock(msg){ const el=document.getElementById('dock-log'); if(el){ const d=document.createElement('div'); d.textContent=msg; el.appendChild(d) } console.log('[dock]',msg) }
-      async function renderMolstar(container, dataText, format, style){
-        container.innerHTML = ''
-        const ViewerCtor = (window.molstar && window.molstar.Viewer) || (window.Molstar && window.Molstar.Viewer)
-        if(!ViewerCtor){
-          container.innerHTML = '<div class="hint">Mol* 未加载，请检查本地文件</div>'
-          logDock('viewer_ctor_missing')
-          return
-        }
+
+      // --- SMOL LOGIC ---
+      
+      async function runSmol() {
+        const smilesRaw = document.getElementById('smol-smiles').value;
+        if(!smilesRaw) return alert('请输入 SMILES');
+        
+        const smilesList = smilesRaw.split('\n').map(s=>s.trim()).filter(s=>s);
+        if(smilesList.length === 0) return;
+
+        const payload = {
+          type: 'smol',
+          inputs: {
+            smiles: smilesList,
+            num_confs: parseInt(document.getElementById('smol-num').value) || 1,
+            minimize: document.getElementById('smol-ff').value
+          }
+        };
+
+        document.getElementById('smol-loader').style.display = 'flex';
+        logSmol('Submitting job...');
+        
         try {
-          const v = new ViewerCtor(container, {
+           const r = await fetch(api+'/jobs', {
+              method:'POST', 
+              headers:{'Content-Type':'application/json'},
+              body:JSON.stringify(payload),
+              credentials:'include'
+           });
+           if(r.ok) {
+              const job = await r.json();
+              pollSmolJob(job.job_id);
+        } else {
+              logSmol('Submit failed');
+              document.getElementById('smol-loader').style.display = 'none';
+           }
+        } catch(e) {
+           logSmol('Error: '+e.message);
+           document.getElementById('smol-loader').style.display = 'none';
+        }
+      }
+
+      async function pollSmolJob(jobId) {
+        const interval = setInterval(async () => {
+           try {
+              const r = await fetch(`${api}/jobs/${jobId}`, {credentials:'include'});
+              const j = await r.json();
+              // Fix: Backend returns 'succeeded', not 'completed'
+              if(j.status === 'succeeded' || j.status === 'completed') {
+                 clearInterval(interval);
+                 document.getElementById('smol-loader').style.display = 'none';
+                 logSmol('Completed!');
+                 loadSmolResults(jobId, j.outputs);
+              } else if(j.status === 'failed') {
+                 clearInterval(interval);
+                 document.getElementById('smol-loader').style.display = 'none';
+                 logSmol('Job failed.');
+              }
+           } catch(e) {
+              clearInterval(interval);
+           }
+        }, 1500);
+      }
+
+      async function loadSmolResults(jobId, outputs) {
+         // 1. Load Properties
+         let propsItems = [];
+         if(outputs.props) {
+            try {
+               const r = await fetch(`${api}/files/${jobId}/${outputs.props}`, {credentials:'include'});
+               const data = await r.json();
+               propsItems = data.items || [];
+            } catch(e) { console.error(e); }
+         }
+         
+         // 2. Load SDF into Viewer
+         if(outputs.sdf) {
+            try {
+               const r = await fetch(`${api}/files/${jobId}/${outputs.sdf}`, {credentials:'include'});
+               const sdf = await r.text();
+               
+               const v = await ensureSmolViewer();
+               v.plugin.clear();
+               
+               // Load structure and keep reference to models
+               await v.loadStructureFromData(sdf, 'sdf', { dataLabel: 'Results' });
+               
+               // Render table with click handler
+               renderSmolTable(propsItems, v);
+               
+               // Apply Ball & Stick
+               const plugin = v.plugin;
+               if(plugin.managers && plugin.managers.structure) {
+                  const structures = plugin.managers.structure.hierarchy.current.structures;
+                  if(structures.length > 0) {
+                     await plugin.managers.structure.component.applyPreset(structures, 'auto');
+                  }
+               }
+            } catch(e) { console.error(e); }
+         }
+      }
+
+      function renderSmolTable(items, viewer) {
+         const tbody = document.getElementById('smol-table-body');
+         tbody.innerHTML = '';
+         
+         // Track currently selected row
+         let activeRow = null;
+
+         items.forEach((item, idx) => {
+            const tr = document.createElement('tr');
+            tr.style.borderBottom = '1px solid var(--border)';
+            tr.style.cursor = 'pointer';
+            tr.style.transition = 'background 0.1s';
+            
+            // Click handler to focus model
+            tr.onclick = async () => {
+               if(activeRow) activeRow.style.background = 'transparent';
+               tr.style.background = 'var(--accent-weak)';
+               activeRow = tr;
+               
+               if(viewer && viewer.plugin) {
+                  // Switch visible model
+                  const plugin = viewer.plugin;
+                  // Note: Mol* loads multi-model SDF as a trajectory or multiple structures depending on size
+                  // For simple SDFs, we can use managers.structure.hierarchy to toggle visibility
+                  
+                  const components = plugin.managers.structure.hierarchy.current.components;
+                  
+                  // This is a simplified approach: 
+                  // If models are loaded as a trajectory, we set the model index.
+                  // If models are loaded as separate units, we toggle visibility.
+                  // For now, assuming standard trajectory behavior for small molecules:
+                  
+                  const models = plugin.managers.structure.hierarchy.current.models;
+                  if (models.length > 0) {
+                      const model = models[0]; // Assuming single file loaded
+                      // If trajectory (multiple models in one file)
+                      if (model.trajectory && model.trajectory.models.length > idx) {
+                          // Update model index
+                          // This part depends on Mol* internal state management for trajectories
+                          // A safer way for simple viewers is to just re-focus camera if possible, 
+                          // but for switching conformers we need to set the model index.
+                          
+                          // Try to find the ModelState and update its index
+                          const state = plugin.state.data;
+                          const modelCell = state.select(model.cell.transform.ref)[0];
+                          
+                          if (modelCell && modelCell.obj) {
+                              // Update ModelFromTrajectory transform
+                              // We need to find the ModelFromTrajectory node which created the structure
+                              // This is complex in Mol* State tree.
+                              
+                              // ALTERNATIVE: Re-upload data for just this index? No, inefficient.
+                              
+                              // Using PluginCommand to set current model index if it's a trajectory
+                              // plugin.managers.structure.trajectory.setIndex(model.trajectory, idx);
+                              
+                              // Let's try using the helper if available
+                              try {
+                                await plugin.managers.structure.trajectory.setIndex(model, idx);
+                              } catch(e) {
+                                console.warn('Could not set trajectory index', e);
+                              }
+                          }
+                      }
+                  }
+               }
+            };
+            
+            tr.innerHTML = `
+              <td style="padding:8px; font-weight:500; color:var(--muted);">#${idx+1}</td>
+              <td style="padding:8px; max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${item.smiles}</td>
+              <td style="padding:8px;">${item.MW?.toFixed(2)}</td>
+              <td style="padding:8px;">${item.logP?.toFixed(2)}</td>
+              <td style="padding:8px;">${item.TPSA?.toFixed(2)}</td>
+              <td style="padding:8px;">${item.HBD}</td>
+              <td style="padding:8px;">${item.HBA}</td>
+            `;
+            tbody.appendChild(tr);
+         });
+         
+         // Select first by default
+         if(tbody.firstChild) tbody.firstChild.click();
+      }
+
+      let smolViewer = null;
+      async function ensureSmolViewer() {
+         if(smolViewer) return smolViewer;
+         const container = document.getElementById('smol-3d');
+         
+         // Try npm package logic first, then window global
+         let ViewerClass;
+         try {
+            if (typeof require !== 'undefined') ViewerClass = require('molstar').Viewer;
+         } catch(e) {}
+         if (!ViewerClass) ViewerClass = (window.molstar && window.molstar.Viewer) || (window.Molstar && window.Molstar.Viewer);
+
+         smolViewer = await ViewerClass.create(container, {
             layoutIsExpanded: false,
             layoutShowControls: false,
-            viewportShowExpand: false,
             collapseLeftPanel: true,
-          })
-          logDock(`load_start format=${format}`)
-          let ok = false
-          if(typeof v.loadStructureFromData === 'function'){
-            try { await v.loadStructureFromData({ data: dataText, format }); ok = true } catch(e){ logDock('load_data_object_fail ' + String(e)) }
-            if(!ok){ try { await v.loadStructureFromData(dataText, format); ok = true } catch(e){ logDock('load_data_string_fail ' + String(e)) } }
-          }
-          if(!ok && typeof v.loadStructureFromUrl === 'function'){
-            const u = blobUrlFromText(dataText)
-            try { await v.loadStructureFromUrl(u, format, { isBinary: false }); ok = true } catch(e){ logDock('load_url_fail ' + String(e)) }
-          }
-          if(!ok) throw new Error('molstar_load_failed')
-          if(v.setBackground) v.setBackground('white')
-          try {
-            if(typeof v.applyRepresentation === 'function') {
-              v.applyRepresentation(style === 'cartoon' ? 'cartoon' : 'ball_and_stick')
-            } else if(typeof v.setStructureRepresentation === 'function') {
-              v.setStructureRepresentation(style === 'cartoon' ? 'cartoon' : 'ball_and_stick')
-            }
-          } catch(e) {}
-          logDock('load_done')
-        } catch(e){
-          container.innerHTML = '<div class="hint">Mol* 加载失败</div>'
-          logDock(`viewer_error ${String(e)}`)
-        }
+            viewportShowExpand: false,
+            layoutShowSequence: false,
+            layoutShowLog: false
+         });
+         const plugin = smolViewer.plugin;
+         if(plugin.canvas3d) {
+             const renderer = plugin.canvas3d.props.renderer;
+             plugin.canvas3d.setProps({ renderer: { ...renderer, backgroundColor: { r: 255, g: 255, b: 255 } } });
+         }
+         return smolViewer;
       }
-      function renderSDF3D(container, url){
-        container.innerHTML = ''
-        const canvas = document.createElement('canvas')
-        const cw = container.clientWidth || 300
-        const ch = container.clientHeight || 220
-        canvas.width = cw
-        canvas.height = ch
-        container.appendChild(canvas)
-        const ctx = canvas.getContext('2d')
-        let atoms = [], bonds = []
-        let angle = 0
-        fetch(url, {credentials:'include'}).then(r=>r.text()).then(txt=>{
-          const lines = txt.split(/\r?\n/)
-          let i = 3
-          let counts = lines[i] ? lines[i].trim().split(/\s+/).map(Number) : [0,0]
-          const nat = counts[0]||0, nb = counts[1]||0
-          for(let k=0;k<nat;k++){
-            const L = lines[i+1+k]
-            const x = parseFloat(L.slice(0,10)), y = parseFloat(L.slice(10,20)), z = parseFloat(L.slice(20,30))
-            const el = L.slice(31,34).trim()
-            atoms.push({x,y,z,el})
-          }
-          for(let k=0;k<nb;k++){
-            const L = lines[i+1+nat+k]
-            const a1 = parseInt(L.slice(0,3))-1, a2 = parseInt(L.slice(3,6))-1
-            bonds.push({a1,a2})
-          }
-          draw()
-        }).catch(()=>{
-          ctx.fillStyle = '#999'; ctx.fillText('无法加载3D', 10, 20)
-        })
-        function proj(p){
-          const s = Math.sin(angle), c = Math.cos(angle)
-          const rx = p.x*c - p.z*s
-          const rz = p.x*s + p.z*c
-          const ry = p.y
-          const d = 4/(4+rz)
-          return {x: canvas.width*0.5 + rx*50*d, y: canvas.height*0.5 - ry*50*d}
-        }
-        function draw(){
-          ctx.clearRect(0,0,canvas.width,canvas.height)
-          ctx.lineWidth = 2; ctx.strokeStyle = '#94a3b8'
-          bonds.forEach(b=>{
-            const p1 = proj(atoms[b.a1]); const p2 = proj(atoms[b.a2])
-            ctx.beginPath(); ctx.moveTo(p1.x,p1.y); ctx.lineTo(p2.x,p2.y); ctx.stroke()
-          })
-          atoms.forEach(a=>{
-            const p = proj(a)
-            ctx.beginPath(); ctx.arc(p.x,p.y,6,0,Math.PI*2)
-            ctx.fillStyle = '#1e3a8a'; ctx.fill()
-            ctx.strokeStyle = '#0ea5e9'; ctx.stroke()
-          })
-        }
-        angle = 0; draw()
-        window.addEventListener('resize',()=>{ canvas.width = container.clientWidth; canvas.height = container.clientHeight; draw() })
+      
+      function logSmol(msg) {
+         const el = document.getElementById('smol-log');
+         el.textContent = `> ${msg}\n` + el.textContent;
       }
+
+      // --- UTILS ---
+      function logDock(msg) {
+         const el = document.getElementById('dock-log');
+         el.textContent += `> ${msg}\n`;
+         el.scrollTop = el.scrollHeight;
+      }
+      
+      function showLoader(show) {
+         document.getElementById('dock-loader').style.display = show ? 'flex' : 'none';
+      }
+
+      // --- AUTH ---
+      async function login(){
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-pass').value;
+        try {
+          const r = await fetch(api+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'include',body:JSON.stringify({email,password})});
+          if(r.ok) init();
+          else alert('Login failed');
+        } catch(e) { alert('Login error'); }
+      }
+      
+      async function logout(){
+         await fetch(api+'/auth/logout',{method:'POST',credentials:'include'});
+         location.reload();
+      }
+
+      async function refreshUser(){
+        const r = await fetch(api+'/auth/me', {credentials:'include'});
+        if(!r.ok) throw new Error('unauth');
+        const u = await r.json();
+        currentUser = u;
+        document.getElementById('app-view').style.display = 'grid';
+        document.getElementById('login-view').style.display = 'none';
+        document.getElementById('user-label').textContent = u.email;
+      }
+      
+      // Start
+      init();
+
     </script>
-    <script>
-      function renderPDB3D(container, url){
-        container.innerHTML = ''
-        const canvas = document.createElement('canvas')
-        const cw = container.clientWidth || 300
-        const ch = container.clientHeight || 220
-        canvas.width = cw
-        canvas.height = ch
-        container.appendChild(canvas)
-        const ctx = canvas.getContext('2d')
-        let atoms = []
-        let angle = 0
-        fetch(url, {credentials:'include'}).then(r=>r.text()).then(txt=>{
-          const lines = txt.split(/\r?\n/)
-          for(const L of lines){
-            if(L.startsWith('ATOM') || L.startsWith('HETATM')){
-              const x = parseFloat(L.slice(30,38))
-              const y = parseFloat(L.slice(38,46))
-              const z = parseFloat(L.slice(46,54))
-              atoms.push({x,y,z})
-            }
-          }
-          draw()
-        }).catch(()=>{ ctx.fillStyle='#999'; ctx.fillText('无法加载PDB',10,20) })
-        function proj(p){
-          const s=Math.sin(angle), c=Math.cos(angle)
-          const rx = p.x*c - p.z*s
-          const rz = p.x*s + p.z*c
-          const ry = p.y
-          const d = 4/(4+rz)
-          return {x: canvas.width*0.5 + rx*2*d, y: canvas.height*0.5 - ry*2*d}
-        }
-        function draw(){
-          ctx.clearRect(0,0,canvas.width,canvas.height)
-          atoms.forEach(a=>{ const p=proj(a); ctx.beginPath(); ctx.arc(p.x,p.y,2,0,Math.PI*2); ctx.fillStyle='#475569'; ctx.fill() })
-        }
-        angle = 0; draw()
-        window.addEventListener('resize',()=>{ canvas.width = container.clientWidth; canvas.height = container.clientHeight; draw() })
-      }
-    </script>
-    <script>
-      async function previewReceptor(){
-        const name = document.getElementById('receptor-select').value
-        if(!name) return
-        const rawUrl = `${api}/user/structure/file/${encodeURIComponent(name)}`
-        const dataText = await fetchTextUrl(rawUrl)
-        const ext = (name.split('.').pop()||'').toLowerCase()
-        const target = document.getElementById('dock-3d')
-        logDock(`preview ${name} ext=${ext}`)
-        if(['pdb','ent'].includes(ext)){
-          renderMolstar(target, dataText, 'pdb', 'cartoon')
-        } else if(['cif','mmcif'].includes(ext)){
-          renderMolstar(target, dataText, 'cif', 'cartoon')
-        } else if(['sdf','mol'].includes(ext)){
-          renderMolstar(target, dataText, 'sdf', 'ball_and_stick')
-        } else {
-          target.innerHTML = '<div class="hint">暂不支持该格式预览，请使用 PDB/SDF</div>'
-          logDock('unsupported_ext')
-        }
-      }
-      async function renderPoseMolstar(jobId, posePath){
-        const rawUrl = `${api}/files/${jobId}/${posePath}`
-        const dataText = await fetchTextUrl(rawUrl)
-        const target = document.getElementById('dock-3d')
-        logDock(`pose ${posePath}`)
-        renderMolstar(target, dataText, 'sdf', 'ball_and_stick')
-      }
-    </script>
-    <script src="vendor/molstar/molstar.js"></script>
   </body>
   </html>
