@@ -1,5 +1,0 @@
-vina_docking/ext/
-.vscode/
-__pycache__/
-vina_docking/*.o
-vina_docking/*.so

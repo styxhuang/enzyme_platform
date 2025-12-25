@@ -1,2 +1,0 @@
-bundles/* filter=lfs diff=lfs merge=lfs -text
-tests/assets/bug45817/* filter=lfs diff=lfs merge=lfs -text
