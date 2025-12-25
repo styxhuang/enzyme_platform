@@ -1,0 +1,3 @@
+analysis_startgeneral_done
+struct_done
+analysis_complete

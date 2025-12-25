@@ -1,0 +1,81 @@
+job_created
+dispatching_module
+dock_start
+obabel_version Open Babel 3.0.0 -- Mar 11 2020 -- 11:52:36
+
+prepare_receptor4 /usr/local/mgltools/bin/pythonsh /usr/local/mgltools/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_receptor4.py -r /data/assets/98175e30-9a5a-4257-8af1-7c73c7b92dc6/structure/1AKI.pdb -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/receptor.pdbqt -A hydrogens -U nphs_lps_waters
+setting PYTHONHOME environment
+adding gasteiger charges to peptide
+
+obabel_ligand_pdbqt /usr/bin/obabel -isdf /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/ligand.sdf -opdbqt -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/ligand.pdbqt
+1 molecule converted
+
+vina_local_start
+vina_local_done
+obabel_split_modes /usr/bin/obabel -ipdbqt /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/pose.pdbqt -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/ligand_mode.pdb -m
+9 molecules converted
+9 files output. The first is /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/ligand_mode1.pdb
+
+obabel_add_h /usr/bin/obabel -ipdb /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode1.pdb -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode1.pdb --add-hydrogens -p 7.4
+==============================
+*** Open Babel Warning  in PerceiveBondOrders
+  Failed to kekulize aromatic bonds in OBMol::PerceiveBondOrders (title is /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode1.pdb)
+
+1 molecule converted
+
+obabel_add_h /usr/bin/obabel -ipdb /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode2.pdb -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode2.pdb --add-hydrogens -p 7.4
+==============================
+*** Open Babel Warning  in PerceiveBondOrders
+  Failed to kekulize aromatic bonds in OBMol::PerceiveBondOrders (title is /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode2.pdb)
+
+1 molecule converted
+
+obabel_add_h /usr/bin/obabel -ipdb /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode3.pdb -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode3.pdb --add-hydrogens -p 7.4
+==============================
+*** Open Babel Warning  in PerceiveBondOrders
+  Failed to kekulize aromatic bonds in OBMol::PerceiveBondOrders (title is /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode3.pdb)
+
+1 molecule converted
+
+obabel_add_h /usr/bin/obabel -ipdb /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode4.pdb -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode4.pdb --add-hydrogens -p 7.4
+==============================
+*** Open Babel Warning  in PerceiveBondOrders
+  Failed to kekulize aromatic bonds in OBMol::PerceiveBondOrders (title is /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode4.pdb)
+
+1 molecule converted
+
+obabel_add_h /usr/bin/obabel -ipdb /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode5.pdb -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode5.pdb --add-hydrogens -p 7.4
+==============================
+*** Open Babel Warning  in PerceiveBondOrders
+  Failed to kekulize aromatic bonds in OBMol::PerceiveBondOrders (title is /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode5.pdb)
+
+1 molecule converted
+
+obabel_add_h /usr/bin/obabel -ipdb /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode6.pdb -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode6.pdb --add-hydrogens -p 7.4
+==============================
+*** Open Babel Warning  in PerceiveBondOrders
+  Failed to kekulize aromatic bonds in OBMol::PerceiveBondOrders (title is /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode6.pdb)
+
+1 molecule converted
+
+obabel_add_h /usr/bin/obabel -ipdb /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode7.pdb -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode7.pdb --add-hydrogens -p 7.4
+==============================
+*** Open Babel Warning  in PerceiveBondOrders
+  Failed to kekulize aromatic bonds in OBMol::PerceiveBondOrders (title is /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode7.pdb)
+
+1 molecule converted
+
+obabel_add_h /usr/bin/obabel -ipdb /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode8.pdb -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode8.pdb --add-hydrogens -p 7.4
+==============================
+*** Open Babel Warning  in PerceiveBondOrders
+  Failed to kekulize aromatic bonds in OBMol::PerceiveBondOrders (title is /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode8.pdb)
+
+1 molecule converted
+
+obabel_add_h /usr/bin/obabel -ipdb /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode9.pdb -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode9.pdb --add-hydrogens -p 7.4
+==============================
+*** Open Babel Warning  in PerceiveBondOrders
+  Failed to kekulize aromatic bonds in OBMol::PerceiveBondOrders (title is /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/18a20f17-fe3f-4316-88f6-b7e053ad27db/outputs/poses/complex_mode9.pdb)
+
+1 molecule converted
+

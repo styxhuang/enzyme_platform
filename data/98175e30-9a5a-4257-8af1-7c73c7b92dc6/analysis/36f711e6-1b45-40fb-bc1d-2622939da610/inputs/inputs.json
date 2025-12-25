@@ -1,0 +1,1 @@
+{"job_id": "36f711e6-1b45-40fb-bc1d-2622939da610", "uid": "98175e30-9a5a-4257-8af1-7c73c7b92dc6", "source_job_id": "420184cb-d716-4be8-87b9-b003a23e96ed", "general": {"temp": true, "press": true, "pot": true, "kin": true}, "struct": {"group": "Protein", "group_index": "", "rmsd": true, "rg": true, "rmsf": true}, "mmpbsa": {"enable": false}}

@@ -1,0 +1,1 @@
+{"job_id": "540fa741-f422-4789-af4a-a105e04f2238", "uid": "98175e30-9a5a-4257-8af1-7c73c7b92dc6", "receptor": {"path": "/data/assets/98175e30-9a5a-4257-8af1-7c73c7b92dc6/structure/1AKI.pdb"}, "ligand": {"path": null, "smiles": "CCC"}, "center": [27.6, 25.01, 0.18], "size": [20.0, 20.0, 20.0], "exhaustiveness": 8}

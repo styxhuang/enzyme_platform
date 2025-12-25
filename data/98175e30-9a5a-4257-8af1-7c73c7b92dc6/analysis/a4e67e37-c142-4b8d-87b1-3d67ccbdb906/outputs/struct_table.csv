@@ -1,0 +1,4 @@
+property,group,mean,error
+RMSD,System,-,-
+RG,System,-,-
+RMSF,System,-,-

@@ -1,0 +1,1 @@
+{"job_id": "53da2f5f-f5fa-447c-ba38-9b76346dd860", "uid": "98175e30-9a5a-4257-8af1-7c73c7b92dc6", "source_job_id": "1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f", "general": {"temp": true, "press": true, "pot": true, "kin": true}, "struct": {"group": "System", "group_index": "", "rmsd": true, "rg": true, "rmsf": true}, "mmpbsa": {"enable": false}}

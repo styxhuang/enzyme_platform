@@ -1,0 +1,207 @@
+md_startreuse_topology_from:420184cb-d716-4be8-87b9-b003a23e96ed
+editconf_start
+gmx editconf -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/processed.gro -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/newbox.gro -c -d 0.5 -bt cubic
+             :-) GROMACS - gmx editconf, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx editconf, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work
+Command line:
+  gmx editconf -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/processed.gro -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/newbox.gro -c -d 0.5 -bt cubic
+
+
+GROMACS reminds you: "Science progresses best when observations force us to alter our preconceptions." (Vera Rubin)
+
+Note that major changes are planned in future for editconf, to improve usability and utility.
+Read 1971 atoms
+Volume: 123.376 nm^3, corresponds to roughly 55500 electrons
+No velocities found
+    system size :  3.817  4.234  3.454 (nm)
+    diameter    :  5.010               (nm)
+    center      :  2.777  2.490  0.017 (nm)
+    box vectors :  5.906  6.845  3.052 (nm)
+    box angles  :  90.00  90.00  90.00 (degrees)
+    box volume  : 123.38               (nm^3)
+    shift       :  0.228  0.515  2.988 (nm)
+new center      :  3.005  3.005  3.005 (nm)
+new box vectors :  6.010  6.010  6.010 (nm)
+new box angles  :  90.00  90.00  90.00 (degrees)
+new box volume  : 217.09               (nm^3)
+
+editconf_done
+solvate_start
+gmx solvate -cp /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/newbox.gro -cs spc216.gro -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/solv.gro -p /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/topol.top
+             :-) GROMACS - gmx solvate, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx solvate, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work
+Command line:
+  gmx solvate -cp /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/newbox.gro -cs spc216.gro -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/solv.gro -p /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/topol.top
+
+Reading solute configuration
+Reading solvent configuration
+
+Initialising inter-atomic distances...
+
+WARNING: Masses and atomic (Van der Waals) radii will be guessed
+         based on residue and atom names, since they could not be
+         definitively assigned from the information in your input
+         files. These guessed numbers might deviate from the mass
+         and radius of the atom type. Please check the output
+         files if necessary.
+
+NOTE: From version 5.0 gmx solvate uses the Van der Waals radii
+from the source below. This means the results may be different
+compared to previous GROMACS versions.
+
+++++ PLEASE READ AND CITE THE FOLLOWING REFERENCE ++++
+A. Bondi
+van der Waals Volumes and Radii
+J. Phys. Chem. 68 (1964) pp. 441-451
+-------- -------- --- Thank You --- -------- --------
+
+Generating solvent configuration
+Will generate new solvent configuration of 4x4x4 boxes
+Solvent box contains 25131 atoms in 8377 residues
+Removed 4008 solvent atoms due to solvent-solvent overlap
+Removed 1854 solvent atoms due to solute-solvent overlap
+Sorting configuration
+Found 1 molecule type:
+    SOL (   3 atoms):  6423 residues
+Generated solvent containing 19269 atoms in 6423 residues
+Writing generated configuration to /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/solv.gro
+
+Output configuration contains 21240 atoms in 6553 residues
+Volume                 :      217.09 (nm^3)
+Density                :     1002.22 (g/l)
+Number of solvent molecules:   6423   
+
+Processing topology
+
+Back Off! I just backed up /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/topol.top to /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/#topol.top.1#
+
+GROMACS reminds you: "They Paint Their Faces So Differently From Ours" (Gogol Bordello)
+
+Adding line for 6423 solvent molecules with resname (SOL) to topology file (/data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/topol.top)
+
+solvate_done
+ions_grompp_start
+gmx grompp -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/ions.mdp -c /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/solv.gro -p /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/topol.top -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/ions.tpr
+              :-) GROMACS - gmx grompp, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx grompp, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work
+Command line:
+  gmx grompp -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/ions.mdp -c /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/solv.gro -p /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/topol.top -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/ions.tpr
+
+Setting the LD random seed to -705695191
+Generated 2278 of the 2278 non-bonded parameter combinations
+Generating 1-4 interactions: fudge = 0.5
+Generated 2278 of the 2278 1-4 parameter combinations
+Excluding 3 bonded neighbours molecule type 'Protein_chain_A'
+Excluding 3 bonded neighbours molecule type 'LIG'
+Excluding 2 bonded neighbours molecule type 'SOL'
+Excluding 1 bonded neighbours molecule type 'CL'
+Excluding 2 bonded neighbours molecule type 'SOL'
+
+-------------------------------------------------------
+Program:     gmx grompp, version 2020.1-Ubuntu-2020.1-1
+Source file: src/gromacs/gmxpreprocess/grompp.cpp (line 669)
+
+Fatal error:
+number of coordinates in coordinate file
+(/data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/solv.gro,
+21240)
+             does not match topology
+(/data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/9323d672-4ee1-42b2-984b-f26fc91c5644/outputs/work/topol.top,
+53141)
+
+For more information and tips for troubleshooting, please check the GROMACS
+website at http://www.gromacs.org/Documentation/Errors
+-------------------------------------------------------
+
+error:cmd_failed
+backend_error:module_error:500

@@ -1,4 +1,4 @@
-FROM node:20-alpine AS base
+FROM mcr.microsoft.com/devcontainers/javascript-node:20 AS base
 WORKDIR /app
 
 # Copy package files and install dependencies (including devDependencies for build)

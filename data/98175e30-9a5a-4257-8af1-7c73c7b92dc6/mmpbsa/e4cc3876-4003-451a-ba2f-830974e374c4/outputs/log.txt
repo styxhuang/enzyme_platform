@@ -1,0 +1,5 @@
+mmpbsa_startStep 1/1: Running Standard MMPBSA Analysis (Reference)...
+find /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/mmpbsa/e4cc3876-4003-451a-ba2f-830974e374c4/outputs/reference_calc/FINAL_RESULTS_MMPBSA.csv
+inter_from_csv: {'interaction_csv': 'interaction_PL.csv', 'interaction_summary': 'interaction_PL_summary.csv', 'interaction_plot': 'interaction_PL.png'}
+decomp_out: {'decomposition_csv': 'residues_energy_summary.csv', 'decomposition_plot': 'decomposition.png'}
+mmpbsa_complete

@@ -1,0 +1,17 @@
+integrator = md
+continuation = no
+dt = 0.002
+nsteps = 1000
+nstxout-compressed = 100
+nstlog = 100
+nstenergy = 100
+tcoupl = V-rescale
+tc-grps = System
+tau_t = 0.1
+ref_t = 300
+pcoupl = Berendsen
+pcoupltype = isotropic
+tau_p = 2.0
+ref_p = 1.0
+compressibility = 4.5e-5
+constraints = h-bonds

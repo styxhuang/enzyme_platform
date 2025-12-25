@@ -8,11 +8,13 @@ DATA_DIR = os.getenv("ENZYME_DATA_DIR", "/data")
 
 class Af2Input(BaseModel):
     fasta: str
+    job_id: str
+    uid: str
 
 app = FastAPI()
 
-def ensure_job_dirs(job_id: str):
-    job_dir = os.path.join(DATA_DIR, job_id)
+def ensure_job_dirs(job_id: str, uid: str):
+    job_dir = os.path.join(DATA_DIR, uid, "af2", job_id)
     inputs_dir = os.path.join(job_dir, "inputs")
     outputs_dir = os.path.join(job_dir, "outputs")
     os.makedirs(inputs_dir, exist_ok=True)
@@ -21,8 +23,8 @@ def ensure_job_dirs(job_id: str):
 
 @app.post("/predict")
 def predict(data: Af2Input):
-    job_id = str(uuid.uuid4())
-    inputs_dir, outputs_dir = ensure_job_dirs(job_id)
+    job_id = data.job_id
+    inputs_dir, outputs_dir = ensure_job_dirs(job_id, data.uid)
     with open(os.path.join(inputs_dir, "inputs.json"), "w", encoding="utf-8") as f:
         json.dump(data.model_dump(), f, ensure_ascii=False)
     with open(os.path.join(outputs_dir, "README.txt"), "w", encoding="utf-8") as f:

@@ -1,0 +1,4 @@
+property,group,mean,error
+RMSD,Protein,1.528,0.236
+RG,Protein,3.387,0.022
+RMSF,Protein,0.437,0.803

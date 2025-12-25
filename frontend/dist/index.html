@@ -102,6 +102,19 @@
       /* Login Page Styles */
       .login-container { height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--bg); }
       .login-card { width: 100%; max-width: 400px; padding: 40px; }
+
+      /* --- NEW GALLERY DESIGN --- */
+      .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; padding: 10px; overflow-y: auto; flex: 1; min-height: 0; align-content: start; }
+      .gallery-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; transition: all 0.25s ease; cursor: pointer; display: flex; flex-direction: column; position: relative; height: 100%; }
+      .gallery-card:hover { transform: translateY(-4px); box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.1); border-color: var(--accent); }
+      .gallery-img-wrap { width: 100%; aspect-ratio: 4/3; background: #f8fafc; display: flex; align-items: center; justify-content: center; overflow: hidden; border-bottom: 1px solid var(--border); }
+      .gallery-img { max-width: 100%; max-height: 100%; object-fit: contain; padding: 10px; transition: transform 0.4s ease; }
+      .gallery-card:hover .gallery-img { transform: scale(1.08); }
+      .gallery-info { padding: 12px 16px; background: #fff; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+      .gallery-title { font-weight: 600; font-size: 14px; color: var(--fg); margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+      .gallery-meta { font-size: 12px; color: var(--muted); }
+      .gallery-action { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.9); border-radius: 4px; padding: 4px 8px; font-size: 11px; font-weight: 500; opacity: 0; transition: opacity 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+      .gallery-card:hover .gallery-action { opacity: 1; }
     </style>
   </head>
   <body>
@@ -118,10 +131,97 @@
           <label class="input-label">密码</label>
           <input id="login-pass" type="password" class="form-control" value="admin" placeholder="admin" />
           </div>
-        <button onclick="login()" class="btn btn-primary" style="width: 100%; margin-top: 16px;">登 录</button>
+        <button id="login-btn" onclick="login()" class="btn btn-primary" style="width: 100%; margin-top: 16px;">登 录</button>
+        <div id="login-status" style="margin-top:8px; font-size:12px; color: var(--muted);"></div>
         <div style="margin-top: 16px; text-align: center; color: var(--muted); font-size: 12px;">默认账号: admin / admin</div>
           </div>
-        </div>
+          </div>
+          <div id="md-plot-modal" style="position:fixed; inset:0; background: rgba(0,0,0,0.45); display:none; align-items:center; justify-content:center; z-index:1000;">
+            <div style="max-width: 90vw; max-height: 90vh; background:#fff; border-radius:8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); overflow:hidden; display:flex; flex-direction:column;">
+              <div style="padding:8px 12px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:8px;">
+                <div id="md-plot-cap" style="font-weight:600;">图表</div>
+                <div style="margin-left:auto; display:flex; gap:6px;">
+                  <button class="btn btn-secondary btn-sm" onclick="prevPlot()">上一张</button>
+                  <button class="btn btn-secondary btn-sm" onclick="nextPlot()">下一张</button>
+                  <button class="btn btn-secondary btn-sm" onclick="closePlotModal()">关闭</button>
+                </div>
+              </div>
+              <div style="padding:12px; display:flex; align-items:center; justify-content:center;">
+                <img id="md-plot-img" src="" style="max-width:85vw; max-height:75vh;" />
+              </div>
+            </div>
+          </div>
+          <div id="md-log-modal" style="position:fixed; inset:0; background: rgba(0,0,0,0.45); display:none; align-items:center; justify-content:center; z-index:1000;">
+            <div style="max-width: 90vw; max-height: 90vh; background:#fff; border-radius:8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); overflow:hidden; display:flex; flex-direction:column;">
+              <div style="padding:8px 12px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:8px;">
+                <div id="md-log-cap" style="font-weight:600;">详细日志</div>
+                <div style="margin-left:auto; display:flex; gap:6px;">
+                  <button class="btn btn-secondary btn-sm" onclick="closeLogModal()">关闭</button>
+                </div>
+              </div>
+              <div style="padding:12px; display:flex; align-items:flex-start; justify-content:flex-start;">
+                <pre id="md-log-pre" style="font-family: Menlo, monospace; font-size: 12px; white-space: pre-wrap; max-width:85vw; max-height:75vh; overflow:auto;"></pre>
+              </div>
+            </div>
+          </div>
+          <div id="md-solv-modal" style="position:fixed; inset:0; background: rgba(0,0,0,0.35); display:none; align-items:center; justify-content:center; z-index:1000;">
+            <div style="width: 460px; max-width: 90vw; background:#fff; border-radius:8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); overflow:hidden;">
+              <div style="padding:12px 16px; border-bottom:1px solid var(--border); font-weight:600;">溶剂化 参数</div>
+              <div style="padding:12px 16px; display:grid; grid-template-columns: 1fr; gap:10px;">
+                <div class="input-group"><label class="input-label">盒子类型</label><select id="md-solv-type" class="form-control"><option value="cubic">cubic</option><option value="triclinic">triclinic</option></select></div>
+                <div class="input-group"><label class="input-label">边距 (nm)</label><input id="md-solv-dist" type="number" step="0.1" class="form-control" /></div>
+                <div class="input-group"><label class="input-label"><input id="md-solv-neutral" type="checkbox" checked /> 中和离子</label></div>
+                <div class="input-group" style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+                  <div><label class="input-label">阳离子名称</label><input id="md-solv-pname" class="form-control" value="NA" /></div>
+                  <div><label class="input-label">阴离子名称</label><input id="md-solv-nname" class="form-control" value="CL" /></div>
+                </div>
+              </div>
+              <div style="padding:12px 16px; border-top:1px solid var(--border); display:flex; gap:8px; justify-content:flex-end;">
+                <button class="btn btn-secondary" onclick="document.getElementById('md-solv-modal').style.display='none'">取消</button>
+                <button class="btn btn-primary" onclick="confirmSolvParams()">确定</button>
+              </div>
+            </div>
+          </div>
+          <div id="md-em-modal" style="position:fixed; inset:0; background: rgba(0,0,0,0.35); display:none; align-items:center; justify-content:center; z-index:1000;">
+            <div style="width: 420px; max-width: 90vw; background:#fff; border-radius:8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); overflow:hidden;">
+              <div style="padding:12px 16px; border-bottom:1px solid var(--border); font-weight:600;">EM 参数</div>
+              <div style="padding:12px 16px; display:grid; grid-template-columns: 1fr; gap:10px;">
+                <div class="input-group"><label class="input-label">EM 步数</label><input id="md-em-steps" type="number" class="form-control" /></div>
+                <div class="input-group"><label class="input-label">EM 容差</label><input id="md-em-tol" type="number" class="form-control" /></div>
+              </div>
+              <div style="padding:12px 16px; border-top:1px solid var(--border); display:flex; gap:8px; justify-content:flex-end;">
+                <button class="btn btn-secondary" onclick="document.getElementById('md-em-modal').style.display='none'">取消</button>
+                <button class="btn btn-primary" onclick="confirmEmParams()">确定</button>
+              </div>
+            </div>
+          </div>
+          <div id="md-npt-modal" style="position:fixed; inset:0; background: rgba(0,0,0,0.35); display:none; align-items:center; justify-content:center; z-index:1000;">
+            <div style="width: 420px; max-width: 90vw; background:#fff; border-radius:8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); overflow:hidden;">
+              <div style="padding:12px 16px; border-bottom:1px solid var(--border); font-weight:600;">NPT 参数</div>
+              <div style="padding:12px 16px; display:grid; grid-template-columns: 1fr; gap:10px;">
+                <div class="input-group"><label class="input-label">NPT 步数</label><input id="md-npt-steps" type="number" class="form-control" /></div>
+                <div class="input-group"><label class="input-label">NPT 温度 (K)</label><input id="md-npt-temp" type="number" class="form-control" /></div>
+              </div>
+              <div style="padding:12px 16px; border-top:1px solid var(--border); display:flex; gap:8px; justify-content:flex-end;">
+                <button class="btn btn-secondary" onclick="document.getElementById('md-npt-modal').style.display='none'">取消</button>
+                <button class="btn btn-primary" onclick="confirmNptParams()">确定</button>
+              </div>
+            </div>
+          </div>
+          <div id="md-prod-modal" style="position:fixed; inset:0; background: rgba(0,0,0,0.35); display:none; align-items:center; justify-content:center; z-index:1000;">
+            <div style="width: 420px; max-width: 90vw; background:#fff; border-radius:8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); overflow:hidden;">
+              <div style="padding:12px 16px; border-bottom:1px solid var(--border); font-weight:600;">Production 参数</div>
+              <div style="padding:12px 16px; display:grid; grid-template-columns: 1fr; gap:10px;">
+                <div class="input-group"><label class="input-label">Production 步数</label><input id="md-prod-steps" type="number" class="form-control" /></div>
+                <div class="input-group"><label class="input-label">Production 温度 (K)</label><input id="md-prod-temp" type="number" class="form-control" /></div>
+                <div class="input-group"><label class="input-label">Production 压强 (bar)</label><input id="md-prod-press" type="number" class="form-control" /></div>
+              </div>
+              <div style="padding:12px 16px; border-top:1px solid var(--border); display:flex; gap:8px; justify-content:flex-end;">
+                <button class="btn btn-secondary" onclick="document.getElementById('md-prod-modal').style.display='none'">取消</button>
+                <button class="btn btn-primary" onclick="confirmProdParams()">确定</button>
+              </div>
+            </div>
+          </div>
 
     <!-- MAIN APP VIEW -->
     <div id="app-view" class="app-layout" style="display: none;">
@@ -129,11 +229,12 @@
       <div class="sidebar">
         <div class="sidebar-item" style="background: rgba(255,255,255,0.1); color: white;">E</div>
         <div style="height: 20px;"></div>
-        <a href="#dock" onclick="show('dock')" id="tab-dock" class="sidebar-item" title="分子对接">D</a>
-        <a href="#smol" onclick="show('smol')" id="tab-smol" class="sidebar-item" title="小分子预测">S</a>
+        <a href="#smol" onclick="show('smol')" id="tab-smol" class="sidebar-item" title="小分子结构预测">S</a>
+        <a href="#af2" onclick="show('af2')" id="tab-af2" class="sidebar-item" title="大分子结构预测">F</a>
+        <a href="#dock" onclick="show('dock')" id="tab-dock" class="sidebar-item" title="分子对接 Docking">D</a>
         <a href="#md" onclick="show('md')" id="tab-md" class="sidebar-item" title="分子动力学">M</a>
-        <a href="#analysis" onclick="show('analysis')" id="tab-analysis" class="sidebar-item" title="分析">A</a>
-        <a href="#af2" onclick="show('af2')" id="tab-af2" class="sidebar-item" title="AlphaFold">F</a>
+        <a href="#analysis" onclick="show('analysis')" id="tab-analysis" class="sidebar-item" title="模拟结果分析">A</a>
+        <a href="#mmpbsa" onclick="show('mmpbsa')" id="tab-mmpbsa" class="sidebar-item" title="MMPBSA 分析">B</a>
         <div class="sidebar-spacer"></div>
         <a href="#jobs" onclick="show('jobs')" id="tab-jobs" class="sidebar-item" title="任务列表">J</a>
         <div onclick="logout()" class="sidebar-item" title="退出" style="color: var(--danger);">✕</div>
@@ -203,7 +304,7 @@
             </div>
           </div>
                   <div class="input-group">
-                    <label class="input-label">Size (Å)</label>
+                    <label class="input-label">Box Size (Å)</label>
                     <div class="coord-grid">
                       <input id="size_x" type="number" class="form-control" value="20" onchange="updateBoxViz()">
                       <input id="size_y" type="number" class="form-control" value="20" onchange="updateBoxViz()">
@@ -228,31 +329,51 @@
                    </button>
                 </div>
 
-                <!-- Log -->
-                <div id="dock-log">日志控制台就绪...</div>
               </div>
 
               <!-- Right Viewer -->
-              <div class="dock-viewer">
-                <div id="dock-3d"></div>
-                
-                <div class="loader-overlay" id="dock-loader">
-                  <div style="text-align: center;">
-                    <div class="spinner" style="margin: 0 auto 10px auto;"></div>
-                    <div style="font-weight: 600; color: var(--fg);">正在处理...</div>
+              <div class="dock-viewer" style="display:flex; flex-direction:column; gap:10px;">
+                <div style="display:grid; grid-template-columns: 1fr 360px; gap:10px; min-height:260px; flex:1;">
+                  <div style="position:relative;">
+                    <div id="dock-3d" style="position:absolute; inset:0;"></div>
                   </div>
-                </div>
+                  <div style="border:1px solid var(--border); border-radius:8px; background:#fff; display:flex; flex-direction:column;">
+                    <div style="padding:6px 10px; border-bottom:1px solid var(--border); font-weight:600; font-size:12px;">结果表格</div>
+                    <div style="padding:10px; overflow:auto;">
+                      <table style="width:100%; border-collapse:collapse; font-size:13px;">
+                        <thead>
+                          <tr>
+                            <th style="padding:6px; border-bottom:1px solid var(--border); text-align:left;">Pose</th>
+                            <th style="padding:6px; border-bottom:1px solid var(--border); text-align:left;">Affinity (kcal/mol)</th>
+                            <th style="padding:6px; border-bottom:1px solid var(--border); text-align:left;">RMSD l.b.</th>
+                            <th style="padding:6px; border-bottom:1px solid var(--border); text-align:left;">RMSD u.b.</th>
+                            <th style="padding:6px; border-bottom:1px solid var(--border); text-align:left;">下载</th>
+                          </tr>
+                        </thead>
+                        <tbody id="dock-scores-body"><tr><td style="padding:8px; color:var(--muted)">暂无数据</td><td></td></tr></tbody>
+                      </table>
+                    </div>
+                  </div>
+                  
+                  <div class="loader-overlay" id="dock-loader">
+                    <div style="text-align: center;">
+                      <div class="spinner" style="margin: 0 auto 10px auto;"></div>
+                      <div style="font-weight: 600; color: var(--fg);">正在处理...</div>
+                    </div>
+                  </div>
 
-                <!-- Results Panel (Hidden initially) -->
-                <div id="dock-results" class="dock-results-float">
-                  <div class="dock-results-header">
-                    <span>对接结果</span>
-                    <button onclick="document.getElementById('dock-results').style.display='none'" style="background:none; border:none; cursor:pointer; font-size:16px;">&times;</button>
-                  </div>
-                  <div id="dock-results-list" class="dock-results-list">
-                    <!-- Results injected here -->
+                  <!-- Results Panel (Hidden initially) -->
+                  <div id="dock-results" class="dock-results-float">
+                    <div class="dock-results-header">
+                      <span>对接结果</span>
+                      <button onclick="document.getElementById('dock-results').style.display='none'" style="background:none; border:none; cursor:pointer; font-size:16px;">&times;</button>
+                    </div>
+                    <div id="dock-results-list" class="dock-results-list">
+                      <!-- Results injected here -->
+                    </div>
                   </div>
                 </div>
+                <div id="dock-log" style="font-family: Menlo, monospace; font-size: 11px; color: var(--muted); background: var(--bg); padding: 10px; border: 1px solid var(--border); border-radius: 6px; height: 160px; overflow-y: auto; white-space: pre-wrap;">日志控制台就绪...</div>
               </div>
             </div>
           </div>
@@ -326,9 +447,403 @@
             </div>
             </div>
           </div>
-          <div id="view-md" class="view-panel" style="padding: 20px;"><h2>分子动力学 (Comming Soon)</h2></div>
-          <div id="view-analysis" class="view-panel" style="padding: 20px;"><h2>分析 (Comming Soon)</h2></div>
+          <div id="view-md" class="view-panel">
+            <div style="display:flex; flex-direction:column; height:100%;">
+              <div style="display:flex; gap:10px; padding:10px; border-bottom:1px solid var(--border); background: var(--surface);">
+                <div id="md-step-em" style="flex:0 0 auto; padding:6px 12px; border:1px solid var(--border); border-radius:6px; font-size:12px;">EM</div>
+                <div id="md-step-npt" style="flex:0 0 auto; padding:6px 12px; border:1px solid var(--border); border-radius:6px; font-size:12px;">NPT</div>
+                <div id="md-step-prod" style="flex:0 0 auto; padding:6px 12px; border:1px solid var(--border); border-radius:6px; font-size:12px;">Production</div>
+                <div id="md-progress-text" style="margin-left:auto; font-size:12px; color: var(--muted);">等待提交</div>
+                <div id="md-job-id" style="font-size:12px; color: var(--muted);">任务ID: -</div>
+              </div>
+              <div style="display:grid; grid-template-columns: 320px 1fr; height:100%;">
+                <div class="dock-controls">
+                  <div>
+                    <div class="section-title">1. 上传复合物 (PDB)</div>
+                    <div class="input-group" style="display:flex; gap:8px;">
+                      <button onclick="openMdSelect('protein')" class="btn btn-secondary btn-sm" style="flex:1">选择/上传</button>
+                      <div id="md-protein-selected" style="flex:1; display:flex; align-items:center; justify-content:flex-end; font-size:12px; color: var(--muted);">未选择</div>
+                    </div>
+                    <div class="input-group">
+                      <label class="input-label">力场</label>
+                      <select id="md-ff" class="form-control">
+                        <option value="amber99sb">AMBER99SB</option>
+                        <option value="amber99sb-ildn">AMBER99SB-ILDN</option>
+                        <option value="charmm36">CHARMM36</option>
+                      </select>
+                    </div>
+                    <div class="input-group">
+                      <label class="input-label">水模型</label>
+                      <select id="md-water" class="form-control">
+                        <option value="tip3p">TIP3P</option>
+                        <option value="spce">SPC/E</option>
+                      </select>
+                    </div>
+                    <div class="input-group" style="display:flex; gap:8px;">
+                      <button onclick="runMdPrepare()" id="btn-protein-ff" class="btn btn-primary btn-sm" style="flex:1;" disabled>生成力场</button>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="section-title">2. 动力学参数</div>
+                    <div class="input-group" style="display:flex; gap:8px; align-items:center;">
+                      <button class="btn btn-secondary btn-sm" style="flex:0 0 auto;" onclick="openSolvParams()">溶剂化 参数</button>
+                      <div id="md-solv-summary" style="font-size:12px; color: var(--muted);">盒子 cubic，边距 1.0nm，中和离子</div>
+                    </div>
+                    <div class="input-group" style="display:flex; gap:8px; align-items:center;">
+                      <button class="btn btn-secondary btn-sm" style="flex:0 0 auto;" onclick="openEmParams()">EM 参数</button>
+                      <div id="md-em-summary" style="font-size:12px; color: var(--muted);">步数 5000，容差 1000</div>
+                    </div>
+                    <div class="input-group" style="display:flex; gap:8px; align-items:center;">
+                      <button class="btn btn-secondary btn-sm" style="flex:0 0 auto;" onclick="openNptParams()">NPT 参数</button>
+                      <div id="md-npt-summary" style="font-size:12px; color: var(--muted);">步数 100，温度 300K</div>
+                    </div>
+                    <div class="input-group" style="display:flex; gap:8px; align-items:center;">
+                      <button class="btn btn-secondary btn-sm" style="flex:0 0 auto;" onclick="openProdParams()">Production 参数</button>
+                      <div id="md-prod-summary" style="font-size:12px; color: var(--muted);">步数 100，温度 300K，压强 1bar</div>
+                    </div>
+                    <div class="input-group">
+                      <label class="input-label">每步最大帧数</label>
+                      <input id="md-maxframes" type="number" class="form-control" value="100">
+                    </div>
+                  </div>
+                  <div style="margin-top:auto;">
+                    <button id="btn-md-submit" onclick="runMd()" class="btn btn-primary" style="width:100%; height:40px;">提交动力学</button>
+                  </div>
+                  <div id="md-prepare-out" class="card" style="display:none;">
+                    <div style="font-weight:600; margin-bottom:8px;">力场文件</div>
+                    <div id="md-prepare-files" style="font-size:13px; color: var(--fg);"></div>
+                  </div>
+                  <div class="card" style="margin-top:8px;">
+                    <div style="font-weight:600; margin-bottom:8px;">力场生成状态</div>
+                    <div id="md-ff-status" style="font-size:13px; color: var(--fg);">
+                      <div>蛋白质力场文件：<span id="md-ff-protein">无</span></div>
+                      
+                    </div>
+                  </div>
+                </div>
+                <div style="border-left:1px solid var(--border); padding:10px; background: var(--surface); height:100%;">
+                  <div style="display:grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 260px; gap:10px; height:100%;">
+                    <!-- 左上：轨迹 -->
+                    <div style="position:relative; min-height:0; border:1px solid var(--border); border-radius:8px; background:#fff; display:flex; flex-direction:column;">
+                      <div style="padding:6px 10px; border-bottom:1px solid var(--border); font-weight:600; font-size:12px;">轨迹展示</div>
+                      <div id="md-3d" style="width:100%; height:100%;"></div>
+                      <div class="loader-overlay" id="md-loader"><div class="spinner"></div></div>
+                      <div style="position:absolute; bottom:12px; left:12px; right:12px; background: rgba(255,255,255,0.95); border: 1px solid var(--border); border-radius: 8px; padding: 10px; display:flex; align-items:center; gap:10px;">
+                        <button id="md-play" class="btn btn-secondary btn-sm" onclick="toggleMdPlay()">播放</button>
+                        <input id="md-frame" type="range" min="0" max="0" value="0" style="flex:1" oninput="setMdFrame(this.value)">
+                        <span id="md-frame-label" style="font-size:12px; color: var(--muted);">0/0</span>
+                      </div>
+                    </div>
+                    <!-- 右上：表格 -->
+                    <div style="border:1px solid var(--border); border-radius:8px; background:#fff; overflow:auto; display:flex; flex-direction:column;">
+                      <div style="padding:6px 10px; border-bottom:1px solid var(--border); font-weight:600; font-size:12px;">结果表格</div>
+                      <table style="width:100%; border-collapse:collapse; font-size:13px;">
+                        <thead style="position:sticky; top:0; background:#f1f5f9; z-index:5;">
+                          <tr>
+                            <th style="padding:8px; text-align:left; border-bottom:1px solid var(--border); width:80px">步骤</th>
+                            <th style="padding:8px; text-align:left; border-bottom:1px solid var(--border); width:80px">帧数</th>
+                            <th style="padding:8px; text-align:left; border-bottom:1px solid var(--border); width:120px">势能</th>
+                            <th style="padding:8px; text-align:left; border-bottom:1px solid var(--border); width:160px">温度</th>
+                            <th style="padding:8px; text-align:left; border-bottom:1px solid var(--border); width:160px">压强</th>
+                          </tr>
+                        </thead>
+                        <tbody id="md-table-body">
+                          <tr><td colspan="5" style="padding:20px; text-align:center; color:var(--muted);">暂无数据</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- 左下：日志 -->
+                    <div style="border:1px solid var(--border); border-radius:8px; background:#fff; overflow:auto; display:flex; flex-direction:column;">
+                      <div style="padding:6px 10px; border-bottom:1px solid var(--border); font-weight:600; font-size:12px;">日志信息</div>
+                      <div id="md-log" style="font-family: Menlo, monospace; font-size: 12px; color: var(--fg); white-space: pre-wrap; padding:10px;"></div>
+                    </div>
+                    <!-- 右下：图片 -->
+                    <div style="border:1px solid var(--border); border-radius:8px; background:#fff; overflow:hidden; display:flex; flex-direction:column; height: 100%;">
+                      <div style="padding:6px 10px; border-bottom:1px solid var(--border); font-weight:600; font-size:12px;">结果图片</div>
+                      <div id="md-plots"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="md-select-modal" style="position:fixed; inset:0; background: rgba(0,0,0,0.35); display:none; align-items:center; justify-content:center; z-index:1000;">
+            <div style="width: 520px; max-width: 90vw; background:#fff; border-radius:8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); overflow:hidden;">
+              <div style="padding:12px 16px; border-bottom:1px solid var(--border); font-weight:600;">选择文件</div>
+              <div style="padding:12px 16px; max-height: 60vh; overflow:auto;" id="md-select-list"></div>
+              <div style="padding:12px 16px; border-top:1px solid var(--border); display:flex; gap:8px;">
+                <input type="file" id="md-select-upload" style="flex:1;" onchange="uploadStruct(this)" accept=".pdb,.ent">
+                <button class="btn btn-secondary" style="flex:0 0 auto;" onclick="closeMdSelect()">取消</button>
+                <button class="btn btn-primary" style="flex:0 0 auto;" onclick="confirmMdSelect()">确定</button>
+              </div>
+            </div>
+          </div>
+          <div id="view-analysis" class="view-panel">
+            <div style="display:flex; flex-direction:column; height:100%;">
+              <div style="display:flex; gap:10px; padding:10px; border-bottom:1px solid var(--border); background: var(--surface);">
+                <div id="ana-job-id" style="font-size:12px; color: var(--muted);">任务ID: -</div>
+                <div style="margin-left:auto; display:flex; gap:8px;">
+                  <button id="ana-report-btn" class="btn btn-secondary btn-sm" onclick="downloadAnalysisReport()">报告输出</button>
+                </div>
+              </div>
+              <div style="display:grid; grid-template-columns: 320px 1fr; height:100%;">
+                <div class="dock-controls">
+                  <div>
+                    <div class="section-title">1. 选择任务</div>
+                    <div class="input-group" style="display:flex; gap:8px; align-items:center;">
+                      <select id="ana-job-select" class="form-control" style="flex:1; min-width:200px;"></select>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="section-title">2. 选择性质分析</div>
+                    <div style="border:1px solid var(--border); border-radius:8px; padding:8px; margin-bottom:8px;">
+                      <div style="font-weight:600; margin-bottom:6px;">通用性质</div>
+                      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px;">
+                        <label><input type="checkbox" id="ana-gen-temp"> 温度</label>
+                        <label><input type="checkbox" id="ana-gen-press"> 压强</label>
+                        <label><input type="checkbox" id="ana-gen-pot"> 势能</label>
+                        <label><input type="checkbox" id="ana-gen-kin"> 动能</label>
+                      </div>
+                    </div>
+                    <div style="border:1px solid var(--border); border-radius:8px; padding:8px; margin-bottom:8px;">
+                      <div style="font-weight:600; margin-bottom:6px;">结构性质</div>
+                      <div class="input-group" style="margin-bottom:6px;">
+                        <label><input type="checkbox" id="ana-struct-enable"> 启用结构性质分析</label>
+                      </div>
+                      <div id="ana-struct-area" style="display:none;">
+                        <div class="input-group" style="display:flex; gap:8px; align-items:center;">
+                          <select id="ana-group-select" class="form-control" style="min-width:160px;">
+                            <option value="System">System</option>
+                            <option value="Protein">Protein</option>
+                            <option value="custom">custom</option>
+                          </select>
+                        </div>
+                        <div class="input-group" id="ana-group-index-wrap">
+                          <input id="ana-group-index" class="form-control" placeholder="custom 组索引，如 index 1-100" disabled>
+                        </div>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px; margin-top:6px;">
+                          <label><input type="checkbox" id="ana-struct-rmsd"> RMSD</label>
+                          <label><input type="checkbox" id="ana-struct-rg"> RG</label>
+                          <label><input type="checkbox" id="ana-struct-rmsf"> RMSF</label>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div style="margin-top:auto;">
+                    <button onclick="runAnalysis()" class="btn btn-primary" style="width:100%; height:40px;">性质分析</button>
+                  </div>
+                  <div id="ana-log" style="font-family: Menlo, monospace; font-size: 11px; color: var(--muted); background: var(--bg); padding: 10px; border: 1px solid var(--border); border-radius: 6px; max-height: 150px; overflow-y: auto; white-space: pre-wrap; margin-top:8px;"></div>
+                </div>
+                  <div style="border-left:1px solid var(--border); padding:10px; background: var(--surface); height:100%;">
+                  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                    <div style="border:1px solid var(--border); border-radius:8px; background:#fff; display:flex; flex-direction:column; overflow: hidden;">
+                      <div style="padding:6px 10px; border-bottom:1px solid var(--border); font-weight:600; font-size:12px;">通用性质分析</div>
+                      <div id="ana-general-plots" style="height: 350px; flex: none;"></div>
+                      <div style="border-top:1px solid var(--border); padding:10px;">
+                        <div style="font-weight:600; margin-bottom:6px;">通用性质</div>
+                        <table style="width:100%; border-collapse:collapse; font-size:13px;"><tbody id="ana-general-table"><tr><td style="padding:8px; color:var(--muted)">暂无数据</td></tr></tbody></table>
+                      </div>
+                    </div>
+                    <div style="border:1px solid var(--border); border-radius:8px; background:#fff; display:flex; flex-direction:column; overflow: hidden;">
+                      <div style="padding:6px 10px; border-bottom:1px solid var(--border); font-weight:600; font-size:12px;">结构性质分析</div>
+                      <div id="ana-struct-plots" style="height: 350px; flex: none;"></div>
+                      <div style="border-top:1px solid var(--border); padding:10px;">
+                        <div style="font-weight:600; margin-bottom:6px;">结构性质</div>
+                        <table style="width:100%; border-collapse:collapse; font-size:13px;"><tbody id="ana-struct-table"><tr><td style="padding:8px; color:var(--muted)">暂无数据</td></tr></tbody></table>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  </div>
+              </div>
+            </div>
+          </div>
           <div id="view-af2" class="view-panel" style="padding: 20px;"><h2>AlphaFold (Comming Soon)</h2></div>
+          <div id="view-mmpbsa" class="view-panel" style="padding: 20px;">
+            <div style="display:grid; grid-template-columns: 320px 1fr; gap: 20px;">
+            <div style="display:flex; flex-direction:column; gap:10px; height:100%;">
+              <div style="border:1px solid var(--border); border-radius:8px; padding:10px; background:#fff;">
+                <div class="section-title">1. 选择任务</div>
+                <div class="input-group" style="display:flex; gap:8px; align-items:center;">
+                  <select id="mmp-job-select" class="form-control" style="flex:1; min-width:200px;"></select>
+                </div>
+              </div>
+              <div style="border:1px solid var(--border); border-radius:8px; padding:10px; background:#fff;">
+                <div style="font-weight:600; margin-bottom:8px;">分组设置</div>
+                <div class="input-group" style="display:flex; gap:8px; align-items:center;">
+                  <label style="flex:1">受体组
+                    <select id="mmp-receptor-group" class="form-control" style="min-width:160px;">
+                      <option value="Protein" selected>Protein</option>
+                      <option value="System">System</option>
+                      <option value="Ligand">Ligand</option>
+                      <option value="custom">custom</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="input-group" id="mmp-receptor-index-wrap" style="display:none;">
+                  <input id="mmp-receptor-index" class="form-control" placeholder="受体 custom 组索引，如 index 1-100">
+                </div>
+                <div class="input-group" style="display:flex; gap:8px; align-items:center; margin-top:8px;">
+                  <label style="flex:1">配体组
+                    <select id="mmp-ligand-group" class="form-control" style="min-width:160px;">
+                      <option value="Ligand" selected>Ligand</option>
+                      <option value="System">System</option>
+                      <option value="Protein">Protein</option>
+                      <option value="custom">custom</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="input-group" id="mmp-ligand-index-wrap" style="display:none;">
+                  <input id="mmp-ligand-index" class="form-control" placeholder="配体 custom 组索引，如 index 1-100">
+                </div>
+              </div>
+              <div style="border:1px solid var(--border); border-radius:8px; padding:10px; background:#fff;">
+                <div style="font-weight:600; margin-bottom:8px;">隐式计算模型选择</div>
+                <div class="input-group" style="display:flex; flex-direction:column; gap:10px;">
+                   <div style="display:flex; gap:10px; align-items:center;">
+                     <label style="flex:1"><input type="radio" name="mmp-implicit-model" value="GB" checked> Generalized Born (GB)</label>
+                     <button id="mmp-implicit-gb-adv-btn" class="btn btn-secondary btn-sm">高级设置</button>
+                   </div>
+                   <div style="display:flex; gap:10px; align-items:center;">
+                     <label style="flex:1"><input type="radio" name="mmp-implicit-model" value="PB"> Poisson Boltzmann (PB)</label>
+                     <button id="mmp-implicit-pb-adv-btn" class="btn btn-secondary btn-sm">高级设置</button>
+                   </div>
+                   <div style="display:flex; gap:10px; align-items:center;">
+                     <label style="flex:1"><input type="radio" name="mmp-implicit-model" value="RISM"> 3D-RISM</label>
+                   </div>
+                </div>
+                <input type="hidden" id="mmp-gb-igb" value="5">
+                <input type="hidden" id="mmp-gb-salt" value="0.15">
+                <input type="hidden" id="mmp-gb-inter-diel" value="1.0">
+                <input type="hidden" id="mmp-gb-solv-diel" value="78.5">
+                <input type="hidden" id="mmp-pb-npbopt" value="1">
+                <input type="hidden" id="mmp-pb-ipb" value="0">
+                <input type="hidden" id="mmp-pb-ionic-s" value="0.15">
+                <input type="hidden" id="mmp-pb-inter-diel" value="1.0">
+                <input type="hidden" id="mmp-pb-solv-diel" value="80.0">
+              </div>
+              <div style="border:1px solid var(--border); border-radius:8px; padding:10px; background:#fff;">
+                <div style="font-weight:600; margin-bottom:8px;">熵效应模型</div>
+                <div class="input-group" style="display:flex; flex-direction:column; gap:8px; align-items:flex-start;">
+                  <label>温度 (K)
+                    <input id="mmp-entropy-temp" class="form-control" value="300">
+                  </label>
+                  <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="mmp-entropy-ie"> IE 近似</label>
+                  <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="mmp-entropy-c2"> C2 熵近似</label>
+                </div>
+              </div>
+              <div style="border:1px solid var(--border); border-radius:8px; padding:10px; background:#fff;">
+                <div style="font-weight:600; margin-bottom:8px;">功能选择</div>
+                <div class="input-group" style="display:flex; flex-direction:column; gap:8px;">
+                  
+                  <label style="display:flex; flex-direction:column; gap:6px;">
+                    <span><input type="checkbox" id="mmp-func-alanine"> 丙氨酸扫描</span>
+                    <div id="mmp-ala-opts" style="display:none; padding-left:18px; display:flex; flex-direction:column; gap:8px;">
+                      <label>扫描范围
+                        <select id="mmp-ala-range" class="form-control">
+                          <option value="interface" selected>interface</option>
+                          <option value="interface_receptor">interface (on receptor)</option>
+                          <option value="interface_ligand">interface (on ligand)</option>
+                        </select>
+                      </label>
+                      <label>Interface Cutoff (A)
+                        <input id="mmp-ala-cutoff" class="form-control" value="6.0">
+                      </label>
+                      <label>Pobe Radius (A)
+                        <input id="mmp-ala-probe" class="form-control" value="5.0">
+                      </label>
+                    </div>
+                  </label>
+                </div>
+              </div>
+              
+              <div id="mmp-settings-decomp" style="border:1px solid var(--border); border-radius:8px; padding:10px; background:#fff; display:none;">
+                <div style="font-weight:600; margin-bottom:8px;">能量分解设置</div>
+                <div class="input-group" style="display:flex; gap:8px; align-items:center;">
+                  <label style="flex:1">分解粒度 <input id="mmp-decomp-gran" class="form-control" placeholder="如 residue"></label>
+                </div>
+              </div>
+              <div id="mmp-settings-alanine" style="border:1px solid var(--border); border-radius:8px; padding:10px; background:#fff; display:none;">
+                <div style="font-weight:600; margin-bottom:8px;">丙氨酸扫描设置</div>
+                <div class="input-group" style="display:flex; gap:8px; align-items:center;">
+                  <label style="flex:1">扫描残基列表 <input id="mmp-ala-res" class="form-control" placeholder="如 10,25,30"></label>
+                </div>
+              </div>
+              <div style="margin-top:auto;">
+                <div id="mmp-job-id" style="font-size:12px; color:var(--muted); margin-bottom:6px;">任务ID: -</div>
+                <button onclick="runMmpbsa()" class="btn btn-primary" style="width:100%; height:40px;">运行 MMPBSA</button>
+              </div>
+              <div id="mmp-log" style="font-family: Menlo, monospace; font-size: 11px; color: var(--muted); background: var(--bg); padding: 10px; border: 1px solid var(--border); border-radius: 6px; max-height: 150px; overflow-y: auto; white-space: pre-wrap; margin-top:8px;"></div>
+            </div>
+            <div style="border-left:1px solid var(--border); padding:10px; background: var(--surface); height:100%;">
+              <div style="border:1px solid var(--border); border-radius:8px; background:#fff; display:flex; flex-direction:row; height:100%; overflow: hidden;">
+                <!-- Left Column: Plots -->
+                <div style="flex: 1; display:flex; flex-direction:column; border-right: 1px solid var(--border); min-width: 0;">
+                  <div style="padding:6px 10px; border-bottom:1px solid var(--border); font-weight:600; font-size:12px;">MMPBSA 结果图</div>
+                  <div id="mmp-plots" style="flex: 1; overflow-y: auto; padding: 10px;"></div>
+                </div>
+                <!-- Right Column: Table -->
+                <div style="width: 400px; display:flex; flex-direction:column; flex-shrink: 0; min-width: 0;">
+            <div style="padding:6px 10px; border-bottom:1px solid var(--border); font-weight:600; font-size:12px;">结果表格</div>
+            <div id="mmp-table-wrapper" style="flex: 1; overflow-y: auto; padding: 10px;">
+              <table style="width:100%; border-collapse:collapse; font-size:13px;"><tbody id="mmp-table"><tr><td style="padding:8px; color:var(--muted)">暂无数据</td></tr></tbody></table>
+            </div>
+          </div>
+              </div>
+            </div>
+            </div>
+          </div>
+          <div id="mmp-gb-modal" style="position:fixed; inset:0; background:rgba(0,0,0,0.3); display:none; align-items:center; justify-content:center; z-index:1000;">
+            <div style="background:#fff; border:1px solid var(--border); border-radius:8px; padding:12px; width:360px;">
+              <div style="font-weight:600; margin-bottom:10px;">GB 高级设置</div>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <label>igb <input id="mmp-gb-igb-input" class="form-control" value="5"></label>
+                <label>Salt (M) <input id="mmp-gb-salt-input" class="form-control" value="0.15"></label>
+                <label>Inter Diel <input id="mmp-gb-inter-diel-input" class="form-control" value="1.0"></label>
+                <label>Solvent Diel <input id="mmp-gb-solv-diel-input" class="form-control" value="78.5"></label>
+              </div>
+              <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:12px;">
+                <button id="mmp-gb-cancel" class="btn btn-secondary btn-sm">取消</button>
+                <button id="mmp-gb-confirm" class="btn btn-primary btn-sm">确定</button>
+              </div>
+            </div>
+          </div>
+          <div id="mmp-pb-modal" style="position:fixed; inset:0; background:rgba(0,0,0,0.3); display:none; align-items:center; justify-content:center; z-index:1000;">
+            <div style="background:#fff; border:1px solid var(--border); border-radius:8px; padding:12px; width:360px;">
+              <div style="font-weight:600; margin-bottom:10px;">PB 高级设置</div>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <label>Npbopt(inp)
+                  <select id="mmp-pb-npbopt-input" class="form-control">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                  </select>
+                </label>
+                <label>ipb
+                  <select id="mmp-pb-ipb-input" class="form-control">
+                    <option value="0" selected>0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                  </select>
+                </label>
+                <label>Ionic strength (M)
+                  <input id="mmp-pb-ionic-s-input" class="form-control" value="0.15">
+                </label>
+                <label>Inter Dielectric constant
+                  <input id="mmp-pb-inter-diel-input" class="form-control" value="1.0">
+                </label>
+                <label>Implicit Solvent Dielectric constant
+                  <input id="mmp-pb-solv-diel-input" class="form-control" value="80.0">
+                </label>
+              </div>
+              <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:12px;">
+                <button id="mmp-pb-cancel" class="btn btn-secondary btn-sm">取消</button>
+                <button id="mmp-pb-confirm" class="btn btn-primary btn-sm">确定</button>
+              </div>
+            </div>
+          </div>
+          
           <div id="view-jobs" class="view-panel" style="padding: 20px;">
             <h2>任务列表</h2>
             <div id="jobs-list"></div>
@@ -342,22 +857,63 @@
     <script src="vendor/molstar/molstar.js"></script>
     <script>
       // Configuration
-      const api = location.hostname === 'localhost' ? 'http://localhost:7010' : (location.origin.replace(':3000', ':8000').replace(':7006', ':7010').replace(':5500', ':7010'));
+      // 智能判断 API 地址：
+      // 1. 如果通过 biosim.net 访问，走 Nginx 代理 -> /api
+      // 2. 如果通过 80/8080 端口访问（通常是 Nginx），走 Nginx 代理 -> /api
+      // 3. 其他情况（本地开发、IP直连容器），尝试端口替换
+      const api = (
+        location.hostname === 'biosim.net' || 
+        location.hostname.endsWith('.loca.lt') || 
+        location.hostname.endsWith('.ngrok-free.app') || 
+        location.port === '8080' || 
+        location.port === '80' || 
+        location.port === ''
+      ) ? '/api' 
+        : location.origin.replace(':3000', ':8000').replace(':7006', ':7010').replace(':5500', ':7010');
       
       // State
       let currentUser = null;
       let molstarInstance = null;
       let currentReceptorName = null;
+      let mdProteinName = null;
+      let mdSelectType = null;
+      let mdSelectTemp = null;
+      let mdSolvParams = { box_type: 'cubic', box_dist: 1.0, ion_neutral: true, ion_pname: 'NA', ion_nname: 'CL' };
+      let mdEmParams = { steps: 5000, tol: 1000 };
+      let mdNptParams = { steps: 100, temp: 300 };
+      let mdProdParams = { steps: 100, temp: 300, press: 1 };
+      let mdSubmitting = false;
+      let mdJobTimer = null;
+      let mdLogTimer = null;
+      
+      let anaJobTimer = null;
+      let anaLogTimer = null;
+      let mdPlotList = [];
+      let mdPlotIndex = 0;
 
       // --- APP INIT ---
       async function init() {
-        // Check auth
         try {
           await refreshUser();
-          show('dock');
-          loadReceptorList();
         } catch(e) {
           document.getElementById('login-view').style.display = 'flex';
+          return;
+        }
+        try {
+          const hash = (window.location && window.location.hash || '').replace('#','');
+          const view = hash || 'dock';
+          show(view);
+          if(view === 'dock'){
+            loadReceptorList();
+          }
+          if(view === 'md'){
+            loadMdLists();
+            resumeLastMd();
+          }
+          setupAnalysisInputs();
+          const ls = document.getElementById('login-status'); if(ls) ls.textContent = '';
+        } catch(e) {
+          console.log('init_error', e);
         }
       }
 
@@ -374,9 +930,12 @@
         
         // Update title
         const titles = {
+          'smol': '小分子结构预测',
+          'af2': '大分子结构预测',
           'dock': '分子对接 Docking',
-          'smol': '小分子预测 Small Molecule',
           'md': '分子动力学 Dynamics',
+          'analysis': '模拟结果分析',
+          'mmpbsa': 'MMPBSA 分析',
           'jobs': '任务列表 Jobs'
         };
         document.getElementById('page-title').textContent = titles[viewId] || '酶研究平台';
@@ -384,6 +943,183 @@
         // Refresh lists if needed
         if(viewId === 'dock') loadReceptorList();
         if(viewId === 'jobs') loadJobs();
+        if(viewId === 'md') resumeLastMd();
+        if(viewId === 'analysis') loadMdJobDirList();
+        if(viewId === 'mmpbsa'){ setupMmpbsaInputs(); loadMdJobDirListForMmp(); }
+      }
+
+      function setupAnalysisInputs(){
+        const en = document.getElementById('ana-struct-enable');
+        const area = document.getElementById('ana-struct-area');
+        const input = document.getElementById('ana-group-index');
+        const indexWrap = document.getElementById('ana-group-index-wrap');
+        const groupSel = document.getElementById('ana-group-select');
+
+        const update = ()=>{
+          const enabled = !!(en && en.checked);
+          area.style.display = enabled ? 'block' : 'none';
+          const isCustom = groupSel && groupSel.value === 'custom';
+          const showIndex = enabled && isCustom;
+          if(indexWrap) indexWrap.style.display = showIndex ? 'block' : 'none';
+          input.disabled = !showIndex;
+          if(input.disabled){ input.value=''; }
+        };
+        if(en){ en.onchange = update; }
+        if(groupSel){ groupSel.onchange = update; }
+        update();
+      }
+      function setAnaJobId(jobId){ const el = document.getElementById('ana-job-id'); if(el) el.textContent = `任务ID: ${jobId||'-'}`; }
+      let anaJobListLoading = false;
+      async function loadMdJobDirList(){ if(anaJobListLoading) return; anaJobListLoading = true; try{ const sel = document.getElementById('ana-job-select'); if(!sel) return; const r = await fetch(api+'/jobs/md/dir', {credentials:'include'}); if(!r.ok){ anaJobListLoading=false; return; } const j = await r.json(); const jobs = j.jobs||[]; const frag = document.createDocumentFragment(); const def = document.createElement('option'); def.value=''; def.textContent='选择MD任务'; frag.appendChild(def); jobs.forEach(it=>{ const o = document.createElement('option'); o.value = it.id; o.textContent = `${it.id}${it.has_work? '': ' (无work)'}`; frag.appendChild(o); }); sel.innerHTML=''; sel.appendChild(frag); sel.onchange = ()=>{ const v = sel.value; if(v){ setAnaJobId(v); } }; }catch(e){} finally{ anaJobListLoading=false; } }
+      function useMdLastJob(){ try{ const id = localStorage.getItem('last_md_job_id'); if(id){ document.getElementById('ana-job-input').value = id; setAnaJobId(id); } }catch(e){} }
+      function logAna(msg){ const el = document.getElementById('ana-log'); el.textContent += `> ${msg}\n`; el.scrollTop = el.scrollHeight; }
+      function resetAnalysisUI(){ try{ document.getElementById('ana-general-plots').innerHTML=''; document.getElementById('ana-struct-plots').innerHTML=''; document.getElementById('ana-general-table').innerHTML='<tr><td style="padding:8px; color:var(--muted)">暂无数据</td></tr>'; document.getElementById('ana-struct-table').innerHTML='<tr><td style="padding:8px; color:var(--muted)">暂无数据</td></tr>'; }catch(e){} }
+      async function runAnalysis(){
+        resetAnalysisUI();
+        const jobId = (document.getElementById('ana-job-select').value || '').trim(); if(!jobId) return alert('请选择MD任务'); setAnaJobId(jobId);
+        const gen = { temp: document.getElementById('ana-gen-temp').checked, press: document.getElementById('ana-gen-press').checked, pot: document.getElementById('ana-gen-pot').checked, kin: document.getElementById('ana-gen-kin').checked };
+        const structEnable = !!document.getElementById('ana-struct-enable').checked;
+        let struct = { group:'', group_index:'', rmsd:false, rg:false, rmsf:false };
+        if(structEnable){
+          const group = (document.getElementById('ana-group-select').value || 'System');
+          const groupIndex = document.getElementById('ana-group-index').value.trim();
+          struct = { group, group_index: group==='custom'? groupIndex: '', rmsd: document.getElementById('ana-struct-rmsd').checked, rg: document.getElementById('ana-struct-rg').checked, rmsf: document.getElementById('ana-struct-rmsf').checked };
+        }
+        const mmp = { enable: false };
+        const payload = { type: 'analysis', inputs: { source_job_id: jobId, general: gen, struct: struct, mmpbsa: mmp } };
+        logAna('提交分析');
+        try{
+          const r = await fetch(api+'/jobs', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload), credentials:'include'});
+          if(!r.ok){ logAna('提交失败'); return; }
+          const j = await r.json();
+          localStorage.setItem('last_analysis_job_id', j.job_id);
+          setAnaJobId(j.job_id);
+          pollAnalysisJob(j.job_id);
+          pollAnalysisLog(j.job_id);
+        }catch(e){ logAna('错误: '+e.message); }
+      }
+      async function pollAnalysisJob(jobId){ if(anaJobTimer) clearInterval(anaJobTimer); anaJobTimer = setInterval(async ()=>{ try{ const r = await fetch(`${api}/jobs/${jobId}`, {credentials:'include'}); const j = await r.json(); if(j.status==='succeeded' || j.status==='completed'){ clearInterval(anaJobTimer); anaJobTimer=null; if(anaLogTimer){ clearInterval(anaLogTimer); anaLogTimer=null; } loadAnalysisResults(jobId, j.outputs); logAna('分析完成'); } else if(j.status==='failed'){ clearInterval(anaJobTimer); anaJobTimer=null; if(anaLogTimer){ clearInterval(anaLogTimer); anaLogTimer=null; } logAna('分析失败'); } }catch(e){ clearInterval(anaJobTimer); anaJobTimer=null; } }, 2000); }
+      async function pollAnalysisLog(jobId){ const el = document.getElementById('ana-log'); el.textContent=''; if(anaLogTimer) clearInterval(anaLogTimer); anaLogTimer = setInterval(async ()=>{ try{ const r = await fetch(`${api}/files/${jobId}/log.txt`, {credentials:'include'}); if(r.ok){ const t = await r.text(); el.textContent = t; el.scrollTop = el.scrollHeight; } }catch(e){} }, 1500); setTimeout(()=>{ if(anaLogTimer){ clearInterval(anaLogTimer); anaLogTimer=null; } }, 600000); }
+      async function downloadAnalysisReport(){ try{ const jobId = document.getElementById('ana-job-id').textContent.replace('任务ID: ','').trim(); if(!jobId || jobId==='-') return; const r = await fetch(`${api}/jobs/${jobId}`, {credentials:'include'}); const j = await r.json(); const rep = j.outputs && (j.outputs.report || j.outputs.analysis_report); if(rep){ const url = `${api}/files/${jobId}/${encodeURIComponent(rep)}`; window.open(url, '_blank'); } }catch(e){} }
+      let anaCarousels = {};
+      function renderAnalysisCarousel(cid, items){ const el = document.getElementById(cid); el.innerHTML=''; if(!items.length){ return; } const wrap = document.createElement('div'); wrap.style.display='flex'; wrap.style.alignItems='center'; wrap.style.gap='8px'; const prev = document.createElement('button'); prev.textContent='‹'; prev.className='btn btn-secondary btn-sm'; const next = document.createElement('button'); next.textContent='›'; next.className='btn btn-secondary btn-sm'; const img = document.createElement('img'); img.style.maxHeight='140px'; img.style.maxWidth='220px'; img.style.border='1px solid var(--border)'; img.style.borderRadius='6px'; img.style.background='#fff'; const cap = document.createElement('div'); cap.style.fontSize='12px'; cap.style.color='var(--muted)'; cap.style.marginTop='6px'; const box = document.createElement('div'); box.style.display='flex'; box.style.flexDirection='column'; box.style.alignItems='center'; box.appendChild(img); box.appendChild(cap); let idx = 0; function update(){ const it = items[idx]; img.src = it.url; cap.textContent = it.label + ` (${idx+1}/${items.length})`; } prev.onclick = ()=>{ idx = (idx - 1 + items.length) % items.length; update(); }; next.onclick = ()=>{ idx = (idx + 1) % items.length; update(); }; wrap.appendChild(prev); wrap.appendChild(box); wrap.appendChild(next); el.appendChild(wrap); update(); anaCarousels[cid] = {items, idx}; }
+      async function loadAnalysisResults(jobId, outputs){
+        console.log('loadAnalysisResults called', jobId, outputs);
+        try{
+          const containers = { 
+            'ana-general-plots': [
+              {k: 'gen_temp_plot', label: 'Temperature'},
+              {k: 'gen_press_plot', label: 'Pressure'},
+              {k: 'gen_pot_plot', label: 'Potential Energy'},
+              {k: 'gen_kin_plot', label: 'Kinetic Energy'}
+            ], 
+            'ana-struct-plots': [
+              {k: 'struct_rmsd_plot', label: 'RMSD'},
+              {k: 'struct_rg_plot', label: 'Rg'},
+              {k: 'struct_rmsf_plot', label: 'RMSF'}
+            ] 
+          };
+          
+          // Reuse mdPlotList for analysis as well
+          mdPlotList = [];
+          
+          for(const cid in containers){
+            const el = document.getElementById(cid);
+            if(!el) continue;
+            
+            el.innerHTML='';
+            // Use gallery-grid container
+            el.className = 'gallery-grid';
+            // el.style.display = 'grid'; // display:grid is defined in css class 
+
+            for(const item of containers[cid]){
+              const rel = outputs && outputs[item.k];
+              if(rel){
+                // Create gallery card
+                const card = document.createElement('div'); 
+                card.className = 'gallery-card';
+                
+                const imgWrap = document.createElement('div');
+                imgWrap.className = 'gallery-img-wrap';
+                
+                const img = document.createElement('img'); 
+                img.className = 'gallery-img';
+                img.alt = item.label;
+                
+                const info = document.createElement('div');
+                info.className = 'gallery-info';
+                
+                const title = document.createElement('div');
+                title.className = 'gallery-title';
+                title.textContent = item.label;
+                
+                const meta = document.createElement('div');
+                meta.className = 'gallery-meta';
+                meta.textContent = '点击查看大图';
+
+                const action = document.createElement('div');
+                action.className = 'gallery-action';
+                action.textContent = '🔍 预览';
+
+                info.appendChild(title);
+                info.appendChild(meta);
+                imgWrap.appendChild(img);
+                
+                card.appendChild(action);
+                card.appendChild(imgWrap);
+                card.appendChild(info);
+                
+                el.appendChild(card);
+
+                const rimg = await fetch(`${api}/files/${jobId}/${rel}`, {credentials:'include'});
+                if(rimg.ok){ 
+                  const blob = await rimg.blob(); 
+                  const url = URL.createObjectURL(blob); 
+                  img.src = url; 
+                  
+                  mdPlotList.push({label: item.label, url}); 
+                  const myIndex = mdPlotList.length - 1; 
+                  
+                  card.onclick = ()=> openPlotIndex(myIndex);
+                } else {
+                   meta.textContent = '加载失败';
+                }
+              }
+            }
+          }
+        }catch(e){}
+        try{
+          const g = outputs && outputs.general_table;
+          if(g){
+            const r = await fetch(`${api}/files/${jobId}/${g}`, {credentials:'include'});
+            if(r.ok){
+              const csv = await r.text();
+              document.getElementById('ana-general-table').innerHTML = renderSimpleCsv(csv);
+            }
+          }
+          const s = outputs && outputs.struct_table;
+          if(s){
+            const r = await fetch(`${api}/files/${jobId}/${s}`, {credentials:'include'});
+            if(r.ok){
+              const csv = await r.text();
+              document.getElementById('ana-struct-table').innerHTML = renderSimpleCsv(csv);
+            }
+          }
+          
+        }catch(e){}
+      }
+      function renderSimpleCsv(csv){ const lines = csv.split('\n').map(l=>l.trim()).filter(l=>l); if(!lines.length) return '<tr><td style="padding:8px; color:var(--muted)">暂无数据</td></tr>'; const heads = lines[0].split(','); let html = '<tr>'+heads.map(h=>`<th style="padding:6px; border-bottom:1px solid var(--border); text-align:left;">${h}</th>`).join('')+'</tr>'; for(let i=1;i<lines.length;i++){ const cols = lines[i].split(','); html += '<tr>'+cols.map(c=>`<td style="padding:6px; border-bottom:1px solid var(--border);">${c}</td>`).join('')+'</tr>'; } return html; }
+
+      function resetMdUI(){
+        try{
+          const logEl = document.getElementById('md-log'); if(logEl) logEl.innerHTML = '';
+          const tbody = document.getElementById('md-table-body'); if(tbody) tbody.innerHTML = '<tr><td colspan="5" style="padding:20px; text-align:center; color:var(--muted);">暂无数据</td></tr>';
+          const plots = document.getElementById('md-plots'); if(plots) plots.innerHTML='';
+          mdPlotList = []; mdPlotIndex = 0;
+          mdTrajModel = null; mdFrameCount = 0; const label = document.getElementById('md-frame-label'); if(label) label.textContent = '0/0'; const slider = document.getElementById('md-frame'); if(slider){ slider.max='0'; slider.value='0'; }
+          (async ()=>{ try{ const v = await ensureMdViewer(); v.plugin.clear(); }catch(e){} })();
+          const jid = document.getElementById('md-job-id'); if(jid) jid.textContent = '任务ID: -';
+        }catch(e){}
       }
 
       // --- DOCKING LOGIC ---
@@ -529,6 +1265,535 @@
         } catch(e) {
           console.error('Load list failed', e);
         }
+      }
+
+      async function loadMdLists(){
+        try {
+          const r = await fetch(api + '/user/structure/list', {credentials: 'include'});
+          if(!r.ok) return;
+          const data = await r.json();
+          const files = (data.files||[]).filter(f=>/\.pdb|\.ent$/i.test(f.name));
+          if(!mdProteinName && files.length){ mdProteinName = files[0].name; }
+          const elp = document.getElementById('md-protein-selected');
+          if(elp){
+            elp.textContent = mdProteinName || '未选择';
+            elp.style.color = mdProteinName ? 'var(--accent)' : 'var(--muted)';
+            elp.style.fontWeight = mdProteinName ? '600' : '400';
+          }
+          const btn = document.getElementById('btn-protein-ff'); if(btn){ btn.disabled = !mdProteinName; }
+        } catch(e) {}
+      }
+
+      function openMdSelect(type){
+        mdSelectType = type;
+        document.getElementById('md-select-modal').style.display='flex';
+        mdSelectTemp = mdProteinName || null;
+        renderMdSelectList();
+        try{
+          const box = document.getElementById('md-select-list');
+          if(box){
+            box.onclick = (e)=>{
+              let row = e.target;
+              while(row && row.parentElement && row.parentElement.id !== 'md-select-list') row = row.parentElement;
+              const nameEl = row && row.firstChild;
+              if(nameEl && nameEl.textContent){ mdSelectTemp = nameEl.textContent; }
+              if(typeof highlightMdSelection === 'function') highlightMdSelection();
+            };
+          }
+        }catch(err){}
+      }
+      function closeMdSelect(){
+        mdSelectType = null; mdSelectTemp = null;
+        document.getElementById('md-select-modal').style.display='none';
+      }
+      
+      async function renderMdSelectList(){
+        try{
+          const r = await fetch(api + '/user/structure/list', {credentials:'include'});
+          if(!r.ok) return;
+          const data = await r.json();
+          const files = data.files.filter(f=>/\.pdb|\.ent$/i.test(f.name));
+          const box = document.getElementById('md-select-list');
+          box.innerHTML='';
+          if(files.length===0){ box.innerHTML = '<div style="padding:8px; color: var(--muted);">暂无文件，请上传</div>'; return; }
+          files.forEach(f=>{
+            const row = document.createElement('div');
+            row.style.display='flex'; row.style.alignItems='center'; row.style.justifyContent='space-between'; row.style.padding='6px 8px'; row.style.border='1px solid var(--border)'; row.style.borderRadius='6px'; row.style.marginBottom='6px';
+            const name = document.createElement('div'); name.textContent = f.name; name.style.fontSize='13px';
+            const btn = document.createElement('button'); btn.className='btn btn-secondary btn-sm'; btn.textContent='选择'; btn.onclick=()=>{ mdSelectTemp = f.name; };
+            row.appendChild(name); row.appendChild(btn); box.appendChild(row);
+          });
+        }catch(e){}
+      }
+      function confirmMdSelect(){
+        if(!mdSelectTemp){ closeMdSelect(); return; }
+        if(mdSelectType==='protein'){
+          mdProteinName = mdSelectTemp;
+          const elp = document.getElementById('md-protein-selected'); elp.textContent = mdProteinName; elp.style.color='var(--accent)'; elp.style.fontWeight='600';
+          document.getElementById('btn-protein-ff').disabled = false;
+        }
+        closeMdSelect();
+      }
+      function highlightMdSelection(){
+        const box = document.getElementById('md-select-list');
+        if(!box) return;
+        const rows = Array.from(box.children);
+        rows.forEach(row => {
+          const nameEl = row.firstChild;
+          const currentName = nameEl && nameEl.textContent ? nameEl.textContent : '';
+          row.style.background = '';
+          row.style.borderColor = 'var(--border)';
+          if(nameEl && nameEl.style) nameEl.style.color = '';
+          if(mdSelectTemp && currentName === mdSelectTemp){
+            row.style.background = 'var(--accent-weak)';
+            row.style.borderColor = 'var(--accent-weak)';
+            if(nameEl && nameEl.style) nameEl.style.color = 'var(--accent)';
+          }
+        });
+      }
+
+      function openEmParams(){
+        const m = document.getElementById('md-em-modal');
+        document.getElementById('md-em-steps').value = mdEmParams.steps;
+        document.getElementById('md-em-tol').value = mdEmParams.tol;
+        m.style.display='flex';
+      }
+      function confirmEmParams(){
+        mdEmParams = { steps: parseInt(document.getElementById('md-em-steps').value)||5000, tol: parseFloat(document.getElementById('md-em-tol').value)||1000 };
+        document.getElementById('md-em-summary').textContent = `步数 ${mdEmParams.steps}，容差 ${mdEmParams.tol}`;
+        document.getElementById('md-em-modal').style.display='none';
+      }
+      function openNptParams(){
+        const m = document.getElementById('md-npt-modal');
+        document.getElementById('md-npt-steps').value = mdNptParams.steps;
+        document.getElementById('md-npt-temp').value = mdNptParams.temp;
+        m.style.display='flex';
+      }
+      function confirmNptParams(){
+        mdNptParams = { steps: parseInt(document.getElementById('md-npt-steps').value)||50000, temp: parseFloat(document.getElementById('md-npt-temp').value)||300 };
+        document.getElementById('md-npt-summary').textContent = `步数 ${mdNptParams.steps}，温度 ${mdNptParams.temp}K`;
+        document.getElementById('md-npt-modal').style.display='none';
+      }
+      function openProdParams(){
+        const m = document.getElementById('md-prod-modal');
+        document.getElementById('md-prod-steps').value = mdProdParams.steps;
+        document.getElementById('md-prod-temp').value = mdProdParams.temp;
+        document.getElementById('md-prod-press').value = mdProdParams.press;
+        m.style.display='flex';
+      }
+      function confirmProdParams(){
+        mdProdParams = {
+          steps: parseInt(document.getElementById('md-prod-steps').value)||100000,
+          temp: parseFloat(document.getElementById('md-prod-temp').value)||300,
+          press: parseFloat(document.getElementById('md-prod-press').value)||1
+        };
+        document.getElementById('md-prod-summary').textContent = `步数 ${mdProdParams.steps}，温度 ${mdProdParams.temp}K，压强 ${mdProdParams.press}bar`;
+        document.getElementById('md-prod-modal').style.display='none';
+      }
+
+      let mdViewer = null;
+      async function ensureMdViewer(){
+        if(mdViewer) return mdViewer;
+        let ViewerClass; try { if(typeof require!== 'undefined') ViewerClass = require('molstar').Viewer; } catch(e) {}
+        if(!ViewerClass) ViewerClass = (window.molstar && window.molstar.Viewer) || (window.Molstar && window.Molstar.Viewer);
+        mdViewer = await ViewerClass.create(document.getElementById('md-3d'), {layoutIsExpanded:false, layoutShowControls:false, collapseLeftPanel:true, viewportShowExpand:false, layoutShowSequence:false, layoutShowLog:false});
+        return mdViewer;
+      }
+
+      function logMd(msg){ const el = document.getElementById('md-log'); el.textContent += `> ${msg}\n`; el.scrollTop = el.scrollHeight; }
+      function showMdLoader(show){ document.getElementById('md-loader').style.display = show? 'flex':'none'; }
+      function openSolvParams(){
+        const m = document.getElementById('md-solv-modal');
+        document.getElementById('md-solv-type').value = mdSolvParams.box_type;
+        document.getElementById('md-solv-dist').value = mdSolvParams.box_dist;
+        document.getElementById('md-solv-neutral').checked = !!mdSolvParams.ion_neutral;
+        document.getElementById('md-solv-pname').value = mdSolvParams.ion_pname;
+        document.getElementById('md-solv-nname').value = mdSolvParams.ion_nname;
+        m.style.display='flex';
+      }
+      function confirmSolvParams(){
+        mdSolvParams = {
+          box_type: document.getElementById('md-solv-type').value || 'cubic',
+          box_dist: parseFloat(document.getElementById('md-solv-dist').value)||1.0,
+          ion_neutral: !!document.getElementById('md-solv-neutral').checked,
+          ion_pname: document.getElementById('md-solv-pname').value || 'NA',
+          ion_nname: document.getElementById('md-solv-nname').value || 'CL'
+        };
+        const neutralTxt = mdSolvParams.ion_neutral ? '中和离子' : '不中和';
+        document.getElementById('md-solv-summary').textContent = `盒子 ${mdSolvParams.box_type}，边距 ${mdSolvParams.box_dist}nm，${neutralTxt}`;
+        document.getElementById('md-solv-modal').style.display='none';
+      }
+
+      async function runMd(){
+        if(mdSubmitting) return;
+        if(!mdProteinName) return alert('请上传复合物 PDB');
+        resetMdUI();
+        try{ localStorage.removeItem('last_md_job_id'); }catch(e){}
+        const payload = {
+          type: 'md',
+          inputs: {
+            protein: { path: mdProteinName },
+            forcefield: document.getElementById('md-ff').value,
+            water: document.getElementById('md-water').value,
+            steps: {
+              box_type: mdSolvParams.box_type,
+              box_dist: mdSolvParams.box_dist,
+              ion_neutral: mdSolvParams.ion_neutral,
+              ion_pname: mdSolvParams.ion_pname,
+              ion_nname: mdSolvParams.ion_nname,
+              em_steps: mdEmParams.steps,
+              em_tol: mdEmParams.tol,
+              npt_steps: mdNptParams.steps,
+              npt_temp: mdNptParams.temp,
+              prod_steps: mdProdParams.steps,
+              prod_temp: mdProdParams.temp,
+              prod_press: mdProdParams.press,
+              max_frames: parseInt(document.getElementById('md-maxframes').value)||100
+            }
+          }
+        };
+        showMdLoader(true);
+        logMd('提交 MD 作业');
+        mdSubmitting = true; const sb = document.getElementById('btn-md-submit'); if(sb){ sb.disabled = true; sb.textContent = '处理中…'; }
+        try{
+          const r = await fetch(api+'/jobs', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload), credentials:'include'});
+          if(!r.ok){ showMdLoader(false); logMd('提交失败'); return; }
+          const j = await r.json();
+          try{ localStorage.setItem('last_md_job_id', j.job_id); }catch(e){}
+          try{ const jid = document.getElementById('md-job-id'); if(jid) jid.textContent = `任务ID: ${j.job_id}`; }catch(e){}
+          if(mdJobTimer) { clearInterval(mdJobTimer); mdJobTimer=null; }
+          if(mdLogTimer) { clearInterval(mdLogTimer); mdLogTimer=null; }
+          pollMdJob(j.job_id);
+          pollMdLog(j.job_id);
+        }catch(e){ showMdLoader(false); logMd('错误: '+e.message); }
+      }
+
+      async function runMdPrepare(){
+        if(!mdProteinName) return alert('请选择蛋白 PDB');
+        const payload = {
+          type: 'md_prepare',
+          inputs: {
+            protein: { path: mdProteinName },
+            forcefield: document.getElementById('md-ff').value,
+            water: document.getElementById('md-water').value
+          }
+        };
+        showMdLoader(true);
+        logMd('生成受力量场');
+        try{
+          const r = await fetch(api+'/jobs', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload), credentials:'include'});
+          if(!r.ok){ showMdLoader(false); logMd('提交失败'); return; }
+          const j = await r.json();
+          pollMdPrepareJob(j.job_id);
+          pollMdLog(j.job_id);
+        }catch(e){ showMdLoader(false); logMd('错误: '+e.message); }
+      }
+
+      async function pollMdPrepareJob(jobId){
+        const timer = setInterval(async ()=>{
+          try{
+            const r = await fetch(`${api}/jobs/${jobId}`, {credentials:'include'});
+            const j = await r.json();
+            if(j.status==='succeeded' || j.status==='completed'){
+              clearInterval(timer);
+              showMdLoader(false);
+              if(mdLogTimer){ clearInterval(mdLogTimer); mdLogTimer=null; }
+              logMd('力场生成完成');
+              showMdPrepareFiles(jobId, j.outputs);
+            } else if(j.status==='failed'){ clearInterval(timer); showMdLoader(false); if(mdLogTimer){ clearInterval(mdLogTimer); mdLogTimer=null; } logMd('力场生成失败'); }
+          }catch(e){ clearInterval(timer); showMdLoader(false); if(mdLogTimer){ clearInterval(mdLogTimer); mdLogTimer=null; } }
+        }, 2000);
+      }
+
+      async function showMdPrepareFiles(jobId, outputs){
+        const el = document.getElementById('md-prepare-files');
+        const box = document.getElementById('md-prepare-out');
+        box.style.display = 'block';
+        const items = [];
+        if(outputs.topol) items.push({label:'topol.top', name: outputs.topol});
+        if(outputs.gro) items.push({label:'processed.gro', name: outputs.gro});
+        if(outputs.posre_itp) items.push({label:'posre.itp', name: outputs.posre_itp});
+        if(items.length === 0){ el.textContent = '无可下载文件'; return; }
+        el.innerHTML = items.map(it=>`<a href="${api}/files/${jobId}/${encodeURIComponent(it.name)}" target="_blank" style="margin-right:12px;">${it.label}</a>`).join('');
+        if(outputs.topol){ document.getElementById('md-ff-protein').textContent = 'topol.top'; }
+      }
+
+      
+
+      async function resumeLastMd(){
+        try{
+          const jobId = localStorage.getItem('last_md_job_id');
+          if(!jobId) return;
+          logMd(`恢复任务: ${jobId}`);
+          try{ const jid = document.getElementById('md-job-id'); if(jid) jid.textContent = `任务ID: ${jobId}`; }catch(e){}
+          showMdLoader(true);
+          const r = await fetch(`${api}/jobs/${jobId}`, {credentials:'include'});
+          if(!r.ok){ showMdLoader(false); return; }
+          const j = await r.json();
+          if(j.status==='succeeded' || j.status==='completed'){
+            showMdLoader(false);
+            loadMdResults(jobId, j.outputs);
+            if(mdLogTimer){ clearInterval(mdLogTimer); mdLogTimer=null; }
+          } else {
+            pollMdLog(jobId);
+            pollMdJob(jobId);
+          }
+        }catch(e){ logMd('恢复任务失败: ' + (e&&e.message?e.message:e)); }
+      }
+
+      async function pollMdJob(jobId){
+        if(mdJobTimer) { clearInterval(mdJobTimer); }
+        logMd(`开始轮询作业: ${jobId}`);
+        mdJobTimer = setInterval(async ()=>{
+          try{
+            const r = await fetch(`${api}/jobs/${jobId}`, {credentials:'include'});
+            const j = await r.json();
+            logMd(`MD 状态: ${j.status||'未知'}`);
+            if(j.status==='succeeded' || j.status==='completed'){
+              clearInterval(mdJobTimer); mdJobTimer=null;
+              showMdLoader(false);
+              if(mdLogTimer){ clearInterval(mdLogTimer); mdLogTimer=null; }
+              logMd('MD 完成');
+              loadMdResults(jobId, j.outputs);
+              mdSubmitting = false; const sb = document.getElementById('btn-md-submit'); if(sb){ sb.disabled = false; sb.textContent = '提交动力学'; }
+            } else if(j.status==='failed'){
+              clearInterval(mdJobTimer); mdJobTimer=null;
+              showMdLoader(false);
+              if(mdLogTimer){ clearInterval(mdLogTimer); mdLogTimer=null; }
+              logMd('MD 失败');
+              mdSubmitting = false; const sb = document.getElementById('btn-md-submit'); if(sb){ sb.disabled = false; sb.textContent = '提交动力学'; }
+            }
+          }catch(e){
+            clearInterval(mdJobTimer); mdJobTimer=null;
+            showMdLoader(false);
+            if(mdLogTimer){ clearInterval(mdLogTimer); mdLogTimer=null; }
+            logMd('状态轮询异常: '+(e&&e.message?e.message:e));
+          }
+        }, 2000);
+      }
+
+      async function pollMdLog(jobId){
+        const el = document.getElementById('md-log'); el.textContent='';
+        if(mdLogTimer) { clearInterval(mdLogTimer); }
+        logMd(`开始日志轮询: ${jobId}`);
+        mdLogTimer = setInterval(async ()=>{
+          try{
+            const r = await fetch(`${api}/files/${jobId}/log.txt`, {credentials:'include'});
+            if(r.ok){
+              const t = await r.text();
+              updateMdProgressFromLog(t);
+              try{
+                const jr = await fetch(`${api}/jobs/${jobId}`, {credentials:'include'});
+                let outputs = {};
+                if(jr.ok){ const j = await jr.json(); outputs = j.outputs||{}; }
+                const emLog = outputs.em_log || null;
+                const nptLog = outputs.npt_log || null;
+                const prodLog = outputs.prod_log || null;
+                const hasEmStart = /step_start:EM/.test(t);
+                const hasEmDone = /step_done:EM/.test(t);
+                const hasNptStart = /step_start:NPT/.test(t);
+                const hasNptDone = /step_done:NPT/.test(t);
+                const hasProdStart = /step_start:Production/.test(t);
+                const hasProdDone = /step_done:Production/.test(t);
+                const items = [];
+                items.push({label: 'EM', status: hasEmDone ? '已完成' : (hasEmStart ? '正在进行' : '待开始'), file: emLog});
+                items.push({label: 'NPT', status: hasNptDone ? '已完成' : (hasNptStart ? '正在进行' : (hasEmDone ? '待开始' : '待开始')), file: nptLog});
+                items.push({label: 'Production', status: hasProdDone ? '已完成' : (hasProdStart ? '正在进行' : (hasNptDone ? '待开始' : '待开始')), file: prodLog});
+                el.innerHTML = '';
+                items.forEach(it => {
+                  const row = document.createElement('div'); row.style.display='flex'; row.style.alignItems='center'; row.style.justifyContent='space-between'; row.style.padding='6px 8px'; row.style.borderBottom='1px solid var(--border)';
+                  const left = document.createElement('div'); left.textContent = `${it.label}：${it.status}`; left.style.fontSize='12px';
+                  const right = document.createElement('div');
+                  if(it.file){
+                    const a = document.createElement('a'); a.textContent = it.file; a.href = `${api}/files/${jobId}/${encodeURIComponent(it.file)}`; a.target = '_blank'; a.style.fontSize='12px';
+                    a.onclick = (ev)=>{ ev.preventDefault(); openLogModal(jobId, it.file, `${it.label} 详细日志`); };
+                    right.appendChild(a);
+                  } else {
+                    const s = document.createElement('span'); s.textContent = '-'; s.style.fontSize='12px'; right.appendChild(s);
+                  }
+                  row.appendChild(left); row.appendChild(right); el.appendChild(row);
+                });
+                try{
+                  const lines = t.split('\n').map(l=>l.trim()).filter(l=>l);
+                  const cmds = lines.filter(l=>/^gmx\s+/i.test(l));
+                  if(cmds.length){
+                    const cap = document.createElement('div'); cap.textContent='命令日志'; cap.style.fontWeight='600'; cap.style.padding='8px 8px 4px 8px'; cap.style.fontSize='12px'; el.appendChild(cap);
+                    const pre = document.createElement('pre'); pre.style.margin='0'; pre.style.padding='8px'; pre.style.background='#fff'; pre.style.borderTop='1px solid var(--border)'; pre.style.whiteSpace='pre-wrap'; pre.style.fontSize='12px';
+                    const tail = cmds.slice(-10);
+                    pre.textContent = tail.join('\n');
+                    el.appendChild(pre);
+                  }
+                }catch(e){}
+              } catch(e) {
+                el.textContent = t;
+              }
+            }
+          }catch(e){}
+        }, 1500);
+        setTimeout(()=>{ if(mdLogTimer){ clearInterval(mdLogTimer); mdLogTimer=null; } }, 600000);
+      }
+
+      function updateMdProgressFromLog(text){
+        const em = document.getElementById('md-step-em');
+        const npt = document.getElementById('md-step-npt');
+        const prod = document.getElementById('md-step-prod');
+        const info = document.getElementById('md-progress-text');
+        const hasEm = /mdrun\s+-deffnm\s+em/.test(text);
+        const hasNpt = /mdrun\s+-deffnm\s+npt/.test(text);
+        const hasMd = /mdrun\s+-deffnm\s+md/.test(text);
+        const accent = 'var(--accent)'; const weak = 'var(--accent-weak)';
+        function setDone(el){ el.style.background=weak; el.style.borderColor=accent; }
+        function setActive(el){ el.style.background='#fff'; el.style.borderColor=accent; }
+        function setIdle(el){ el.style.background='transparent'; el.style.borderColor='var(--border)'; }
+        setIdle(em); setIdle(npt); setIdle(prod);
+        if(!hasEm && !hasNpt && !hasMd){ info.textContent = '已提交/准备中'; setActive(em); return; }
+        if(hasEm && !hasNpt && !hasMd){ setDone(em); setActive(npt); info.textContent = '进行到 NPT'; return; }
+        if(hasEm && hasNpt && !hasMd){ setDone(em); setDone(npt); setActive(prod); info.textContent = '进行到 Production'; return; }
+        if(hasEm && hasNpt && hasMd){ setDone(em); setDone(npt); setDone(prod); info.textContent = '已完成'; return; }
+      }
+
+      let mdTrajModel = null; let mdFrameCount = 0; let mdPlayTimer = null;
+      async function loadMdResults(jobId, outputs){
+        try{
+          try{ if(!outputs || !Object.keys(outputs||{}).length){ const jr = await fetch(`${api}/jobs/${jobId}`, {credentials:'include'}); if(jr.ok){ const j = await jr.json(); outputs = j.outputs||{}; logMd('回退获取 outputs: ' + Object.keys(outputs||{}).join(', ')); } } }catch(e){}
+          const v = await ensureMdViewer(); v.plugin.clear();
+          console.log(outputs)
+          if(outputs.traj_pdb){
+            const r = await fetch(`${api}/files/${jobId}/${outputs.traj_pdb}`, {credentials:'include'}); const pdb = await r.text();
+            await v.loadStructureFromData(pdb, 'pdb', { dataLabel: 'MD Traj' });
+            const plugin = v.plugin; const models = plugin.managers.structure.hierarchy.current.models; if(models.length>0){ mdTrajModel = models[0]; }
+            mdFrameCount = estimatePdbModelCount(pdb);
+            const slider = document.getElementById('md-frame'); const label = document.getElementById('md-frame-label');
+            slider.max = String(Math.max(0, mdFrameCount-1)); slider.value='0'; label.textContent = `1/${mdFrameCount}`;
+          }
+          if(outputs.report){
+            try {
+              const rr = await fetch(`${api}/files/${jobId}/${outputs.report}`, {credentials:'include'});
+              if(rr.ok){ const csv = await rr.text(); const items = parseMdReport(csv); renderMdTable(items); }
+            } catch(e) {}
+          }
+          try { const keys = Object.keys(outputs||{}); logMd('MD 输出键: ' + (keys && keys.length? keys.join(', '): '(none)')); } catch(e) {}
+          
+          // --- Refactored: Gallery Layout ---
+          const plotBox = document.getElementById('md-plots'); 
+          plotBox.innerHTML='';
+          // Use gallery-grid container
+          plotBox.className = 'gallery-grid';
+          // plotBox.style.display = 'grid'; // ensure grid is active
+          
+          const plotKeys = [
+            {k:'em_plot', label:'EM Potential'},
+            {k:'npt_temp_plot', label:'NPT Temperature'},
+            {k:'npt_press_plot', label:'NPT Pressure'},
+            {k:'prod_temp_plot', label:'Production Temperature'},
+            {k:'prod_press_plot', label:'Production Pressure'},
+          ];
+          function sanitizeArtifact(rel){ try { return rel.replace(/^outputs\//,'').replace(/^work\//,''); } catch(e){ return rel; } }
+          
+          // Clear global list
+          mdPlotList = [];
+          
+          for(const pk of plotKeys){
+            const rel = outputs[pk.k];
+            if(rel){
+              // Create gallery card
+              const card = document.createElement('div'); 
+              card.className = 'gallery-card';
+              
+              const imgWrap = document.createElement('div');
+              imgWrap.className = 'gallery-img-wrap';
+              
+              const img = document.createElement('img'); 
+              img.className = 'gallery-img';
+              img.alt = pk.label;
+              
+              const info = document.createElement('div');
+              info.className = 'gallery-info';
+              
+              const title = document.createElement('div');
+              title.className = 'gallery-title';
+              title.textContent = pk.label;
+              
+              const meta = document.createElement('div');
+              meta.className = 'gallery-meta';
+              meta.textContent = '点击查看大图';
+
+              const action = document.createElement('div');
+              action.className = 'gallery-action';
+              action.textContent = '🔍 预览';
+
+              info.appendChild(title);
+              info.appendChild(meta);
+              imgWrap.appendChild(img);
+              
+              card.appendChild(action); // overlay action
+              card.appendChild(imgWrap);
+              card.appendChild(info);
+              
+              plotBox.appendChild(card);
+
+              try {
+                const art = sanitizeArtifact(rel);
+                const rimg = await fetch(`${api}/files/${jobId}/${art}`, {credentials:'include'});
+                if(rimg.ok){ 
+                  const blob = await rimg.blob(); 
+                  const url = URL.createObjectURL(blob); 
+                  img.src = url; 
+                  
+                  // Add to gallery list
+                  mdPlotList.push({ url, label: pk.label }); 
+                  const myIndex = mdPlotList.length - 1; 
+                  
+                  // Click handler
+                  card.onclick = ()=> openPlotIndex(myIndex); 
+                }
+                else { 
+                  meta.textContent = '加载失败';
+                  img.alt = 'Image load failed';
+                }
+              } catch(e) { 
+                logMd(`图片异常: ${pk.label} err=${e&&e.message?e.message:e}`);
+                meta.textContent = '加载错误';
+              }
+            }
+          }
+        }catch(e){ logMd('结果加载失败: '+e.message); }
+      }
+
+      function estimatePdbModelCount(text){ let c=0; const lines = text.split('\n'); for(const l of lines){ if(l.startsWith('MODEL')) c++; } return c>0?c:1; }
+      async function setMdFrame(i){ i = parseInt(i)||0; const label = document.getElementById('md-frame-label'); label.textContent = `${i+1}/${mdFrameCount}`; try{ const v = await ensureMdViewer(); const plugin = v.plugin; if(mdTrajModel){ await plugin.managers.structure.trajectory.setIndex(mdTrajModel, i); } }catch(e){} }
+      function toggleMdPlay(){ if(mdPlayTimer){ clearInterval(mdPlayTimer); mdPlayTimer=null; document.getElementById('md-play').textContent='播放'; return; } document.getElementById('md-play').textContent='暂停'; mdPlayTimer = setInterval(()=>{ const slider = document.getElementById('md-frame'); let i = parseInt(slider.value)||0; i = (i+1)%Math.max(1, mdFrameCount); slider.value = String(i); setMdFrame(i); }, 500); }
+      function openPlotIndex(i){ mdPlotIndex = i; const item = mdPlotList[mdPlotIndex]; if(!item) return; const box = document.getElementById('md-plot-modal'); const img = document.getElementById('md-plot-img'); const cap = document.getElementById('md-plot-cap'); img.src=item.url; cap.textContent=item.label + ` (${mdPlotIndex+1}/${mdPlotList.length})`; box.style.display='flex'; }
+      function closePlotModal(){ const box = document.getElementById('md-plot-modal'); const img = document.getElementById('md-plot-img'); img.src=''; box.style.display='none'; }
+      function nextPlot(){ if(!mdPlotList.length) return; mdPlotIndex = (mdPlotIndex + 1) % mdPlotList.length; openPlotIndex(mdPlotIndex); }
+      function prevPlot(){ if(!mdPlotList.length) return; mdPlotIndex = (mdPlotIndex - 1 + mdPlotList.length) % mdPlotList.length; openPlotIndex(mdPlotIndex); }
+
+      function openLogModal(jobId, name, title){ const box = document.getElementById('md-log-modal'); const pre = document.getElementById('md-log-pre'); const cap = document.getElementById('md-log-cap'); cap.textContent=title; pre.textContent=''; box.style.display='flex'; fetch(`${api}/files/${jobId}/${encodeURIComponent(name)}`, {credentials:'include'}).then(r=>r.ok?r.text():Promise.reject(new Error('load_failed'))).then(txt=>{ pre.textContent = txt; }).catch(()=>{ pre.textContent = '加载失败'; }); }
+      function closeLogModal(){ const box = document.getElementById('md-log-modal'); const pre = document.getElementById('md-log-pre'); pre.textContent=''; box.style.display='none'; }
+
+      function parseMdReport(csv){
+        const lines = csv.split('\n').map(l=>l.trim()).filter(l=>l);
+        const items = [];
+        for(let i=1;i<lines.length;i++){
+          const cols = lines[i].split(',');
+          const row = { step: cols[0]||'', frames: Number(cols[1]||0), potential: cols[2]||'', temp_mean: cols[3]||'', temp_error: cols[4]||'', press_mean: cols[5]||'', press_error: cols[6]||'' };
+          items.push(row);
+        }
+        return items;
+      }
+      function renderMdTable(items){
+        const tbody = document.getElementById('md-table-body');
+        tbody.innerHTML = '';
+        if(!items || items.length===0){ tbody.innerHTML = '<tr><td colspan="5" style="padding:20px; text-align:center; color:var(--muted);">暂无数据</td></tr>'; return; }
+        items.forEach(it=>{
+          const tr = document.createElement('tr');
+          tr.style.borderBottom = '1px solid var(--border)';
+          const pot = it.potential && it.potential !== '' ? it.potential : '-';
+          const temp = (it.temp_mean && it.temp_mean !== '') ? `${it.temp_mean}±${it.temp_error || '-'} K` : '-';
+          const press = (it.press_mean && it.press_mean !== '') ? `${it.press_mean}±${it.press_error || '-'} bar` : '-';
+          tr.innerHTML = `<td style="padding:8px;">${it.step}</td><td style="padding:8px;">${it.frames}</td><td style="padding:8px;">${pot}</td><td style="padding:8px;">${temp}</td><td style="padding:8px;">${press}</td>`;
+          tbody.appendChild(tr);
+        });
       }
 
       async function selectReceptor(name) {
@@ -833,45 +2098,107 @@
       }
 
       async function loadDockResult(jobId, outputs) {
-         // Load Pose SDF
-         if(outputs.pose_sdf) {
-            try {
-               const url = `${api}/files/${jobId}/${outputs.pose_sdf}`;
-               const r = await fetch(url, {credentials:'include'});
-               const sdf = await r.text();
-               
-               const v = await ensureViewer();
-               // Load pose
-               await v.loadStructureFromData(sdf, 'sdf', { dataLabel: 'Docked Pose' });
-               
-               // Apply ball & stick to pose
-               // (Ideally we should select the last loaded structure)
-               const plugin = v.plugin;
-               // Simple representation update logic would go here
-               
-               // Show results panel
-               const resultsPanel = document.getElementById('dock-results');
-               const list = document.getElementById('dock-results-list');
-               resultsPanel.style.display = 'flex';
-               list.innerHTML = '';
-               
-               // Parse scores if available
-               if(outputs.scores && outputs.scores.items) {
-                  outputs.scores.items.forEach((item, idx) => {
-                     const div = document.createElement('div');
-                     div.className = 'result-item';
-                     div.innerHTML = `<span>Pose ${idx+1}</span> <b>${item.score}</b>`;
-                     // On click, we could isolate this model if multi-model SDF
-                     list.appendChild(div);
-                  });
-               } else {
-                   list.innerHTML = '<div style="padding:10px">Result loaded.</div>';
-               }
+        try {
+          const v = await ensureViewer();
+          // Prefer complex PDB if available
+          if(outputs.complex_pdb){
+            const url = `${api}/files/${jobId}/${outputs.complex_pdb}`;
+            const r = await fetch(url, {credentials:'include'});
+            const pdb = await r.text();
+            await v.loadStructureFromData(pdb, 'pdb', { dataLabel: 'Docking Complex' });
+          } else if(outputs.receptor_pdb && outputs.pose_pdb){
+            const rp = await (await fetch(`${api}/files/${jobId}/${outputs.receptor_pdb}`, {credentials:'include'})).text();
+            await v.loadStructureFromData(rp, 'pdb', { dataLabel: 'Receptor' });
+            const lp = await (await fetch(`${api}/files/${jobId}/${outputs.pose_pdb}`, {credentials:'include'})).text();
+            await v.loadStructureFromData(lp, 'pdb', { dataLabel: 'Docked Ligand' });
+          } else if(outputs.pose_sdf){
+            const url = `${api}/files/${jobId}/${outputs.pose_sdf}`;
+            const r = await fetch(url, {credentials:'include'});
+            const sdf = await r.text();
+            await v.loadStructureFromData(sdf, 'sdf', { dataLabel: 'Docked Pose' });
+          }
+        } catch(e){ logDock('Load structure failed: '+e.message); }
+        // Render scores table (right top)
+        try{
+          const tbody = document.getElementById('dock-scores-body');
+          tbody.innerHTML = '';
+          let items = [];
+          if(typeof outputs.scores === 'string'){
+            const r = await fetch(`${api}/files/${jobId}/${outputs.scores}`, {credentials:'include'});
+            const j = await r.json(); items = j.items||[];
+          } else if(outputs.scores && outputs.scores.items){
+            items = outputs.scores.items;
+          } else {
+            const r = await fetch(`${api}/files/${jobId}/scores.json`, {credentials:'include'});
+            if(r.ok){ const j = await r.json(); items = j.items||[]; }
+          }
+          if(items.length === 0){
+            tbody.innerHTML = '<tr><td style="padding:8px; color:var(--muted)">暂无数据</td><td></td></tr>';
+          } else {
+            items.forEach((it)=>{
+              const tr = document.createElement('tr');
+              const aff = (it.affinity!==undefined && it.affinity!==null)? it.affinity: '-';
+              const lb = (it.rmsd_lb!==undefined && it.rmsd_lb!==null)? it.rmsd_lb: '-';
+              const ub = (it.rmsd_ub!==undefined && it.rmsd_ub!==null)? it.rmsd_ub: '-';
+              tr.innerHTML = `
+                <td style="padding:6px; border-bottom:1px solid var(--border);">Pose ${it.mode||'-'}</td>
+                <td style="padding:6px; border-bottom:1px solid var(--border);">${aff}</td>
+                <td style="padding:6px; border-bottom:1px solid var(--border);">${lb}</td>
+                <td style="padding:6px; border-bottom:1px solid var(--border);">${ub}</td>`;
+              const dlTd = document.createElement('td');
+              dlTd.style.padding = '6px'; dlTd.style.borderBottom = '1px solid var(--border)';
+              const btn = document.createElement('button');
+              btn.textContent = '下载PDB';
+              btn.style.background = 'none'; btn.style.border = '1px solid var(--border)'; btn.style.borderRadius = '4px'; btn.style.padding = '4px 8px'; btn.style.cursor = 'pointer'; btn.style.fontSize = '12px';
+              btn.onclick = async (e)=>{ e.stopPropagation(); try{ await downloadPoseByMode(jobId, it.mode); }catch(err){ logDock('下载失败: '+err.message); } };
+              dlTd.appendChild(btn);
+              tr.appendChild(dlTd);
+              tr.style.cursor = 'pointer';
+              tr.onclick = async ()=>{ try{ await loadPoseByMode(jobId, outputs, it.mode); }catch(e){ logDock('Load pose failed: '+e.message); } };
+              tbody.appendChild(tr);
+            });
+          }
+          // Remove dock results panel after docking
+          try{
+            const panel = document.getElementById('dock-results');
+            if(panel) panel.remove();
+          }catch(e){ /* ignore */ }
+        } catch(e){ logDock('Load scores failed: '+e.message); }
+      }
 
-            } catch(e) {
-               logDock('Load result failed: '+e.message);
-            }
-         }
+      async function loadPoseByMode(jobId, outputs, mode){
+        try{
+          const modeNum = typeof mode === 'number' ? mode : parseInt(mode, 10);
+          const artifact = `poses/complex_mode${modeNum}.pdb`;
+          logDock(`准备加载 Pose ${modeNum} (artifact=${artifact})`);
+          const v = await ensureViewer();
+          if(v && v.plugin && typeof v.plugin.clear === 'function') { v.plugin.clear(); }
+          const r = await fetch(`${api}/files/by-artifact`, {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            credentials:'include',
+            body: JSON.stringify({ job_id: jobId, artifact })
+          });
+          if(r.ok){ const pdb = await r.text(); await v.loadStructureFromData(pdb, 'pdb', { dataLabel: `Pose ${modeNum}` }); }
+          else { logDock(`加载失败(${r.status}) artifact=${artifact}`); }
+        }catch(e){ logDock('Load pose by row failed: '+e.message); }
+      }
+
+      async function downloadPoseByMode(jobId, mode){
+        const modeNum = typeof mode === 'number' ? mode : parseInt(mode, 10);
+        const artifact = `poses/complex_mode${modeNum}.pdb`;
+        try{
+          const r = await fetch(`${api}/files/by-artifact`, {
+            method: 'POST', headers: {'Content-Type':'application/json'}, credentials:'include', body: JSON.stringify({ job_id: jobId, artifact })
+          });
+          if(!r.ok){ logDock(`下载失败(${r.status}) artifact=${artifact}`); return; }
+          const blob = await r.blob();
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url; a.download = `complex_mode${modeNum}.pdb`;
+          document.body.appendChild(a); a.click();
+          setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); }, 0);
+        }catch(e){ logDock('下载异常: '+e.message); }
       }
 
       // --- SMOL LOGIC ---
@@ -1103,15 +2430,177 @@
          document.getElementById('dock-loader').style.display = show ? 'flex' : 'none';
       }
 
+      function setMmpJobId(jobId){ const el = document.getElementById('mmp-job-id'); if(el) el.textContent = `任务ID: ${jobId||'-'}`; }
+      let mmpLogTimer = null;
+      function stopMmpLog(){ if(mmpLogTimer){ clearInterval(mmpLogTimer); mmpLogTimer=null; } }
+      let mmpJobListLoading = false;
+      async function loadMdJobDirListForMmp(){ if(mmpJobListLoading) return; mmpJobListLoading = true; try{ const sel = document.getElementById('mmp-job-select'); if(!sel) return; const r = await fetch(api+'/jobs/md/dir', {credentials:'include'}); if(!r.ok){ mmpJobListLoading=false; return; } const j = await r.json(); const jobs = j.jobs||[]; const frag = document.createDocumentFragment(); const def = document.createElement('option'); def.value=''; def.textContent='选择MD任务'; frag.appendChild(def); jobs.forEach(it=>{ const o = document.createElement('option'); o.value = it.id; o.textContent = `${it.id}${it.has_work? '': ' (无work)'}`; frag.appendChild(o); }); sel.innerHTML=''; sel.appendChild(frag); sel.onchange = ()=>{ const v = sel.value; if(v){ setMmpJobId(v); } }; }catch(e){} finally{ mmpJobListLoading=false; } }
+      function logMmp(msg){ const el = document.getElementById('mmp-log'); el.textContent += `> ${msg}\n`; el.scrollTop = el.scrollHeight; }
+      function setupMmpbsaInputs(){ const rSel = document.getElementById('mmp-receptor-group'); const lSel = document.getElementById('mmp-ligand-group'); const rIdx = document.getElementById('mmp-receptor-index'); const lIdx = document.getElementById('mmp-ligand-index'); const rWrap = document.getElementById('mmp-receptor-index-wrap'); const lWrap = document.getElementById('mmp-ligand-index-wrap'); const decompChk = document.getElementById('mmp-func-decomp'); const alanineChk = document.getElementById('mmp-func-alanine'); const decompScope = document.getElementById('mmp-decomp-res-scope'); const alaOpts = document.getElementById('mmp-ala-opts'); const gbModal = document.getElementById('mmp-gb-modal'); const pbModal = document.getElementById('mmp-pb-modal'); const gbCancel = document.getElementById('mmp-gb-cancel'); const gbConfirm = document.getElementById('mmp-gb-confirm'); const pbCancel = document.getElementById('mmp-pb-cancel'); const pbConfirm = document.getElementById('mmp-pb-confirm'); const gbAdvBtn = document.getElementById('mmp-implicit-gb-adv-btn'); const pbAdvBtn = document.getElementById('mmp-implicit-pb-adv-btn'); const update = ()=>{ const rc = rSel && rSel.value==='custom'; const lc = lSel && lSel.value==='custom'; if(rWrap) rWrap.style.display = rc? 'block':'none'; if(lWrap) lWrap.style.display = lc? 'block':'none'; if(rIdx) rIdx.disabled = !rc; if(lIdx) lIdx.disabled = !lc; if(decompScope) decompScope.style.display = (decompChk && decompChk.checked)? 'inline-block':'none'; if(alaOpts) alaOpts.style.display = (alanineChk && alanineChk.checked)? 'flex':'none'; }; if(rSel) rSel.onchange = update; if(lSel) lSel.onchange = update; if(decompChk) decompChk.onchange = update; if(alanineChk) alanineChk.onchange = update; if(gbAdvBtn) gbAdvBtn.onclick = ()=>{ if(gbModal) gbModal.style.display = 'flex'; const setVal = (id,val)=>{ const el = document.getElementById(id); if(el) el.value = val; }; setVal('mmp-gb-igb-input', document.getElementById('mmp-gb-igb')?.value||'5'); setVal('mmp-gb-salt-input', document.getElementById('mmp-gb-salt')?.value||'0.15'); setVal('mmp-gb-inter-diel-input', document.getElementById('mmp-gb-inter-diel')?.value||'1.0'); setVal('mmp-gb-solv-diel-input', document.getElementById('mmp-gb-solv-diel')?.value||'78.5'); }; if(pbAdvBtn) pbAdvBtn.onclick = ()=>{ if(pbModal) pbModal.style.display = 'flex'; const setVal = (id,val)=>{ const el = document.getElementById(id); if(el) el.value = val; }; setVal('mmp-pb-npbopt-input', document.getElementById('mmp-pb-npbopt')?.value||'1'); setVal('mmp-pb-ipb-input', document.getElementById('mmp-pb-ipb')?.value||'0'); setVal('mmp-pb-ionic-s-input', document.getElementById('mmp-pb-ionic-s')?.value||'0.15'); setVal('mmp-pb-inter-diel-input', document.getElementById('mmp-pb-inter-diel')?.value||'1.0'); setVal('mmp-pb-solv-diel-input', document.getElementById('mmp-pb-solv-diel')?.value||'80.0'); }; if(gbCancel) gbCancel.onclick = ()=>{ if(gbModal) gbModal.style.display = 'none'; }; if(gbConfirm) gbConfirm.onclick = ()=>{ const getVal = id=> document.getElementById(id)?.value||''; const setVal = (id,val)=>{ const el = document.getElementById(id); if(el) el.value = val; }; setVal('mmp-gb-igb', getVal('mmp-gb-igb-input')||'5'); setVal('mmp-gb-salt', getVal('mmp-gb-salt-input')||'0.15'); setVal('mmp-gb-inter-diel', getVal('mmp-gb-inter-diel-input')||'1.0'); setVal('mmp-gb-solv-diel', getVal('mmp-gb-solv-diel-input')||'78.5'); if(gbModal) gbModal.style.display='none'; }; if(pbCancel) pbCancel.onclick = ()=>{ if(pbModal) pbModal.style.display = 'none'; }; if(pbConfirm) pbConfirm.onclick = ()=>{ const getVal = id=> document.getElementById(id)?.value||''; const setVal = (id,val)=>{ const el = document.getElementById(id); if(el) el.value = val; }; setVal('mmp-pb-npbopt', getVal('mmp-pb-npbopt-input')||'1'); setVal('mmp-pb-ipb', getVal('mmp-pb-ipb-input')||'0'); setVal('mmp-pb-ionic-s', getVal('mmp-pb-ionic-s-input')||'0.15'); setVal('mmp-pb-inter-diel', getVal('mmp-pb-inter-diel-input')||'1.0'); setVal('mmp-pb-solv-diel', getVal('mmp-pb-solv-diel-input')||'80.0'); if(pbModal) pbModal.style.display='none'; }; update(); }
+      async function runMmpbsa(){ try{ stopMmpLog(); const rGroup = (document.getElementById('mmp-receptor-group').value || 'Protein'); const lGroup = (document.getElementById('mmp-ligand-group').value || 'Ligand'); const rIdx = document.getElementById('mmp-receptor-index').value.trim(); const lIdx = document.getElementById('mmp-ligand-index').value.trim(); const sourceId = (document.getElementById('mmp-job-select').value || '').trim(); if(!sourceId) return alert('请选择MD任务'); const functions = { 
+          binding: !!document.getElementById('mmp-func-binding')?.checked, 
+          decomp: !!document.getElementById('mmp-func-decomp')?.checked, 
+          alanine: !!document.getElementById('mmp-func-alanine')?.checked 
+        };
+        // Prioritize decomp over binding because decomp includes binding
+        const mode = functions.decomp? 'decomp': (functions.alanine? 'alanine': 'binding'); const implicitModelEl = document.querySelector('input[name="mmp-implicit-model"]:checked'); const implicit_model = implicitModelEl? implicitModelEl.value: 'GB'; const settings = { entropy: { temp: document.getElementById('mmp-entropy-temp')?.value || '300', ie: !!document.getElementById('mmp-entropy-ie')?.checked, c2: !!document.getElementById('mmp-entropy-c2')?.checked }, decomp: { residue_scope: document.getElementById('mmp-decomp-res-scope')?.value || 'System' }, alanine: { range: document.getElementById('mmp-ala-range')?.value || 'interface', residues: document.getElementById('mmp-ala-res')?.value || '', interface_cutoff: document.getElementById('mmp-ala-cutoff')?.value || '6.0', probe_radius: document.getElementById('mmp-ala-probe')?.value || '5.0' }, implicit_model, gb_adv: { igb: document.getElementById('mmp-gb-igb')?.value || '5', salt: document.getElementById('mmp-gb-salt')?.value || '0.15', inter_diel: document.getElementById('mmp-gb-inter-diel')?.value || '1.0', solv_diel: document.getElementById('mmp-gb-solv-diel')?.value || '78.5' }, pb_adv: { npbopt: document.getElementById('mmp-pb-npbopt')?.value || '1', ipb: document.getElementById('mmp-pb-ipb')?.value || '0', ionic_s: document.getElementById('mmp-pb-ionic-s')?.value || '0.15', inter_diel: document.getElementById('mmp-pb-inter-diel')?.value || '1.0', solv_diel: document.getElementById('mmp-pb-solv-diel')?.value || '80.0' }, groups: { receptor: { name: rGroup, index: rGroup==='custom'? rIdx: '' }, ligand: { name: lGroup, index: lGroup==='custom'? lIdx: '' } }, functions }; const inputs = { type:'mmpbsa', inputs: { source_job_id: sourceId, group: rGroup, group_index: rGroup==='custom'? rIdx:'', mode, settings } }; logMmp('提交 MMPBSA'); const r = await fetch(api+'/jobs', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(inputs), credentials:'include'}); if(!r.ok){ logMmp('提交失败'); return; } const j = await r.json(); setMmpJobId(j.job_id); pollMmpJob(j.job_id); pollMmpLog(j.job_id); }catch(e){ logMmp('错误: '+(e&&e.message?e.message:e)); } }
+      async function pollMmpJob(jobId){ let timer = setInterval(async ()=>{ try{ const r = await fetch(`${api}/jobs/${jobId}`, {credentials:'include'}); const j = await r.json(); if(j.status==='succeeded' || j.status==='completed'){ clearInterval(timer); stopMmpLog(); loadMmpResults(jobId, j.outputs); logMmp('完成'); } else if(j.status==='failed'){ clearInterval(timer); stopMmpLog(); logMmp('失败'); } }catch(e){ clearInterval(timer); stopMmpLog(); } }, 2000); }
+      async function pollMmpLog(jobId){ const el = document.getElementById('mmp-log'); el.textContent=''; stopMmpLog(); mmpLogTimer = setInterval(async ()=>{ try{ const r = await fetch(`${api}/files/${jobId}/log.txt`, {credentials:'include'}); if(r.ok){ const t = await r.text(); el.textContent = t; el.scrollTop = el.scrollHeight; } }catch(e){} }, 1500); setTimeout(()=>{ stopMmpLog(); }, 600000); }
+      async function loadMmpResults(jobId, outputs){
+        try{
+          const el = document.getElementById('mmp-plots'); 
+          el.innerHTML='';
+          // Use gallery-grid container
+          el.className = 'gallery-grid';
+
+          const report = outputs && outputs.report;
+          if(report){
+              const btnDiv = document.createElement('div');
+              btnDiv.style.gridColumn = '1 / -1'; 
+              btnDiv.style.marginBottom = '15px';
+              btnDiv.style.textAlign = 'right';
+              
+              const btn = document.createElement('button');
+              btn.className = 'btn';
+              btn.style.backgroundColor = '#4A5568';
+              btn.style.color = 'white';
+              btn.style.padding = '6px 12px';
+              btn.style.fontSize = '12px';
+              btn.style.cursor = 'pointer';
+              btn.textContent = '📄 下载分析报告 (HTML)';
+              btn.onclick = () => window.open(`${api}/files/${jobId}/${report}?download=true`, '_blank');
+              
+              btnDiv.appendChild(btn);
+              el.appendChild(btnDiv);
+          }
+
+          // el.style.display = 'grid'; 
+
+          const keys = [
+            {k:'interaction_plot', label:'Delta Interaction Energy'},
+            {k:'decomposition_plot', label:'Delta Residue Decomposition'},
+            {k:'decomposition_heatmap', label:'Residue Heatmap'}
+          ];
+          
+          // Reuse mdPlotList for modal support since it's shared logic
+          mdPlotList = []; 
+          
+          for(const item of keys){
+            const rel = outputs && outputs[item.k];
+            if(rel){
+              // Create gallery card
+              const card = document.createElement('div'); 
+              card.className = 'gallery-card';
+              
+              const imgWrap = document.createElement('div');
+              imgWrap.className = 'gallery-img-wrap';
+              
+              const img = document.createElement('img'); 
+              img.className = 'gallery-img';
+              img.alt = item.label;
+              
+              const info = document.createElement('div');
+              info.className = 'gallery-info';
+              
+              const title = document.createElement('div');
+              title.className = 'gallery-title';
+              title.textContent = item.label;
+              
+              const meta = document.createElement('div');
+              meta.className = 'gallery-meta';
+              meta.textContent = '点击查看大图';
+
+              const action = document.createElement('div');
+              action.className = 'gallery-action';
+              action.textContent = '🔍 预览';
+
+              info.appendChild(title);
+              info.appendChild(meta);
+              imgWrap.appendChild(img);
+              
+              card.appendChild(action);
+              card.appendChild(imgWrap);
+              card.appendChild(info);
+              
+              el.appendChild(card);
+
+              const rimg = await fetch(`${api}/files/${jobId}/${rel}`, {credentials:'include'});
+              if(rimg.ok){ 
+                const blob = await rimg.blob(); 
+                const url = URL.createObjectURL(blob); 
+                img.src = url; 
+                
+                mdPlotList.push({label: item.label, url}); 
+                const myIndex = mdPlotList.length - 1; 
+                
+                card.onclick = ()=> openPlotIndex(myIndex);
+              } else {
+                 meta.textContent = '加载失败';
+              }
+            }
+          }
+        }catch(e){}
+        try{
+          const container = document.getElementById('mmp-table-wrapper');
+          if(container){
+              container.innerHTML = ''; // Clear
+              
+              const appendTable = (title, csv) => {
+                 const wrapper = document.createElement('div');
+                 wrapper.style.marginBottom = '20px';
+                 const h = document.createElement('div');
+                 h.textContent = title;
+                 h.style.fontWeight = '600';
+                 h.style.marginBottom = '8px';
+                 h.style.fontSize = '12px';
+                 
+                 const t = document.createElement('table');
+                 t.style.width = '100%';
+                 t.style.borderCollapse = 'collapse';
+                 t.style.fontSize = '12px';
+                 t.innerHTML = renderSimpleCsv(csv);
+                 
+                 wrapper.appendChild(h);
+                 wrapper.appendChild(t);
+                 container.appendChild(wrapper);
+              };
+              
+              const t1 = outputs && outputs.interaction_summary;
+              if(t1){
+                  const r = await fetch(`${api}/files/${jobId}/${t1}`, {credentials:'include'});
+                  if(r.ok){ appendTable('Binding Energy Summary', await r.text()); }
+              }
+              
+              const t2 = outputs && outputs.decomposition_csv;
+              if(t2){
+                  const r = await fetch(`${api}/files/${jobId}/${t2}`, {credentials:'include'});
+                  if(r.ok){ appendTable('Residue Decomposition', await r.text()); }
+              }
+              
+              if(!container.innerHTML){
+                  container.innerHTML = '<div style="padding:10px; color:var(--muted)">暂无数据</div>';
+              }
+          }
+        }catch(e){}
+      }
+
       // --- AUTH ---
+      function setLoginStatus(msg){ const el = document.getElementById('login-status'); if(el){ el.textContent = msg||''; }}
       async function login(){
         const email = document.getElementById('login-email').value;
         const password = document.getElementById('login-pass').value;
+        const btn = document.getElementById('login-btn');
         try {
+          if(btn){ btn.disabled = true; btn.textContent = '处理中…'; }
+          setLoginStatus('正在登录…');
           const r = await fetch(api+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'include',body:JSON.stringify({email,password})});
-          if(r.ok) init();
-          else alert('Login failed');
-        } catch(e) { alert('Login error'); }
+          if(r.ok){ setLoginStatus('登录成功，正在进入…'); init(); }
+          else {
+            let msg = '登录失败'; try{ const t = await r.text(); if(t) msg += `：${t}`; }catch(e){}
+            setLoginStatus(msg);
+          }
+        } catch(e) { setLoginStatus('登录异常：'+(e&&e.message?e.message:e)); }
+        finally { if(btn){ btn.disabled = false; btn.textContent = '登 录'; } }
       }
       
       async function logout(){

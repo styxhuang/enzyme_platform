@@ -1,0 +1,15 @@
+[flake8]
+ignore = E731,E501,E116,F403,F405
+exclude =
+    .git,
+    __pycache__,
+    docs,
+    install,
+    old,
+    build,
+    dist,
+    tests,
+per-file-ignores =
+    # imported but unused
+    */__init__.py: F401
+    __init__.py: F811

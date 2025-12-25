@@ -1,0 +1,4 @@
+385c385
+<     ans = raw_input(text)
+---
+>     ans = 'y'

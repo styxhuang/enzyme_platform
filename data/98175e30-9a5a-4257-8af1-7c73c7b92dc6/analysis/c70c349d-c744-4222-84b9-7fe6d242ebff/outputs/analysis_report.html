@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟分析报告 - c70c349d-c744-4222-84b9-7fe6d242ebff</title>
+    <style>
+        :root { --primary: #4f46e5; --text: #1e293b; --bg: #f8fafc; --card: #ffffff; --border: #e2e8f0; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        header { background: var(--card); padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 24px; border: 1px solid var(--border); }
+        h1 { margin: 0 0 8px 0; font-size: 24px; color: var(--primary); }
+        .meta { color: #64748b; font-size: 14px; }
+        .section { background: var(--card); padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 24px; border: 1px solid var(--border); }
+        h2 { margin: 0 0 20px 0; font-size: 18px; border-bottom: 2px solid var(--bg); padding-bottom: 10px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px; }
+        .chart-card { border: 1px solid var(--border); border-radius: 8px; padding: 16px; background: #fff; }
+        .chart-card img { width: 100%; height: auto; display: block; }
+        .chart-title { font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #475569; text-align: center; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background: #f1f5f9; font-weight: 600; }
+        .no-data { color: #94a3b8; font-style: italic; padding: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>模拟结果分析报告</h1>
+            <div class="meta">任务 ID: c70c349d-c744-4222-84b9-7fe6d242ebff | 生成时间: 2025-12-18 02:35:47</div>
+        </header>
+
+        <div class="section">
+            <h2>通用性质分析 (General Properties)</h2>
+            <table><thead><tr><th>性质</th><th>平均值</th><th>标准差</th></tr></thead><tbody><tr><td>Temperature</td><td>303.03</td><td>1.57</td></tr><tr><td>Pressure</td><td>303.030</td><td>1.566</td></tr><tr><td>Potential</td><td>-594492.3</td><td>6965.1</td></tr><tr><td>Kinetic</td><td>-594492.3</td><td>6965.1</td></tr></tbody></table>
+            
+            <div class="grid" style="margin-top: 24px;">
+                <div class="chart-card"><div class="chart-title">温度 (Temperature)</div><img src="gen_temp.png"></div>
+                <div class="chart-card"><div class="chart-title">压强 (Pressure)</div><img src="gen_press.png"></div>
+                <div class="chart-card"><div class="chart-title">势能 (Potential Energy)</div><img src="gen_pot.png"></div>
+                <div class="chart-card"><div class="chart-title">动能 (Kinetic Energy)</div><img src="gen_kin.png"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>结构性质分析 (Structural Properties)</h2>
+            <table><thead><tr><th>性质</th><th>组 (Group)</th><th>平均值</th><th>标准差</th></tr></thead><tbody><tr><td>RMSD</td><td>System</td><td>1.528</td><td>0.236</td></tr><tr><td>RG</td><td>System</td><td>3.387</td><td>0.022</td></tr><tr><td>RMSF</td><td>System</td><td>0.437</td><td>0.803</td></tr></tbody></table>
+            
+            <div class="grid" style="margin-top: 24px;">
+                <div class="chart-card"><div class="chart-title">RMSD</div><img src="struct_rmsd.png"></div>
+                <div class="chart-card"><div class="chart-title">Radius of Gyration (Rg)</div><img src="struct_rg.png"></div>
+                <div class="chart-card"><div class="chart-title">RMSF</div><img src="struct_rmsf.png"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+    

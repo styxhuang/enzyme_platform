@@ -1,0 +1,48 @@
+job_created
+dispatching_module
+dock_start
+obabel_version Open Babel 3.0.0 -- Mar 11 2020 -- 11:52:36
+
+prepare_receptor4 /usr/local/mgltools/bin/pythonsh /usr/local/mgltools/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_receptor4.py -r /data/assets/98175e30-9a5a-4257-8af1-7c73c7b92dc6/structure/1AKI.pdb -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/receptor.pdbqt -A hydrogens -U nphs_lps_waters
+setting PYTHONHOME environment
+adding gasteiger charges to peptide
+
+obabel_ligand_pdbqt /usr/bin/obabel -isdf /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/ligand.sdf -opdbqt -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/ligand.pdbqt
+1 molecule converted
+
+vina_local_start
+vina_local_done
+obabel_split_modes /usr/bin/obabel -ipdbqt /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/pose.pdbqt -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/ligand_mode.pdb -m
+9 molecules converted
+9 files output. The first is /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/ligand_mode1.pdb
+
+obabel_add_h_receptor /usr/bin/obabel -ipdb /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/receptor.pdb -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/receptor_h.pdb --add-hydrogens -p 7.4
+1 molecule converted
+
+obabel_add_h_ligand /usr/bin/obabel -ipdb /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/ligand_mode1.pdb -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/ligand_mode1_h.pdb --add-hydrogens -p 7.4
+1 molecule converted
+
+obabel_add_h_ligand /usr/bin/obabel -ipdb /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/ligand_mode2.pdb -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/ligand_mode2_h.pdb --add-hydrogens -p 7.4
+1 molecule converted
+
+obabel_add_h_ligand /usr/bin/obabel -ipdb /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/ligand_mode3.pdb -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/ligand_mode3_h.pdb --add-hydrogens -p 7.4
+1 molecule converted
+
+obabel_add_h_ligand /usr/bin/obabel -ipdb /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/ligand_mode4.pdb -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/ligand_mode4_h.pdb --add-hydrogens -p 7.4
+1 molecule converted
+
+obabel_add_h_ligand /usr/bin/obabel -ipdb /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/ligand_mode5.pdb -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/ligand_mode5_h.pdb --add-hydrogens -p 7.4
+1 molecule converted
+
+obabel_add_h_ligand /usr/bin/obabel -ipdb /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/ligand_mode6.pdb -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/ligand_mode6_h.pdb --add-hydrogens -p 7.4
+1 molecule converted
+
+obabel_add_h_ligand /usr/bin/obabel -ipdb /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/ligand_mode7.pdb -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/ligand_mode7_h.pdb --add-hydrogens -p 7.4
+1 molecule converted
+
+obabel_add_h_ligand /usr/bin/obabel -ipdb /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/ligand_mode8.pdb -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/ligand_mode8_h.pdb --add-hydrogens -p 7.4
+1 molecule converted
+
+obabel_add_h_ligand /usr/bin/obabel -ipdb /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/ligand_mode9.pdb -opdb -O /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/dock/77f69a6f-4881-4844-933e-3b83a083a453/outputs/poses/ligand_mode9_h.pdb --add-hydrogens -p 7.4
+1 molecule converted
+

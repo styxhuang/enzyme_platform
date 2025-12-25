@@ -1,0 +1,12 @@
+&general
+sys_name="Prot-Lig-ST",
+startframe=1,
+endframe=10,
+/
+&gb
+igb=5, saltcon=0.15,
+/
+&decomp
+idecomp=2,
+dec_verbose=3,
+/

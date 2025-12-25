@@ -1,0 +1,546 @@
+analysis_start              :-) GROMACS - gmx energy, 2020.6-Debian-2020.6-2 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2020.6-Debian-2020.6-2
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work
+Command line:
+  gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work/md.edr -xvg none
+
+Opened /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work/md.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Improper-Dih. 
+  5  LJ-14            6  Coulomb-14       7  LJ-(SR)          8  Coulomb-(SR)  
+  9  Potential       10  Kinetic-En.     11  Total-Energy    12  Conserved-En. 
+ 13  Temperature     14  Pressure        15  Constr.-rmsd    16  Box-X         
+ 17  Box-Y           18  Box-Z           19  Volume          20  Density       
+ 21  pV              22  Enthalpy        23  Vir-XX          24  Vir-XY        
+ 25  Vir-XZ          26  Vir-YX          27  Vir-YY          28  Vir-YZ        
+ 29  Vir-ZX          30  Vir-ZY          31  Vir-ZZ          32  Pres-XX       
+ 33  Pres-XY         34  Pres-XZ         35  Pres-YX         36  Pres-YY       
+ 37  Pres-YZ         38  Pres-ZX         39  Pres-ZY         40  Pres-ZZ       
+ 41  #Surf*SurfTen   42  Box-Vel-XX      43  Box-Vel-YY      44  Box-Vel-ZZ    
+ 45  T-System        46  Lamb-System   
+
+
+-------------------------------------------------------
+Program:     gmx energy, version 2020.6-Debian-2020.6-2
+Source file: src/gromacs/gmxana/gmx_energy.cpp (line 298)
+
+Fatal error:
+No energy terms selected
+
+For more information and tips for troubleshooting, please check the GROMACS
+website at http://www.gromacs.org/Documentation/Errors
+-------------------------------------------------------
+
+run: gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work/md.edr -o ana_temp.xvg -xvg none < 13
+              :-) GROMACS - gmx energy, 2020.6-Debian-2020.6-2 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2020.6-Debian-2020.6-2
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work
+Command line:
+  gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work/md.edr -o ana_temp.xvg -xvg none
+
+Opened /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work/md.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Improper-Dih. 
+  5  LJ-14            6  Coulomb-14       7  LJ-(SR)          8  Coulomb-(SR)  
+  9  Potential       10  Kinetic-En.     11  Total-Energy    12  Conserved-En. 
+ 13  Temperature     14  Pressure        15  Constr.-rmsd    16  Box-X         
+ 17  Box-Y           18  Box-Z           19  Volume          20  Density       
+ 21  pV              22  Enthalpy        23  Vir-XX          24  Vir-XY        
+ 25  Vir-XZ          26  Vir-YX          27  Vir-YY          28  Vir-YZ        
+ 29  Vir-ZX          30  Vir-ZY          31  Vir-ZZ          32  Pres-XX       
+ 33  Pres-XY         34  Pres-XZ         35  Pres-YX         36  Pres-YY       
+ 37  Pres-YZ         38  Pres-ZX         39  Pres-ZY         40  Pres-ZZ       
+ 41  #Surf*SurfTen   42  Box-Vel-XX      43  Box-Vel-YY      44  Box-Vel-ZZ    
+ 45  T-System        46  Lamb-System   
+
+
+Reading energy frame      0 time    0.000         
+Reading energy frame      1 time    0.200         
+Reading energy frame      2 time    0.400         
+Reading energy frame      3 time    0.600         
+Reading energy frame      4 time    0.800         
+Reading energy frame      5 time    1.000         
+Reading energy frame      6 time    1.200         
+Reading energy frame      7 time    1.400         
+Reading energy frame      8 time    1.600         
+Reading energy frame      9 time    1.800         
+Reading energy frame     10 time    2.000         
+Reading energy frame     11 time    2.200         
+Reading energy frame     12 time    2.400         
+Reading energy frame     13 time    2.600         
+Reading energy frame     14 time    2.800         
+Reading energy frame     15 time    3.000         
+Reading energy frame     16 time    3.200         
+Reading energy frame     17 time    3.400         
+Reading energy frame     18 time    3.600         
+Reading energy frame     19 time    3.800         
+Reading energy frame     20 time    4.000         
+Reading energy frame     30 time    6.000         
+Reading energy frame     40 time    8.000         
+Reading energy frame     50 time   10.000         
+Reading energy frame     60 time   12.000         
+Reading energy frame     70 time   14.000         
+Reading energy frame     80 time   16.000         
+Reading energy frame     90 time   18.000         
+Reading energy frame    100 time   20.000         
+Reading energy frame    110 time   22.000         
+Reading energy frame    120 time   24.000         
+Reading energy frame    130 time   26.000         
+Reading energy frame    140 time   28.000         
+Reading energy frame    150 time   30.000         
+Reading energy frame    160 time   32.000         
+Reading energy frame    170 time   34.000         
+Reading energy frame    180 time   36.000         
+Reading energy frame    190 time   38.000         
+Reading energy frame    200 time   40.000         
+Reading energy frame    300 time   60.000         
+Reading energy frame    400 time   80.000         
+Reading energy frame    500 time  100.000         
+Reading energy frame    600 time  120.000         
+Reading energy frame    700 time  140.000         
+Reading energy frame    800 time  160.000         
+Reading energy frame    900 time  180.000         
+Reading energy frame   1000 time  200.000         
+Last energy frame read 1000 time  200.000         
+
+GROMACS reminds you: "Carbohydrates is all they groove" (Frank Zappa)
+
+
+Statistics over 100001 steps [ 0.0000 through 200.0000 ps ], 1 data sets
+All statistics are over 1001 points (frames)
+
+Energy                      Average   Err.Est.       RMSD  Tot-Drift
+-------------------------------------------------------------------------------
+Temperature                  303.03      0.046    1.56637  -0.128453  (K)
+
+              :-) GROMACS - gmx energy, 2020.6-Debian-2020.6-2 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2020.6-Debian-2020.6-2
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work
+Command line:
+  gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work/md.edr -xvg none
+
+Opened /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work/md.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Improper-Dih. 
+  5  LJ-14            6  Coulomb-14       7  LJ-(SR)          8  Coulomb-(SR)  
+  9  Potential       10  Kinetic-En.     11  Total-Energy    12  Conserved-En. 
+ 13  Temperature     14  Pressure        15  Constr.-rmsd    16  Box-X         
+ 17  Box-Y           18  Box-Z           19  Volume          20  Density       
+ 21  pV              22  Enthalpy        23  Vir-XX          24  Vir-XY        
+ 25  Vir-XZ          26  Vir-YX          27  Vir-YY          28  Vir-YZ        
+ 29  Vir-ZX          30  Vir-ZY          31  Vir-ZZ          32  Pres-XX       
+ 33  Pres-XY         34  Pres-XZ         35  Pres-YX         36  Pres-YY       
+ 37  Pres-YZ         38  Pres-ZX         39  Pres-ZY         40  Pres-ZZ       
+ 41  #Surf*SurfTen   42  Box-Vel-XX      43  Box-Vel-YY      44  Box-Vel-ZZ    
+ 45  T-System        46  Lamb-System   
+
+
+-------------------------------------------------------
+Program:     gmx energy, version 2020.6-Debian-2020.6-2
+Source file: src/gromacs/gmxana/gmx_energy.cpp (line 298)
+
+Fatal error:
+No energy terms selected
+
+For more information and tips for troubleshooting, please check the GROMACS
+website at http://www.gromacs.org/Documentation/Errors
+-------------------------------------------------------
+
+run: gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work/md.edr -o ana_pressure.xvg -xvg none < 13
+              :-) GROMACS - gmx energy, 2020.6-Debian-2020.6-2 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2020.6-Debian-2020.6-2
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work
+Command line:
+  gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work/md.edr -o ana_pressure.xvg -xvg none
+
+Opened /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work/md.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Improper-Dih. 
+  5  LJ-14            6  Coulomb-14       7  LJ-(SR)          8  Coulomb-(SR)  
+  9  Potential       10  Kinetic-En.     11  Total-Energy    12  Conserved-En. 
+ 13  Temperature     14  Pressure        15  Constr.-rmsd    16  Box-X         
+ 17  Box-Y           18  Box-Z           19  Volume          20  Density       
+ 21  pV              22  Enthalpy        23  Vir-XX          24  Vir-XY        
+ 25  Vir-XZ          26  Vir-YX          27  Vir-YY          28  Vir-YZ        
+ 29  Vir-ZX          30  Vir-ZY          31  Vir-ZZ          32  Pres-XX       
+ 33  Pres-XY         34  Pres-XZ         35  Pres-YX         36  Pres-YY       
+ 37  Pres-YZ         38  Pres-ZX         39  Pres-ZY         40  Pres-ZZ       
+ 41  #Surf*SurfTen   42  Box-Vel-XX      43  Box-Vel-YY      44  Box-Vel-ZZ    
+ 45  T-System        46  Lamb-System   
+
+
+Reading energy frame      0 time    0.000         
+Reading energy frame      1 time    0.200         
+Reading energy frame      2 time    0.400         
+Reading energy frame      3 time    0.600         
+Reading energy frame      4 time    0.800         
+Reading energy frame      5 time    1.000         
+Reading energy frame      6 time    1.200         
+Reading energy frame      7 time    1.400         
+Reading energy frame      8 time    1.600         
+Reading energy frame      9 time    1.800         
+Reading energy frame     10 time    2.000         
+Reading energy frame     11 time    2.200         
+Reading energy frame     12 time    2.400         
+Reading energy frame     13 time    2.600         
+Reading energy frame     14 time    2.800         
+Reading energy frame     15 time    3.000         
+Reading energy frame     16 time    3.200         
+Reading energy frame     17 time    3.400         
+Reading energy frame     18 time    3.600         
+Reading energy frame     19 time    3.800         
+Reading energy frame     20 time    4.000         
+Reading energy frame     30 time    6.000         
+Reading energy frame     40 time    8.000         
+Reading energy frame     50 time   10.000         
+Reading energy frame     60 time   12.000         
+Reading energy frame     70 time   14.000         
+Reading energy frame     80 time   16.000         
+Reading energy frame     90 time   18.000         
+Reading energy frame    100 time   20.000         
+Reading energy frame    110 time   22.000         
+Reading energy frame    120 time   24.000         
+Reading energy frame    130 time   26.000         
+Reading energy frame    140 time   28.000         
+Reading energy frame    150 time   30.000         
+Reading energy frame    160 time   32.000         
+Reading energy frame    170 time   34.000         
+Reading energy frame    180 time   36.000         
+Reading energy frame    190 time   38.000         
+Reading energy frame    200 time   40.000         
+Reading energy frame    300 time   60.000         
+Reading energy frame    400 time   80.000         
+Reading energy frame    500 time  100.000         
+Reading energy frame    600 time  120.000         
+Reading energy frame    700 time  140.000         
+Reading energy frame    800 time  160.000         
+Reading energy frame    900 time  180.000         
+Reading energy frame   1000 time  200.000         
+Last energy frame read 1000 time  200.000         
+
+GROMACS reminds you: "Carbohydrates is all they groove" (Frank Zappa)
+
+
+Statistics over 100001 steps [ 0.0000 through 200.0000 ps ], 1 data sets
+All statistics are over 1001 points (frames)
+
+Energy                      Average   Err.Est.       RMSD  Tot-Drift
+-------------------------------------------------------------------------------
+Temperature                  303.03      0.046    1.56637  -0.128453  (K)
+
+              :-) GROMACS - gmx energy, 2020.6-Debian-2020.6-2 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2020.6-Debian-2020.6-2
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work
+Command line:
+  gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work/md.edr -xvg none
+
+Opened /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work/md.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Improper-Dih. 
+  5  LJ-14            6  Coulomb-14       7  LJ-(SR)          8  Coulomb-(SR)  
+  9  Potential       10  Kinetic-En.     11  Total-Energy    12  Conserved-En. 
+ 13  Temperature     14  Pressure        15  Constr.-rmsd    16  Box-X         
+ 17  Box-Y           18  Box-Z           19  Volume          20  Density       
+ 21  pV              22  Enthalpy        23  Vir-XX          24  Vir-XY        
+ 25  Vir-XZ          26  Vir-YX          27  Vir-YY          28  Vir-YZ        
+ 29  Vir-ZX          30  Vir-ZY          31  Vir-ZZ          32  Pres-XX       
+ 33  Pres-XY         34  Pres-XZ         35  Pres-YX         36  Pres-YY       
+ 37  Pres-YZ         38  Pres-ZX         39  Pres-ZY         40  Pres-ZZ       
+ 41  #Surf*SurfTen   42  Box-Vel-XX      43  Box-Vel-YY      44  Box-Vel-ZZ    
+ 45  T-System        46  Lamb-System   
+
+
+-------------------------------------------------------
+Program:     gmx energy, version 2020.6-Debian-2020.6-2
+Source file: src/gromacs/gmxana/gmx_energy.cpp (line 298)
+
+Fatal error:
+No energy terms selected
+
+For more information and tips for troubleshooting, please check the GROMACS
+website at http://www.gromacs.org/Documentation/Errors
+-------------------------------------------------------
+
+run: gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work/md.edr -o ana_potential.xvg -xvg none < 9
+              :-) GROMACS - gmx energy, 2020.6-Debian-2020.6-2 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2020.6-Debian-2020.6-2
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work
+Command line:
+  gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work/md.edr -o ana_potential.xvg -xvg none
+
+Opened /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/48bbdfa0-9a31-4a93-a6b0-deec21b260d6/outputs/work/md.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Improper-Dih. 
+  5  LJ-14            6  Coulomb-14       7  LJ-(SR)          8  Coulomb-(SR)  
+  9  Potential       10  Kinetic-En.     11  Total-Energy    12  Conserved-En. 
+ 13  Temperature     14  Pressure        15  Constr.-rmsd    16  Box-X         
+ 17  Box-Y           18  Box-Z           19  Volume          20  Density       
+ 21  pV              22  Enthalpy        23  Vir-XX          24  Vir-XY        
+ 25  Vir-XZ          26  Vir-YX          27  Vir-YY          28  Vir-YZ        
+ 29  Vir-ZX          30  Vir-ZY          31  Vir-ZZ          32  Pres-XX       
+ 33  Pres-XY         34  Pres-XZ         35  Pres-YX         36  Pres-YY       
+ 37  Pres-YZ         38  Pres-ZX         39  Pres-ZY         40  Pres-ZZ       
+ 41  #Surf*SurfTen   42  Box-Vel-XX      43  Box-Vel-YY      44  Box-Vel-ZZ    
+ 45  T-System        46  Lamb-System   
+
+
+Reading energy frame      0 time    0.000         
+Reading energy frame      1 time    0.200         
+Reading energy frame      2 time    0.400         
+Reading energy frame      3 time    0.600         
+Reading energy frame      4 time    0.800         
+Reading energy frame      5 time    1.000         
+Reading energy frame      6 time    1.200         
+Reading energy frame      7 time    1.400         
+Reading energy frame      8 time    1.600         
+Reading energy frame      9 time    1.800         
+Reading energy frame     10 time    2.000         
+Reading energy frame     11 time    2.200         
+Reading energy frame     12 time    2.400         
+Reading energy frame     13 time    2.600         
+Reading energy frame     14 time    2.800         
+Reading energy frame     15 time    3.000         
+Reading energy frame     16 time    3.200         
+Reading energy frame     17 time    3.400         
+Reading energy frame     18 time    3.600         
+Reading energy frame     19 time    3.800         
+Reading energy frame     20 time    4.000         
+Reading energy frame     30 time    6.000         
+Reading energy frame     40 time    8.000         
+Reading energy frame     50 time   10.000         
+Reading energy frame     60 time   12.000         
+Reading energy frame     70 time   14.000         
+Reading energy frame     80 time   16.000         
+Reading energy frame     90 time   18.000         
+Reading energy frame    100 time   20.000         
+Reading energy frame    110 time   22.000         
+Reading energy frame    120 time   24.000         
+Reading energy frame    130 time   26.000         
+Reading energy frame    140 time   28.000         
+Reading energy frame    150 time   30.000         
+Reading energy frame    160 time   32.000         
+Reading energy frame    170 time   34.000         
+Reading energy frame    180 time   36.000         
+Reading energy frame    190 time   38.000         
+Reading energy frame    200 time   40.000         
+Reading energy frame    300 time   60.000         
+Reading energy frame    400 time   80.000         
+Reading energy frame    500 time  100.000         
+Reading energy frame    600 time  120.000         
+Reading energy frame    700 time  140.000         
+Reading energy frame    800 time  160.000         
+Reading energy frame    900 time  180.000         
+Reading energy frame   1000 time  200.000         
+Last energy frame read 1000 time  200.000         
+
+GROMACS reminds you: "Carbohydrates is all they groove" (Frank Zappa)
+
+
+Statistics over 100001 steps [ 0.0000 through 200.0000 ps ], 1 data sets
+All statistics are over 1001 points (frames)
+
+Energy                      Average   Err.Est.       RMSD  Tot-Drift
+-------------------------------------------------------------------------------
+Potential                   -594492       3100    6965.06   -20455.2  (kJ/mol)
+
+general_done
+struct_done
+analysis_complete

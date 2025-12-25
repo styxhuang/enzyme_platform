@@ -1,0 +1,223 @@
+analysis_startgeneral_done
+run: gmx rms -s /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/69e7b91a-38aa-4750-b801-81cb7e40bf5c/outputs/work/md.tpr -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/69e7b91a-38aa-4750-b801-81cb7e40bf5c/outputs/work/md.xtc -o ana_rmsd.xvg -xvg none < 0
+               :-) GROMACS - gmx rms, 2020.6-Debian-2020.6-2 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx rms, version 2020.6-Debian-2020.6-2
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/analysis/e7bcb7fe-54bd-4c81-84bd-bb9fa7252029/outputs
+Command line:
+  gmx rms -s /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/69e7b91a-38aa-4750-b801-81cb7e40bf5c/outputs/work/md.tpr -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/69e7b91a-38aa-4750-b801-81cb7e40bf5c/outputs/work/md.xtc -o ana_rmsd.xvg -xvg none
+
+Reading file /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/69e7b91a-38aa-4750-b801-81cb7e40bf5c/outputs/work/md.tpr, VERSION 2020.6-Debian-2020.6-2 (single precision)
+Reading file /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/69e7b91a-38aa-4750-b801-81cb7e40bf5c/outputs/work/md.tpr, VERSION 2020.6-Debian-2020.6-2 (single precision)
+Select group for least squares fit
+Group     0 (         System) has 33876 elements
+Group     1 (        Protein) has  1960 elements
+Group     2 (      Protein-H) has  1001 elements
+Group     3 (        C-alpha) has   129 elements
+Group     4 (       Backbone) has   387 elements
+Group     5 (      MainChain) has   517 elements
+Group     6 (   MainChain+Cb) has   634 elements
+Group     7 (    MainChain+H) has   646 elements
+Group     8 (      SideChain) has  1314 elements
+Group     9 (    SideChain-H) has   484 elements
+Group    10 (    Prot-Masses) has  1960 elements
+Group    11 (    non-Protein) has 31916 elements
+Group    12 (          Water) has 31908 elements
+Group    13 (            SOL) has 31908 elements
+Group    14 (      non-Water) has  1968 elements
+Group    15 (            Ion) has     8 elements
+Group    16 (             CL) has     8 elements
+Group    17 ( Water_and_ions) has 31916 elements
+Select a group: Select group for RMSD calculation
+Group     0 (         System) has 33876 elements
+Group     1 (        Protein) has  1960 elements
+Group     2 (      Protein-H) has  1001 elements
+Group     3 (        C-alpha) has   129 elements
+Group     4 (       Backbone) has   387 elements
+Group     5 (      MainChain) has   517 elements
+Group     6 (   MainChain+Cb) has   634 elements
+Group     7 (    MainChain+H) has   646 elements
+Group     8 (      SideChain) has  1314 elements
+Group     9 (    SideChain-H) has   484 elements
+Group    10 (    Prot-Masses) has  1960 elements
+Group    11 (    non-Protein) has 31916 elements
+Group    12 (          Water) has 31908 elements
+Group    13 (            SOL) has 31908 elements
+Group    14 (      non-Water) has  1968 elements
+Group    15 (            Ion) has     8 elements
+Group    16 (             CL) has     8 elements
+Group    17 ( Water_and_ions) has 31916 elements
+Select a group: 
+Reading frame       0 time    0.000   
+Reading frame       1 time    0.200   
+Last frame          1 time    0.200   
+
+GROMACS reminds you: "The scientist is not the person who always gives the right answers, he is the one who asks the right questions." (Claude Levi-Strauss)
+
+Selected 0: 'System'
+Selected 0: 'System'
+
+rmsd_points=2
+run: gmx gyrate -s /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/69e7b91a-38aa-4750-b801-81cb7e40bf5c/outputs/work/md.tpr -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/69e7b91a-38aa-4750-b801-81cb7e40bf5c/outputs/work/md.xtc -o ana_gyrate.xvg -xvg none < 0
+              :-) GROMACS - gmx gyrate, 2020.6-Debian-2020.6-2 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx gyrate, version 2020.6-Debian-2020.6-2
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/analysis/e7bcb7fe-54bd-4c81-84bd-bb9fa7252029/outputs
+Command line:
+  gmx gyrate -s /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/69e7b91a-38aa-4750-b801-81cb7e40bf5c/outputs/work/md.tpr -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/69e7b91a-38aa-4750-b801-81cb7e40bf5c/outputs/work/md.xtc -o ana_gyrate.xvg -xvg none
+
+Reading file /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/69e7b91a-38aa-4750-b801-81cb7e40bf5c/outputs/work/md.tpr, VERSION 2020.6-Debian-2020.6-2 (single precision)
+Reading file /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/69e7b91a-38aa-4750-b801-81cb7e40bf5c/outputs/work/md.tpr, VERSION 2020.6-Debian-2020.6-2 (single precision)
+Group     0 (         System) has 33876 elements
+Group     1 (        Protein) has  1960 elements
+Group     2 (      Protein-H) has  1001 elements
+Group     3 (        C-alpha) has   129 elements
+Group     4 (       Backbone) has   387 elements
+Group     5 (      MainChain) has   517 elements
+Group     6 (   MainChain+Cb) has   634 elements
+Group     7 (    MainChain+H) has   646 elements
+Group     8 (      SideChain) has  1314 elements
+Group     9 (    SideChain-H) has   484 elements
+Group    10 (    Prot-Masses) has  1960 elements
+Group    11 (    non-Protein) has 31916 elements
+Group    12 (          Water) has 31908 elements
+Group    13 (            SOL) has 31908 elements
+Group    14 (      non-Water) has  1968 elements
+Group    15 (            Ion) has     8 elements
+Group    16 (             CL) has     8 elements
+Group    17 ( Water_and_ions) has 31916 elements
+Select a group: 
+Reading frame       0 time    0.000   
+Reading frame       1 time    0.200   
+Last frame          1 time    0.200   
+
+GROMACS reminds you: "The scientist is not the person who always gives the right answers, he is the one who asks the right questions." (Claude Levi-Strauss)
+
+Selected 0: 'System'
+
+rg_points=2
+run: gmx rmsf -s /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/69e7b91a-38aa-4750-b801-81cb7e40bf5c/outputs/work/md.tpr -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/69e7b91a-38aa-4750-b801-81cb7e40bf5c/outputs/work/md.xtc -o ana_rmsf.xvg -xvg none < 0
+               :-) GROMACS - gmx rmsf, 2020.6-Debian-2020.6-2 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx rmsf, version 2020.6-Debian-2020.6-2
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/analysis/e7bcb7fe-54bd-4c81-84bd-bb9fa7252029/outputs
+Command line:
+  gmx rmsf -s /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/69e7b91a-38aa-4750-b801-81cb7e40bf5c/outputs/work/md.tpr -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/69e7b91a-38aa-4750-b801-81cb7e40bf5c/outputs/work/md.xtc -o ana_rmsf.xvg -xvg none
+
+Reading file /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/69e7b91a-38aa-4750-b801-81cb7e40bf5c/outputs/work/md.tpr, VERSION 2020.6-Debian-2020.6-2 (single precision)
+Reading file /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/69e7b91a-38aa-4750-b801-81cb7e40bf5c/outputs/work/md.tpr, VERSION 2020.6-Debian-2020.6-2 (single precision)
+Select group(s) for root mean square calculation
+Group     0 (         System) has 33876 elements
+Group     1 (        Protein) has  1960 elements
+Group     2 (      Protein-H) has  1001 elements
+Group     3 (        C-alpha) has   129 elements
+Group     4 (       Backbone) has   387 elements
+Group     5 (      MainChain) has   517 elements
+Group     6 (   MainChain+Cb) has   634 elements
+Group     7 (    MainChain+H) has   646 elements
+Group     8 (      SideChain) has  1314 elements
+Group     9 (    SideChain-H) has   484 elements
+Group    10 (    Prot-Masses) has  1960 elements
+Group    11 (    non-Protein) has 31916 elements
+Group    12 (          Water) has 31908 elements
+Group    13 (            SOL) has 31908 elements
+Group    14 (      non-Water) has  1968 elements
+Group    15 (            Ion) has     8 elements
+Group    16 (             CL) has     8 elements
+Group    17 ( Water_and_ions) has 31916 elements
+Select a group: 
+Reading frame       0 time    0.000   
+Reading frame       1 time    0.200   
+Last frame          1 time    0.200   
+
+GROMACS reminds you: "The scientist is not the person who always gives the right answers, he is the one who asks the right questions." (Claude Levi-Strauss)
+
+Selected 0: 'System'
+
+rmsf_points=33876
+struct_done
+analysis_complete

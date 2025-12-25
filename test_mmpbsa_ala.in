@@ -1,0 +1,12 @@
+&general
+sys_name="Prot-Lig-ST",
+startframe=1,
+endframe=10,
+netcdf=0,
+/
+&gb
+igb=5, saltcon=0.15,
+/
+&alanine_scanning
+mutant_res='A:10',
+/

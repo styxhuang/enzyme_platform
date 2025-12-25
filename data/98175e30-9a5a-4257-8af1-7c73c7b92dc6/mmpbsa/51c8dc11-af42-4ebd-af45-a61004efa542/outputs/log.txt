@@ -1,0 +1,17 @@
+mmpbsa_startDetecting interface residues (cutoff=6.0A)...
+Running gmx select with command: same residue as (group "Protein" and within 0.6 of group "Ligand")
+Found 17 residues: A:35, A:52, A:56, A:57, A:58, A:59, A:62, A:63, A:95, A:98, A:104, A:105, A:106, A:107, A:108, A:109, A:112
+Alanine scanning disabled (ala_res not provided)
+Running MMPBSA
+find /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/mmpbsa/51c8dc11-af42-4ebd-af45-a61004efa542/outputs/FINAL_RESULTS_MMPBSA.csv
+inter_from_csv: {'interaction_csv': 'interaction_PL.csv', 'interaction_summary': 'interaction_PL_summary.csv', 'interaction_plot': 'interaction_PL.png'}
+decomp_out: {'decomposition_csv': 'residues_energy_summary.csv', 'decomposition_plot': 'decomposition.png'}
+Alanine scanning enabled for residue: A:35
+Running MMPBSA for residue A:35 (2/18)
+Alanine scanning enabled for residue: A:52
+Running MMPBSA for residue A:52 (3/18)
+Alanine scanning enabled for residue: A:56
+Running MMPBSA for residue A:56 (4/18)
+backend_error:timed out
+Alanine scanning enabled for residue: A:57
+Running MMPBSA for residue A:57 (5/18)

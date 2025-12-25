@@ -1,0 +1,45 @@
+image: harbor.maxflow.neotrident/gitlab-ci/build-essentials:v3
+
+stages:
+    - build
+    - test
+    - publish
+
+build:
+    stage: build
+    tags:
+        - suzhou
+    script:
+        - cd build/linux/release
+        - make && cd -
+        - cd build/linux/debug
+        - make && cd -
+    artifacts:
+        paths:
+            - build/linux/release/vina
+            - build/linux/release/vina_split
+            - build/linux/debug/vina
+            - build/linux/debug/vina_split
+        expire_in: 1 week
+
+test-bundled-example:
+    stage: test
+    tags:
+        - suzhou
+    script:
+        - build/linux/release/vina --receptor example/basic_docking/solution/1iep_receptor.pdbqt --ligand example/basic_docking/solution/1iep_ligand.pdbqt --config example/basic_docking/solution/1iep_receptor_vina_box.txt
+
+publish:
+    image: harbor.maxflow.neotrident/proxy/curlimages/curl
+    stage: publish
+    tags:
+        - suzhou
+    rules:
+        - if: $CI_COMMIT_TAG
+    variables:
+        PACKAGE_REGISTRY_URL: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/autodock-vina/${CI_COMMIT_TAG}"
+    script:
+        - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file build/linux/release/vina "${PACKAGE_REGISTRY_URL}/vina"'
+        - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file build/linux/release/vina_split "${PACKAGE_REGISTRY_URL}/vina_split"'
+        - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file build/linux/debug/vina "${PACKAGE_REGISTRY_URL}/vinad"'
+        - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file build/linux/debug/vina_split "${PACKAGE_REGISTRY_URL}/vina_splitd"'

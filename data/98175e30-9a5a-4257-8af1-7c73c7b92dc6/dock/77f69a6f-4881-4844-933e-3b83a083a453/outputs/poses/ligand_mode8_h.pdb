@@ -1,0 +1,26 @@
+HEADER    LIGAND
+CRYST1    1.000    1.000    1.000  90.00  90.00  90.00 P 1           1
+HETATM    1 C     LIG      1         21.136  30.276   0.313  1.00  0.00           C
+HETATM    2 C     LIG      1         20.756  29.234  -0.727  1.00  0.00           C
+HETATM    3 C     LIG      1         19.257  29.205  -0.970  1.00  0.00           C
+HETATM    4 H     LIG      1         22.196  30.267   0.457  1.00  0.00           H
+HETATM    5 H     LIG      1         20.649  30.050   1.239  1.00  0.00           H
+HETATM    6 H     LIG      1         20.830  31.244  -0.024  1.00  0.00           H
+HETATM    7 H     LIG      1         21.071  28.271  -0.384  1.00  0.00           H
+HETATM    8 H     LIG      1         21.239  29.489  -1.647  1.00  0.00           H
+HETATM    9 H     LIG      1         18.753  28.951  -0.061  1.00  0.00           H
+HETATM   10 H     LIG      1         19.031  28.475  -1.719  1.00  0.00           H
+HETATM   11 H     LIG      1         18.931  30.169  -1.302  1.00  0.00           H
+CONECT    1    2    4    5    6
+CONECT    2    1    3    7    8
+CONECT    3    2    9   10   11
+CONECT    4    1
+CONECT    5    1
+CONECT    6    1
+CONECT    7    2
+CONECT    8    2
+CONECT    9    3
+CONECT   10    3
+CONECT   11    3
+TER
+END

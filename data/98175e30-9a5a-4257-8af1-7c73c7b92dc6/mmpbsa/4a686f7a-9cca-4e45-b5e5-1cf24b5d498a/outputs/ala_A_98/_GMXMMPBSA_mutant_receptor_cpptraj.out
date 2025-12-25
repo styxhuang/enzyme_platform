@@ -1,0 +1,68 @@
+
+CPPTRAJ: Trajectory Analysis. V6.24.0 (AmberTools)
+    ___  ___  ___  ___
+     | \/ | \/ | \/ | 
+    _|_/\_|_/\_|_/\_|_
+
+| Date/time: 12/18/25 09:47:42
+| Available memory: 718.086 MB
+
+	Reading 'MUT_REC.prmtop' as Amber Topology
+	Radius Set: H(N)-modified Bondi radii (mbondi2)
+INPUT: Reading input from 'STDIN'
+  [trajin _GMXMMPBSA_mutant_receptor.mdcrd.0 1 1 1]
+	Reading '_GMXMMPBSA_mutant_receptor.mdcrd.0' as Amber Trajectory
+  [noprogress]
+	Progress bar will not be used during Run.
+  [outtraj _GMXMMPBSA_mutant_receptor.pdb pdb onlyframes 1 nobox]
+	Saving frames 1
+	Writing '_GMXMMPBSA_mutant_receptor.pdb' as PDB
+    OUTTRAJ: Writing frames associated with topology 'MUT_REC.prmtop'
+  [outtraj _GMXMMPBSA_mutant_dummyreceptor.inpcrd restart onlyframes 1 nobox]
+	Saving frames 1
+	Writing '_GMXMMPBSA_mutant_dummyreceptor.inpcrd' as Amber Restart
+    OUTTRAJ: Writing frames associated with topology 'MUT_REC.prmtop'
+---------- RUN BEGIN -------------------------------------------------
+
+PARAMETER FILES (1 total):
+ 0: MUT_REC.prmtop, 1951 atoms, 129 res, box: None, 1 mol
+
+INPUT TRAJECTORIES (1 total):
+ 0: '_GMXMMPBSA_mutant_receptor.mdcrd.0' is an AMBER trajectory, Parm MUT_REC.prmtop (reading 1 of 10)
+  Coordinate processing will occur on 1 frames.
+
+BEGIN TRAJECTORY PROCESSING:
+.....................................................
+ACTION SETUP FOR PARM 'MUT_REC.prmtop' (2 actions):
+  0: [outtraj _GMXMMPBSA_mutant_receptor.pdb pdb onlyframes 1 nobox]
+        '_GMXMMPBSA_mutant_receptor.pdb' is a PDB file, Parm MUT_REC.prmtop no box info,: Writing frames 1
+	Has coordinates
+  1: [outtraj _GMXMMPBSA_mutant_dummyreceptor.inpcrd restart onlyframes 1 nobox]
+        '_GMXMMPBSA_mutant_dummyreceptor.inpcrd' is an AMBER restart file, Parm MUT_REC.prmtop no box info,: Writing frames 1
+	Has coordinates
+----- _GMXMMPBSA_mutant_receptor.mdcrd.0 (1-1, 1) -----
+
+Read 1 frames and processed 1 frames.
+TIME: Avg. throughput= 36.7296 frames / second.
+
+ACTION OUTPUT:
+    OUTTRAJ: '_GMXMMPBSA_mutant_receptor.pdb': Wrote 1 frames.
+    OUTTRAJ: '_GMXMMPBSA_mutant_dummyreceptor.inpcrd': Wrote 1 frames.
+TIME: Analyses took 0.0000 seconds.
+
+RUN TIMING:
+TIME:		Init               : 0.0008 s (  2.71%)
+TIME:		Trajectory Process : 0.0272 s ( 91.98%)
+TIME:		Action Post        : 0.0002 s (  0.55%)
+TIME:		Analysis           : 0.0000 s (  0.10%)
+TIME:		Data File Write    : 0.0001 s (  0.41%)
+TIME:		Other              : 0.0013 s (  0.04%)
+TIME:	Run Total 0.0296 s
+---------- RUN END ---------------------------------------------------
+TIME: Total execution time: 0.0754 seconds.
+--------------------------------------------------------------------------------
+To cite CPPTRAJ use:
+Daniel R. Roe and Thomas E. Cheatham, III, "PTRAJ and CPPTRAJ: Software for
+  Processing and Analysis of Molecular Dynamics Trajectory Data". J. Chem.
+  Theory Comput., 2013, 9 (7), pp 3084-3095.
+

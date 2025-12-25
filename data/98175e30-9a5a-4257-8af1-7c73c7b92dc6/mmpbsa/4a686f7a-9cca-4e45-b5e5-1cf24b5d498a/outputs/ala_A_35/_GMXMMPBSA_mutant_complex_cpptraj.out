@@ -1,0 +1,68 @@
+
+CPPTRAJ: Trajectory Analysis. V6.24.0 (AmberTools)
+    ___  ___  ___  ___
+     | \/ | \/ | \/ | 
+    _|_/\_|_/\_|_/\_|_
+
+| Date/time: 12/18/25 09:34:11
+| Available memory: 764.056 MB
+
+	Reading 'MUT_COM.prmtop' as Amber Topology
+	Radius Set: H(N)-modified Bondi radii (mbondi2)
+INPUT: Reading input from 'STDIN'
+  [trajin _GMXMMPBSA_mutant_complex.mdcrd.0 1 1 1]
+	Reading '_GMXMMPBSA_mutant_complex.mdcrd.0' as Amber Trajectory
+  [noprogress]
+	Progress bar will not be used during Run.
+  [outtraj _GMXMMPBSA_mutant_complex.pdb pdb onlyframes 1 nobox]
+	Saving frames 1
+	Writing '_GMXMMPBSA_mutant_complex.pdb' as PDB
+    OUTTRAJ: Writing frames associated with topology 'MUT_COM.prmtop'
+  [outtraj _GMXMMPBSA_mutant_dummycomplex.inpcrd restart onlyframes 1 nobox]
+	Saving frames 1
+	Writing '_GMXMMPBSA_mutant_dummycomplex.inpcrd' as Amber Restart
+    OUTTRAJ: Writing frames associated with topology 'MUT_COM.prmtop'
+---------- RUN BEGIN -------------------------------------------------
+
+PARAMETER FILES (1 total):
+ 0: MUT_COM.prmtop, 1966 atoms, 130 res, box: None, 2 mol
+
+INPUT TRAJECTORIES (1 total):
+ 0: '_GMXMMPBSA_mutant_complex.mdcrd.0' is an AMBER trajectory, Parm MUT_COM.prmtop (reading 1 of 10)
+  Coordinate processing will occur on 1 frames.
+
+BEGIN TRAJECTORY PROCESSING:
+.....................................................
+ACTION SETUP FOR PARM 'MUT_COM.prmtop' (2 actions):
+  0: [outtraj _GMXMMPBSA_mutant_complex.pdb pdb onlyframes 1 nobox]
+        '_GMXMMPBSA_mutant_complex.pdb' is a PDB file, Parm MUT_COM.prmtop no box info,: Writing frames 1
+	Has coordinates
+  1: [outtraj _GMXMMPBSA_mutant_dummycomplex.inpcrd restart onlyframes 1 nobox]
+        '_GMXMMPBSA_mutant_dummycomplex.inpcrd' is an AMBER restart file, Parm MUT_COM.prmtop no box info,: Writing frames 1
+	Has coordinates
+----- _GMXMMPBSA_mutant_complex.mdcrd.0 (1-1, 1) -----
+
+Read 1 frames and processed 1 frames.
+TIME: Avg. throughput= 33.6542 frames / second.
+
+ACTION OUTPUT:
+    OUTTRAJ: '_GMXMMPBSA_mutant_complex.pdb': Wrote 1 frames.
+    OUTTRAJ: '_GMXMMPBSA_mutant_dummycomplex.inpcrd': Wrote 1 frames.
+TIME: Analyses took 0.0000 seconds.
+
+RUN TIMING:
+TIME:		Init               : 0.0008 s (  2.35%)
+TIME:		Trajectory Process : 0.0297 s ( 92.72%)
+TIME:		Action Post        : 0.0002 s (  0.49%)
+TIME:		Analysis           : 0.0000 s (  0.08%)
+TIME:		Data File Write    : 0.0001 s (  0.37%)
+TIME:		Other              : 0.0013 s (  0.04%)
+TIME:	Run Total 0.0320 s
+---------- RUN END ---------------------------------------------------
+TIME: Total execution time: 0.1292 seconds.
+--------------------------------------------------------------------------------
+To cite CPPTRAJ use:
+Daniel R. Roe and Thomas E. Cheatham, III, "PTRAJ and CPPTRAJ: Software for
+  Processing and Analysis of Molecular Dynamics Trajectory Data". J. Chem.
+  Theory Comput., 2013, 9 (7), pp 3084-3095.
+

@@ -1,0 +1,8 @@
+mmpbsa_startDetecting interface residues (cutoff=2.0A)...
+Running gmx select with command: same residue as (group "Protein" and within 0.2 of group "Ligand")
+Found 0 residues: 
+Step 1/1: Running Standard MMPBSA Analysis (Reference)...
+find /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/mmpbsa/d7395d97-dfd7-4b6a-a457-b3264ec8309b/outputs/reference_calc/FINAL_RESULTS_MMPBSA.csv
+inter_from_csv: {'interaction_csv': 'interaction_PL.csv', 'interaction_summary': 'interaction_PL_summary.csv', 'interaction_plot': 'interaction_PL.png'}
+decomp_out: {'decomposition_csv': 'residues_energy_summary.csv', 'decomposition_plot': 'decomposition.png'}
+mmpbsa_complete

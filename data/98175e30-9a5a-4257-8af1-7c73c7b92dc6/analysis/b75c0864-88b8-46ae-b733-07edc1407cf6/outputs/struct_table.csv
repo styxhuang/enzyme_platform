@@ -1,0 +1,3 @@
+property,group,mean,error
+RMSD,System,0.380,0.380
+RMSF,System,0.070,0.376

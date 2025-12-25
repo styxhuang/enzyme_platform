@@ -1,0 +1,1992 @@
+md_startreuse_topology_from:2ea6a27f-00e3-470a-8916-f0d9b994712a
+editconf_start
+gmx editconf -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/processed.gro -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/newbox.gro -c -d 1.0 -bt cubic
+             :-) GROMACS - gmx editconf, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx editconf, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx editconf -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/processed.gro -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/newbox.gro -c -d 1.0 -bt cubic
+
+
+GROMACS reminds you: "Even if you are on the right track, you will get run over if you just sit there." (Will Rogers)
+
+Note that major changes are planned in future for editconf, to improve usability and utility.
+Read 1971 atoms
+Volume: 123.376 nm^3, corresponds to roughly 55500 electrons
+No velocities found
+    system size :  3.817  4.234  3.454 (nm)
+    diameter    :  5.010               (nm)
+    center      :  2.777  2.490  0.017 (nm)
+    box vectors :  5.906  6.845  3.052 (nm)
+    box angles  :  90.00  90.00  90.00 (degrees)
+    box volume  : 123.38               (nm^3)
+    shift       :  0.728  1.015  3.488 (nm)
+new center      :  3.505  3.505  3.505 (nm)
+new box vectors :  7.010  7.010  7.010 (nm)
+new box angles  :  90.00  90.00  90.00 (degrees)
+new box volume  : 344.48               (nm^3)
+
+editconf_done
+solvate_start
+gmx solvate -cp /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/newbox.gro -cs spc216.gro -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/solv.gro -p /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/topol.top
+             :-) GROMACS - gmx solvate, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx solvate, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx solvate -cp /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/newbox.gro -cs spc216.gro -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/solv.gro -p /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/topol.top
+
+Reading solute configuration
+Reading solvent configuration
+
+Initialising inter-atomic distances...
+
+WARNING: Masses and atomic (Van der Waals) radii will be guessed
+         based on residue and atom names, since they could not be
+         definitively assigned from the information in your input
+         files. These guessed numbers might deviate from the mass
+         and radius of the atom type. Please check the output
+         files if necessary.
+
+NOTE: From version 5.0 gmx solvate uses the Van der Waals radii
+from the source below. This means the results may be different
+compared to previous GROMACS versions.
+
+++++ PLEASE READ AND CITE THE FOLLOWING REFERENCE ++++
+A. Bondi
+van der Waals Volumes and Radii
+J. Phys. Chem. 68 (1964) pp. 441-451
+-------- -------- --- Thank You --- -------- --------
+
+Generating solvent configuration
+Will generate new solvent configuration of 4x4x4 boxes
+Solvent box contains 39252 atoms in 13084 residues
+Removed 5451 solvent atoms due to solvent-solvent overlap
+Removed 1884 solvent atoms due to solute-solvent overlap
+Sorting configuration
+Found 1 molecule type:
+    SOL (   3 atoms): 10639 residues
+Generated solvent containing 31917 atoms in 10639 residues
+Writing generated configuration to /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/solv.gro
+
+Output configuration contains 33888 atoms in 10769 residues
+Volume                 :     344.484 (nm^3)
+Density                :     997.713 (g/l)
+Number of solvent molecules:  10639   
+
+Processing topology
+
+Back Off! I just backed up /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/topol.top to /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/#topol.top.1#
+
+GROMACS reminds you: "Heavier-than-air flying machines are impossible." (Lord Kelvin, President of Royal Society, 1895.)
+
+Adding line for 10639 solvent molecules with resname (SOL) to topology file (/data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/topol.top)
+
+solvate_done
+ions_grompp_start
+gmx grompp -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/ions.mdp -c /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/solv.gro -p /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/topol.top -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/ions.tpr
+              :-) GROMACS - gmx grompp, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx grompp, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx grompp -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/ions.mdp -c /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/solv.gro -p /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/topol.top -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/ions.tpr
+
+Setting the LD random seed to -755609959
+Generated 2278 of the 2278 non-bonded parameter combinations
+Generating 1-4 interactions: fudge = 0.5
+Generated 2278 of the 2278 1-4 parameter combinations
+Excluding 3 bonded neighbours molecule type 'Protein_chain_A'
+Excluding 3 bonded neighbours molecule type 'LIG'
+Excluding 2 bonded neighbours molecule type 'SOL'
+
+NOTE 1 [file topol.top, line 18412]:
+  System has non-zero total charge: 8.000002
+  Total charge should normally be an integer. See
+  http://www.gromacs.org/Documentation/Floating_Point_Arithmetic
+  for discussion on how close it should be to an integer.
+  
+
+
+Number of degrees of freedom in T-Coupling group rest is 69744.00
+
+NOTE 2 [file /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/ions.mdp]:
+  You are using a plain Coulomb cut-off, which might produce artifacts.
+  You might want to consider using PME electrostatics.
+
+
+
+There were 2 notes
+
+GROMACS reminds you: "If You See Me Getting High, Knock Me Down" (Red Hot Chili Peppers)
+
+Analysing residue names:
+There are:   129    Protein residues
+There are:     1      Other residues
+There are: 10639      Water residues
+Analysing Protein...
+Analysing residues not classified as Protein/DNA/RNA/Water and splitting into groups...
+This run will generate roughly 3 Mb of data
+
+ions_grompp_done
+genion_start_SOL
+gmx genion -s /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/ions.tpr -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/solv_ions.gro -p /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/topol.top -pname NA -nname CL -neutral
+              :-) GROMACS - gmx genion, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx genion, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx genion -s /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/ions.tpr -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/solv_ions.gro -p /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/topol.top -pname NA -nname CL -neutral
+
+Reading file /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/ions.tpr, VERSION 2020.1-Ubuntu-2020.1-1 (single precision)
+Reading file /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/ions.tpr, VERSION 2020.1-Ubuntu-2020.1-1 (single precision)
+Group     0 (         System) has 33888 elements
+Group     1 (        Protein) has  1960 elements
+Group     2 (      Protein-H) has  1001 elements
+Group     3 (        C-alpha) has   129 elements
+Group     4 (       Backbone) has   387 elements
+Group     5 (      MainChain) has   517 elements
+Group     6 (   MainChain+Cb) has   634 elements
+Group     7 (    MainChain+H) has   646 elements
+Group     8 (      SideChain) has  1314 elements
+Group     9 (    SideChain-H) has   484 elements
+Group    10 (    Prot-Masses) has  1960 elements
+Group    11 (    non-Protein) has 31928 elements
+Group    12 (          Other) has    11 elements
+Group    13 (            LIG) has    11 elements
+Group    14 (          Water) has 31917 elements
+Group    15 (            SOL) has 31917 elements
+Group    16 (      non-Water) has  1971 elements
+Select a group: Number of (3-atomic) solvent molecules: 10639
+
+Back Off! I just backed up /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/topol.top to /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/#topol.top.2#
+Using random seed -2107991720.
+Replacing solvent molecule 746 (atom 4209) with CL
+Replacing solvent molecule 2240 (atom 8691) with CL
+Replacing solvent molecule 402 (atom 3177) with CL
+Replacing solvent molecule 3425 (atom 12246) with CL
+Replacing solvent molecule 8075 (atom 26196) with CL
+Replacing solvent molecule 1436 (atom 6279) with CL
+Replacing solvent molecule 2030 (atom 8061) with CL
+Replacing solvent molecule 5161 (atom 17454) with CL
+
+
+GROMACS reminds you: "Carry Me Away" (Motors)
+
+Will try to add 0 NA ions and 8 CL ions.
+Select a continuous group of solvent molecules
+Selected 15: 'SOL'
+
+Processing topology
+Replacing 8 solute molecules in topology file (/data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/topol.top)  by 0 NA and 8 CL ions.
+
+genion_done_SOL
+step_start:EM log=em.log
+em_grompp_start
+gmx grompp -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/em.mdp -c /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/solv_ions.gro -p /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/topol.top -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/em.tpr
+              :-) GROMACS - gmx grompp, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx grompp, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx grompp -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/em.mdp -c /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/solv_ions.gro -p /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/topol.top -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/em.tpr
+
+Setting the LD random seed to 1716455384
+Generated 2278 of the 2278 non-bonded parameter combinations
+Generating 1-4 interactions: fudge = 0.5
+Generated 2278 of the 2278 1-4 parameter combinations
+Excluding 3 bonded neighbours molecule type 'Protein_chain_A'
+Excluding 3 bonded neighbours molecule type 'LIG'
+Excluding 2 bonded neighbours molecule type 'SOL'
+Excluding 1 bonded neighbours molecule type 'CL'
+Number of degrees of freedom in T-Coupling group rest is 69720.00
+
+NOTE 1 [file /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/em.mdp]:
+  You are using a plain Coulomb cut-off, which might produce artifacts.
+  You might want to consider using PME electrostatics.
+
+
+
+There was 1 note
+
+GROMACS reminds you: "Computer dating is fine, if you are a computer." (Rita May Brown)
+
+Analysing residue names:
+There are:   129    Protein residues
+There are:     1      Other residues
+There are: 10631      Water residues
+There are:     8        Ion residues
+Analysing Protein...
+Analysing residues not classified as Protein/DNA/RNA/Water and splitting into groups...
+Analysing residues not classified as Protein/DNA/RNA/Water and splitting into groups...
+This run will generate roughly 3 Mb of data
+
+em_grompp_done
+em_mdrun_start
+gmx mdrun -deffnm em
+              :-) GROMACS - gmx mdrun, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx mdrun, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx mdrun -deffnm em
+
+Compiled SIMD: SSE2, but for this host/run SSE4.1 might be better (see log).
+The current CPU can measure timings more accurately than the code in
+gmx mdrun was configured to use. This might affect your simulation
+speed as accurate timings are needed for load-balancing.
+Please consider rebuilding gmx mdrun with the GMX_USE_RDTSCP=ON CMake option.
+Reading file em.tpr, VERSION 2020.1-Ubuntu-2020.1-1 (single precision)
+
+Using 1 MPI thread
+
+Non-default thread affinity set, disabling internal thread affinity
+
+Using 10 OpenMP threads 
+
+
+Steepest Descents:
+   Tolerance (Fmax)   =  1.00000e+03
+   Number of steps    =         5000
+
+writing lowest energy coordinates.
+
+Steepest Descents converged to Fmax < 1000 in 642 steps
+Potential Energy  = -5.8061962e+05
+Maximum force     =  9.6041113e+02 on atom 1015
+Norm of force     =  4.2010768e+01
+
+GROMACS reminds you: "It's Calling Me to Break my Bonds, Again..." (Van der Graaf)
+
+
+em_mdrun_done
+step_done:EM
+step_start:NPT log=npt.log
+npt_grompp_start
+gmx grompp -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.mdp -c /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/em.gro -p /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/topol.top -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.tpr
+              :-) GROMACS - gmx grompp, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx grompp, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx grompp -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.mdp -c /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/em.gro -p /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/topol.top -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.tpr
+
+Setting the LD random seed to 311815199
+Generated 2278 of the 2278 non-bonded parameter combinations
+Generating 1-4 interactions: fudge = 0.5
+Generated 2278 of the 2278 1-4 parameter combinations
+Excluding 3 bonded neighbours molecule type 'Protein_chain_A'
+Excluding 3 bonded neighbours molecule type 'LIG'
+Excluding 2 bonded neighbours molecule type 'SOL'
+Excluding 1 bonded neighbours molecule type 'CL'
+Number of degrees of freedom in T-Coupling group System is 68753.00
+
+NOTE 1 [file /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.mdp]:
+  You are using a plain Coulomb cut-off, which might produce artifacts.
+  You might want to consider using PME electrostatics.
+
+
+
+There was 1 note
+
+GROMACS reminds you: "I Calculate My Birthright" (P.J. Harvey)
+
+turning H bonds into constraints...
+turning H bonds into constraints...
+turning H bonds into constraints...
+turning H bonds into constraints...
+Analysing residue names:
+There are:   129    Protein residues
+There are:     1      Other residues
+There are: 10631      Water residues
+There are:     8        Ion residues
+Analysing Protein...
+Analysing residues not classified as Protein/DNA/RNA/Water and splitting into groups...
+Analysing residues not classified as Protein/DNA/RNA/Water and splitting into groups...
+Determining Verlet buffer for a tolerance of 0.005 kJ/mol/ps at 300 K
+Calculated rlist for 1x1 atom pair-list as 1.128 nm, buffer size 0.128 nm
+Set rlist, assuming 4x4 atom pair-list, to 1.104 nm, buffer size 0.104 nm
+Note that mdrun will redetermine rlist based on the actual pair-list setup
+This run will generate roughly 3 Mb of data
+
+npt_grompp_done
+npt_mdrun_start
+gmx mdrun -deffnm npt
+              :-) GROMACS - gmx mdrun, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx mdrun, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx mdrun -deffnm npt
+
+Compiled SIMD: SSE2, but for this host/run SSE4.1 might be better (see log).
+The current CPU can measure timings more accurately than the code in
+gmx mdrun was configured to use. This might affect your simulation
+speed as accurate timings are needed for load-balancing.
+Please consider rebuilding gmx mdrun with the GMX_USE_RDTSCP=ON CMake option.
+Reading file npt.tpr, VERSION 2020.1-Ubuntu-2020.1-1 (single precision)
+Changing nstlist from 10 to 20, rlist from 1.104 to 1.228
+
+
+Using 1 MPI thread
+
+Non-default thread affinity set, disabling internal thread affinity
+
+Using 10 OpenMP threads 
+
+starting mdrun 'HYDROLASE in water'
+100 steps,      0.2 ps.
+
+Writing final coordinates.
+
+NOTE: 12 % of the run time was spent in pair search,
+      you might want to increase nstlist (this has no effect on accuracy)
+
+               Core t (s)   Wall t (s)        (%)
+       Time:        8.093        0.811      998.5
+                 (ns/day)    (hour/ns)
+Performance:       21.531        1.115
+
+GROMACS reminds you: "Teaching quantum computing is like teaching computer science at Hogwarts." (Thomas Sterling, ISC2018 keynote)
+
+
+npt_mdrun_done
+step_done:NPT
+step_start:Production log=prod.log
+prod_grompp_start
+gmx grompp -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.mdp -c /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.gro -p /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/topol.top -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.tpr
+              :-) GROMACS - gmx grompp, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx grompp, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx grompp -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.mdp -c /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.gro -p /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/topol.top -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.tpr
+
+Setting the LD random seed to -1753402072
+Generated 2278 of the 2278 non-bonded parameter combinations
+Generating 1-4 interactions: fudge = 0.5
+Generated 2278 of the 2278 1-4 parameter combinations
+Excluding 3 bonded neighbours molecule type 'Protein_chain_A'
+Excluding 3 bonded neighbours molecule type 'LIG'
+Excluding 2 bonded neighbours molecule type 'SOL'
+Excluding 1 bonded neighbours molecule type 'CL'
+Number of degrees of freedom in T-Coupling group System is 68753.00
+
+NOTE 1 [file /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.mdp]:
+  You are using a plain Coulomb cut-off, which might produce artifacts.
+  You might want to consider using PME electrostatics.
+
+
+
+There was 1 note
+
+GROMACS reminds you: "The last good thing written in C was Franz Schubert's Symphony Number 9." (Erwin Dieterich)
+
+turning H bonds into constraints...
+turning H bonds into constraints...
+turning H bonds into constraints...
+turning H bonds into constraints...
+Analysing residue names:
+There are:   129    Protein residues
+There are:     1      Other residues
+There are: 10631      Water residues
+There are:     8        Ion residues
+Analysing Protein...
+Analysing residues not classified as Protein/DNA/RNA/Water and splitting into groups...
+Analysing residues not classified as Protein/DNA/RNA/Water and splitting into groups...
+Determining Verlet buffer for a tolerance of 0.005 kJ/mol/ps at 300 K
+Calculated rlist for 1x1 atom pair-list as 1.128 nm, buffer size 0.128 nm
+Set rlist, assuming 4x4 atom pair-list, to 1.104 nm, buffer size 0.104 nm
+Note that mdrun will redetermine rlist based on the actual pair-list setup
+This run will generate roughly 3 Mb of data
+
+prod_grompp_done
+prod_mdrun_start
+gmx mdrun -deffnm md
+              :-) GROMACS - gmx mdrun, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx mdrun, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx mdrun -deffnm md
+
+Compiled SIMD: SSE2, but for this host/run SSE4.1 might be better (see log).
+The current CPU can measure timings more accurately than the code in
+gmx mdrun was configured to use. This might affect your simulation
+speed as accurate timings are needed for load-balancing.
+Please consider rebuilding gmx mdrun with the GMX_USE_RDTSCP=ON CMake option.
+Reading file md.tpr, VERSION 2020.1-Ubuntu-2020.1-1 (single precision)
+Changing nstlist from 10 to 20, rlist from 1.104 to 1.228
+
+
+Using 1 MPI thread
+
+Non-default thread affinity set, disabling internal thread affinity
+
+Using 10 OpenMP threads 
+
+starting mdrun 'HYDROLASE in water'
+100 steps,      0.2 ps.
+
+Writing final coordinates.
+
+NOTE: 11 % of the run time was spent in pair search,
+      you might want to increase nstlist (this has no effect on accuracy)
+
+               Core t (s)   Wall t (s)        (%)
+       Time:        8.866        0.888      998.8
+                 (ns/day)    (hour/ns)
+Performance:       19.662        1.221
+
+GROMACS reminds you: "You could give Aristotle a tutorial. And you could thrill him to the core of his being. Such is the privilege of living after Newton, Darwin, Einstein, Planck, Watson, Crick and their colleagues." (Richard Dawkins)
+
+
+prod_mdrun_done
+step_done:Production
+gmx trjconv -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/em.trr -s /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/em.tpr -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/em.pdb
+             :-) GROMACS - gmx trjconv, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx trjconv, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx trjconv -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/em.trr -s /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/em.tpr -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/em.pdb
+
+Will write pdb: Protein data bank file
+Reading file /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/em.tpr, VERSION 2020.1-Ubuntu-2020.1-1 (single precision)
+Reading file /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/em.tpr, VERSION 2020.1-Ubuntu-2020.1-1 (single precision)
+Group     0 (         System) has 33872 elements
+Group     1 (        Protein) has  1960 elements
+Group     2 (      Protein-H) has  1001 elements
+Group     3 (        C-alpha) has   129 elements
+Group     4 (       Backbone) has   387 elements
+Group     5 (      MainChain) has   517 elements
+Group     6 (   MainChain+Cb) has   634 elements
+Group     7 (    MainChain+H) has   646 elements
+Group     8 (      SideChain) has  1314 elements
+Group     9 (    SideChain-H) has   484 elements
+Group    10 (    Prot-Masses) has  1960 elements
+Group    11 (    non-Protein) has 31912 elements
+Group    12 (          Other) has    11 elements
+Group    13 (            LIG) has    11 elements
+Group    14 (             CL) has     8 elements
+Group    15 (          Water) has 31893 elements
+Group    16 (            SOL) has 31893 elements
+Group    17 (      non-Water) has  1979 elements
+Group    18 (            Ion) has     8 elements
+Group    19 (            LIG) has    11 elements
+Group    20 (             CL) has     8 elements
+Group    21 ( Water_and_ions) has 31901 elements
+Select a group: trr version: GMX_trn_file (single precision)
+
+Reading frame       0 time  642.000    ->  frame      0 time  642.000      
+
+Last frame          0 time  642.000   
+
+
+GROMACS reminds you: "Quite frankly, even if the choice of C were to do *nothing* but keep the C++ programmers out, that in itself would be a huge reason to use C." (Linus Torvalds)
+
+Note that major changes are planned in future for trjconv, to improve usability and utility.
+Select group for output
+Selected 17: 'non-Water'
+
+gmx trjconv -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.xtc -s /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.tpr -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/npt.pdb
+             :-) GROMACS - gmx trjconv, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx trjconv, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx trjconv -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.xtc -s /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.tpr -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/npt.pdb
+
+Will write pdb: Protein data bank file
+Reading file /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.tpr, VERSION 2020.1-Ubuntu-2020.1-1 (single precision)
+Reading file /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.tpr, VERSION 2020.1-Ubuntu-2020.1-1 (single precision)
+Group     0 (         System) has 33872 elements
+Group     1 (        Protein) has  1960 elements
+Group     2 (      Protein-H) has  1001 elements
+Group     3 (        C-alpha) has   129 elements
+Group     4 (       Backbone) has   387 elements
+Group     5 (      MainChain) has   517 elements
+Group     6 (   MainChain+Cb) has   634 elements
+Group     7 (    MainChain+H) has   646 elements
+Group     8 (      SideChain) has  1314 elements
+Group     9 (    SideChain-H) has   484 elements
+Group    10 (    Prot-Masses) has  1960 elements
+Group    11 (    non-Protein) has 31912 elements
+Group    12 (          Other) has    11 elements
+Group    13 (            LIG) has    11 elements
+Group    14 (             CL) has     8 elements
+Group    15 (          Water) has 31893 elements
+Group    16 (            SOL) has 31893 elements
+Group    17 (      non-Water) has  1979 elements
+Group    18 (            Ion) has     8 elements
+Group    19 (            LIG) has    11 elements
+Group    20 (             CL) has     8 elements
+Group    21 ( Water_and_ions) has 31901 elements
+Select a group: 
+Reading frame       0 time    0.000   
+Precision of /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.xtc is 0.001 (nm)
+ ->  frame      0 time    0.000      
+
+Reading frame       1 time    0.200    ->  frame      1 time    0.200      
+
+Last frame          1 time    0.200   
+
+
+GROMACS reminds you: "Jesus Built My Hotrod" (Ministry)
+
+Note that major changes are planned in future for trjconv, to improve usability and utility.
+Select group for output
+Selected 17: 'non-Water'
+
+gmx trjconv -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.xtc -s /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.tpr -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/md.pdb
+             :-) GROMACS - gmx trjconv, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx trjconv, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx trjconv -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.xtc -s /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.tpr -o /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/md.pdb
+
+Will write pdb: Protein data bank file
+Reading file /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.tpr, VERSION 2020.1-Ubuntu-2020.1-1 (single precision)
+Reading file /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.tpr, VERSION 2020.1-Ubuntu-2020.1-1 (single precision)
+Group     0 (         System) has 33872 elements
+Group     1 (        Protein) has  1960 elements
+Group     2 (      Protein-H) has  1001 elements
+Group     3 (        C-alpha) has   129 elements
+Group     4 (       Backbone) has   387 elements
+Group     5 (      MainChain) has   517 elements
+Group     6 (   MainChain+Cb) has   634 elements
+Group     7 (    MainChain+H) has   646 elements
+Group     8 (      SideChain) has  1314 elements
+Group     9 (    SideChain-H) has   484 elements
+Group    10 (    Prot-Masses) has  1960 elements
+Group    11 (    non-Protein) has 31912 elements
+Group    12 (          Other) has    11 elements
+Group    13 (            LIG) has    11 elements
+Group    14 (             CL) has     8 elements
+Group    15 (          Water) has 31893 elements
+Group    16 (            SOL) has 31893 elements
+Group    17 (      non-Water) has  1979 elements
+Group    18 (            Ion) has     8 elements
+Group    19 (            LIG) has    11 elements
+Group    20 (             CL) has     8 elements
+Group    21 ( Water_and_ions) has 31901 elements
+Select a group: 
+Reading frame       0 time    0.000   
+Precision of /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.xtc is 0.001 (nm)
+ ->  frame      0 time    0.000      
+
+Reading frame       1 time    0.200    ->  frame      1 time    0.200      
+
+Last frame          1 time    0.200   
+
+
+GROMACS reminds you: "Science is a way of thinking much more than it is a body of knowledge." (Carl Sagan)
+
+Note that major changes are planned in future for trjconv, to improve usability and utility.
+Select group for output
+Selected 17: 'non-Water'
+
+              :-) GROMACS - gmx energy, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/em.edr -xvg none
+
+Opened /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/em.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Improper-Dih. 
+  5  LJ-14            6  Coulomb-14       7  LJ-(SR)          8  Coulomb-(SR)  
+  9  Potential       10  Pressure        11  Vir-XX          12  Vir-XY        
+ 13  Vir-XZ          14  Vir-YX          15  Vir-YY          16  Vir-YZ        
+ 17  Vir-ZX          18  Vir-ZY          19  Vir-ZZ          20  Pres-XX       
+ 21  Pres-XY         22  Pres-XZ         23  Pres-YX         24  Pres-YY       
+ 25  Pres-YZ         26  Pres-ZX         27  Pres-ZY         28  Pres-ZZ       
+ 29  #Surf*SurfTen   30  T-rest        
+
+
+-------------------------------------------------------
+Program:     gmx energy, version 2020.1-Ubuntu-2020.1-1
+Source file: src/gromacs/gmxana/gmx_energy.cpp (line 298)
+
+Fatal error:
+No energy terms selected
+
+For more information and tips for troubleshooting, please check the GROMACS
+website at http://www.gromacs.org/Documentation/Errors
+-------------------------------------------------------
+
+              :-) GROMACS - gmx energy, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/em.edr -o em_potential.xvg -xvg none
+
+Opened /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/em.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Improper-Dih. 
+  5  LJ-14            6  Coulomb-14       7  LJ-(SR)          8  Coulomb-(SR)  
+  9  Potential       10  Pressure        11  Vir-XX          12  Vir-XY        
+ 13  Vir-XZ          14  Vir-YX          15  Vir-YY          16  Vir-YZ        
+ 17  Vir-ZX          18  Vir-ZY          19  Vir-ZZ          20  Pres-XX       
+ 21  Pres-XY         22  Pres-XZ         23  Pres-YX         24  Pres-YY       
+ 25  Pres-YZ         26  Pres-ZX         27  Pres-ZY         28  Pres-ZZ       
+ 29  #Surf*SurfTen   30  T-rest        
+
+
+Reading energy frame      0 time    0.000         
+Reading energy frame      1 time    1.000         
+Reading energy frame      2 time    2.000         
+Reading energy frame      3 time    3.000         
+Reading energy frame      4 time    4.000         
+Reading energy frame      5 time    5.000         
+Reading energy frame      6 time    6.000         
+Reading energy frame      7 time    7.000         
+Reading energy frame      8 time    8.000         
+Reading energy frame      9 time    9.000         
+Reading energy frame     10 time   10.000         
+Reading energy frame     11 time   11.000         
+Reading energy frame     12 time   13.000         
+Reading energy frame     13 time   14.000         
+Reading energy frame     14 time   15.000         
+Reading energy frame     15 time   17.000         
+Reading energy frame     16 time   18.000         
+Reading energy frame     17 time   19.000         
+Reading energy frame     18 time   20.000         
+Reading energy frame     19 time   21.000         
+Reading energy frame     20 time   23.000         
+Reading energy frame     30 time   36.000         
+Reading energy frame     40 time   49.000         
+Reading energy frame     50 time   62.000         
+Reading energy frame     60 time   74.000         
+Reading energy frame     70 time   87.000         
+Reading energy frame     80 time   99.000         
+Reading energy frame     90 time  112.000         
+Reading energy frame    100 time  125.000         
+Reading energy frame    110 time  138.000         
+Reading energy frame    120 time  150.000         
+Reading energy frame    130 time  163.000         
+Reading energy frame    140 time  176.000         
+Reading energy frame    150 time  189.000         
+Reading energy frame    160 time  201.000         
+Reading energy frame    170 time  214.000         
+Reading energy frame    180 time  226.000         
+Reading energy frame    190 time  240.000         
+Reading energy frame    200 time  252.000         
+Reading energy frame    300 time  379.000         
+Reading energy frame    400 time  505.000         
+Reading energy frame    500 time  633.000         
+Last energy frame read 507 time  641.000         
+
+GROMACS reminds you: "It seems likely that significant software contributions to existing scientific software projects are not likely to be rewarded through the traditional reputation economy of science. Together these factors provide a reason to expect the over-production of independent scientific software packages, and the underproduction of collaborative projects in which later academics build on the work of earlier ones." (Howison & Herbsleb)
+
+
+Statistics over 642 steps [ 0.0000 through 641.0000 ps ], 1 data sets
+All statistics are over 508 points (frames)
+
+Energy                      Average   Err.Est.       RMSD  Tot-Drift
+-------------------------------------------------------------------------------
+Potential                   -548872      17000    38949.7    -108027  (kJ/mol)
+
+plot_saved: em_potential.png
+              :-) GROMACS - gmx energy, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.edr -xvg none
+
+Opened /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Improper-Dih. 
+  5  LJ-14            6  Coulomb-14       7  LJ-(SR)          8  Coulomb-(SR)  
+  9  Potential       10  Kinetic-En.     11  Total-Energy    12  Conserved-En. 
+ 13  Temperature     14  Pressure        15  Constr.-rmsd    16  Box-X         
+ 17  Box-Y           18  Box-Z           19  Volume          20  Density       
+ 21  pV              22  Enthalpy        23  Vir-XX          24  Vir-XY        
+ 25  Vir-XZ          26  Vir-YX          27  Vir-YY          28  Vir-YZ        
+ 29  Vir-ZX          30  Vir-ZY          31  Vir-ZZ          32  Pres-XX       
+ 33  Pres-XY         34  Pres-XZ         35  Pres-YX         36  Pres-YY       
+ 37  Pres-YZ         38  Pres-ZX         39  Pres-ZY         40  Pres-ZZ       
+ 41  #Surf*SurfTen   42  T-System        43  Lamb-System   
+
+
+-------------------------------------------------------
+Program:     gmx energy, version 2020.1-Ubuntu-2020.1-1
+Source file: src/gromacs/gmxana/gmx_energy.cpp (line 298)
+
+Fatal error:
+No energy terms selected
+
+For more information and tips for troubleshooting, please check the GROMACS
+website at http://www.gromacs.org/Documentation/Errors
+-------------------------------------------------------
+
+              :-) GROMACS - gmx energy, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.edr -o npt_temp.xvg -xvg none
+
+Opened /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Improper-Dih. 
+  5  LJ-14            6  Coulomb-14       7  LJ-(SR)          8  Coulomb-(SR)  
+  9  Potential       10  Kinetic-En.     11  Total-Energy    12  Conserved-En. 
+ 13  Temperature     14  Pressure        15  Constr.-rmsd    16  Box-X         
+ 17  Box-Y           18  Box-Z           19  Volume          20  Density       
+ 21  pV              22  Enthalpy        23  Vir-XX          24  Vir-XY        
+ 25  Vir-XZ          26  Vir-YX          27  Vir-YY          28  Vir-YZ        
+ 29  Vir-ZX          30  Vir-ZY          31  Vir-ZZ          32  Pres-XX       
+ 33  Pres-XY         34  Pres-XZ         35  Pres-YX         36  Pres-YY       
+ 37  Pres-YZ         38  Pres-ZX         39  Pres-ZY         40  Pres-ZZ       
+ 41  #Surf*SurfTen   42  T-System        43  Lamb-System   
+
+
+Reading energy frame      0 time    0.000         
+Reading energy frame      1 time    0.200         
+Last energy frame read 1 time    0.200         
+
+GROMACS reminds you: "In ancient times they had no statistics so they had to fall back on lies." (Stephen Leacock)
+
+
+Statistics over 101 steps [ 0.0000 through 0.2000 ps ], 1 data sets
+All statistics are over 2 points (frames)
+
+Energy                      Average   Err.Est.       RMSD  Tot-Drift
+-------------------------------------------------------------------------------
+Temperature                 113.111         --    112.966    447.391  (K)
+
+plot_saved: npt_temp.png
+              :-) GROMACS - gmx energy, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.edr -xvg none
+
+Opened /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Improper-Dih. 
+  5  LJ-14            6  Coulomb-14       7  LJ-(SR)          8  Coulomb-(SR)  
+  9  Potential       10  Kinetic-En.     11  Total-Energy    12  Conserved-En. 
+ 13  Temperature     14  Pressure        15  Constr.-rmsd    16  Box-X         
+ 17  Box-Y           18  Box-Z           19  Volume          20  Density       
+ 21  pV              22  Enthalpy        23  Vir-XX          24  Vir-XY        
+ 25  Vir-XZ          26  Vir-YX          27  Vir-YY          28  Vir-YZ        
+ 29  Vir-ZX          30  Vir-ZY          31  Vir-ZZ          32  Pres-XX       
+ 33  Pres-XY         34  Pres-XZ         35  Pres-YX         36  Pres-YY       
+ 37  Pres-YZ         38  Pres-ZX         39  Pres-ZY         40  Pres-ZZ       
+ 41  #Surf*SurfTen   42  T-System        43  Lamb-System   
+
+
+-------------------------------------------------------
+Program:     gmx energy, version 2020.1-Ubuntu-2020.1-1
+Source file: src/gromacs/gmxana/gmx_energy.cpp (line 298)
+
+Fatal error:
+No energy terms selected
+
+For more information and tips for troubleshooting, please check the GROMACS
+website at http://www.gromacs.org/Documentation/Errors
+-------------------------------------------------------
+
+              :-) GROMACS - gmx energy, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.edr -o npt_pressure.xvg -xvg none
+
+Opened /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/npt.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Improper-Dih. 
+  5  LJ-14            6  Coulomb-14       7  LJ-(SR)          8  Coulomb-(SR)  
+  9  Potential       10  Kinetic-En.     11  Total-Energy    12  Conserved-En. 
+ 13  Temperature     14  Pressure        15  Constr.-rmsd    16  Box-X         
+ 17  Box-Y           18  Box-Z           19  Volume          20  Density       
+ 21  pV              22  Enthalpy        23  Vir-XX          24  Vir-XY        
+ 25  Vir-XZ          26  Vir-YX          27  Vir-YY          28  Vir-YZ        
+ 29  Vir-ZX          30  Vir-ZY          31  Vir-ZZ          32  Pres-XX       
+ 33  Pres-XY         34  Pres-XZ         35  Pres-YX         36  Pres-YY       
+ 37  Pres-YZ         38  Pres-ZX         39  Pres-ZY         40  Pres-ZZ       
+ 41  #Surf*SurfTen   42  T-System        43  Lamb-System   
+
+
+Reading energy frame      0 time    0.000         
+Reading energy frame      1 time    0.200         
+Last energy frame read 1 time    0.200         
+
+GROMACS reminds you: "If everything seems under control, you're just not going fast enough." (Mario Andretti)
+
+
+Statistics over 101 steps [ 0.0000 through 0.2000 ps ], 1 data sets
+All statistics are over 2 points (frames)
+
+Energy                      Average   Err.Est.       RMSD  Tot-Drift
+-------------------------------------------------------------------------------
+Temperature                 113.111         --    112.966    447.391  (K)
+
+plot_saved: npt_pressure.png
+              :-) GROMACS - gmx energy, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.edr -xvg none
+
+Opened /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Improper-Dih. 
+  5  LJ-14            6  Coulomb-14       7  LJ-(SR)          8  Coulomb-(SR)  
+  9  Potential       10  Kinetic-En.     11  Total-Energy    12  Conserved-En. 
+ 13  Temperature     14  Pressure        15  Constr.-rmsd    16  Box-X         
+ 17  Box-Y           18  Box-Z           19  Volume          20  Density       
+ 21  pV              22  Enthalpy        23  Vir-XX          24  Vir-XY        
+ 25  Vir-XZ          26  Vir-YX          27  Vir-YY          28  Vir-YZ        
+ 29  Vir-ZX          30  Vir-ZY          31  Vir-ZZ          32  Pres-XX       
+ 33  Pres-XY         34  Pres-XZ         35  Pres-YX         36  Pres-YY       
+ 37  Pres-YZ         38  Pres-ZX         39  Pres-ZY         40  Pres-ZZ       
+ 41  #Surf*SurfTen   42  Box-Vel-XX      43  Box-Vel-YY      44  Box-Vel-ZZ    
+ 45  T-System        46  Lamb-System   
+
+
+-------------------------------------------------------
+Program:     gmx energy, version 2020.1-Ubuntu-2020.1-1
+Source file: src/gromacs/gmxana/gmx_energy.cpp (line 298)
+
+Fatal error:
+No energy terms selected
+
+For more information and tips for troubleshooting, please check the GROMACS
+website at http://www.gromacs.org/Documentation/Errors
+-------------------------------------------------------
+
+              :-) GROMACS - gmx energy, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.edr -o md_temp.xvg -xvg none
+
+Opened /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Improper-Dih. 
+  5  LJ-14            6  Coulomb-14       7  LJ-(SR)          8  Coulomb-(SR)  
+  9  Potential       10  Kinetic-En.     11  Total-Energy    12  Conserved-En. 
+ 13  Temperature     14  Pressure        15  Constr.-rmsd    16  Box-X         
+ 17  Box-Y           18  Box-Z           19  Volume          20  Density       
+ 21  pV              22  Enthalpy        23  Vir-XX          24  Vir-XY        
+ 25  Vir-XZ          26  Vir-YX          27  Vir-YY          28  Vir-YZ        
+ 29  Vir-ZX          30  Vir-ZY          31  Vir-ZZ          32  Pres-XX       
+ 33  Pres-XY         34  Pres-XZ         35  Pres-YX         36  Pres-YY       
+ 37  Pres-YZ         38  Pres-ZX         39  Pres-ZY         40  Pres-ZZ       
+ 41  #Surf*SurfTen   42  Box-Vel-XX      43  Box-Vel-YY      44  Box-Vel-ZZ    
+ 45  T-System        46  Lamb-System   
+
+
+Reading energy frame      0 time    0.000         
+Reading energy frame      1 time    0.200         
+Last energy frame read 1 time    0.200         
+
+GROMACS reminds you: "Always code as if the person who ends up maintaining your code is a violent psychopath who knows where you live." (Martin Golding)
+
+
+Statistics over 101 steps [ 0.0000 through 0.2000 ps ], 1 data sets
+All statistics are over 2 points (frames)
+
+Energy                      Average   Err.Est.       RMSD  Tot-Drift
+-------------------------------------------------------------------------------
+Temperature                 252.833         --    25.5192    101.066  (K)
+
+plot_saved: prod_temp.png
+              :-) GROMACS - gmx energy, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.edr -xvg none
+
+Opened /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Improper-Dih. 
+  5  LJ-14            6  Coulomb-14       7  LJ-(SR)          8  Coulomb-(SR)  
+  9  Potential       10  Kinetic-En.     11  Total-Energy    12  Conserved-En. 
+ 13  Temperature     14  Pressure        15  Constr.-rmsd    16  Box-X         
+ 17  Box-Y           18  Box-Z           19  Volume          20  Density       
+ 21  pV              22  Enthalpy        23  Vir-XX          24  Vir-XY        
+ 25  Vir-XZ          26  Vir-YX          27  Vir-YY          28  Vir-YZ        
+ 29  Vir-ZX          30  Vir-ZY          31  Vir-ZZ          32  Pres-XX       
+ 33  Pres-XY         34  Pres-XZ         35  Pres-YX         36  Pres-YY       
+ 37  Pres-YZ         38  Pres-ZX         39  Pres-ZY         40  Pres-ZZ       
+ 41  #Surf*SurfTen   42  Box-Vel-XX      43  Box-Vel-YY      44  Box-Vel-ZZ    
+ 45  T-System        46  Lamb-System   
+
+
+-------------------------------------------------------
+Program:     gmx energy, version 2020.1-Ubuntu-2020.1-1
+Source file: src/gromacs/gmxana/gmx_energy.cpp (line 298)
+
+Fatal error:
+No energy terms selected
+
+For more information and tips for troubleshooting, please check the GROMACS
+website at http://www.gromacs.org/Documentation/Errors
+-------------------------------------------------------
+
+              :-) GROMACS - gmx energy, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.edr -o md_pressure.xvg -xvg none
+
+Opened /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Improper-Dih. 
+  5  LJ-14            6  Coulomb-14       7  LJ-(SR)          8  Coulomb-(SR)  
+  9  Potential       10  Kinetic-En.     11  Total-Energy    12  Conserved-En. 
+ 13  Temperature     14  Pressure        15  Constr.-rmsd    16  Box-X         
+ 17  Box-Y           18  Box-Z           19  Volume          20  Density       
+ 21  pV              22  Enthalpy        23  Vir-XX          24  Vir-XY        
+ 25  Vir-XZ          26  Vir-YX          27  Vir-YY          28  Vir-YZ        
+ 29  Vir-ZX          30  Vir-ZY          31  Vir-ZZ          32  Pres-XX       
+ 33  Pres-XY         34  Pres-XZ         35  Pres-YX         36  Pres-YY       
+ 37  Pres-YZ         38  Pres-ZX         39  Pres-ZY         40  Pres-ZZ       
+ 41  #Surf*SurfTen   42  Box-Vel-XX      43  Box-Vel-YY      44  Box-Vel-ZZ    
+ 45  T-System        46  Lamb-System   
+
+
+Reading energy frame      0 time    0.000         
+Reading energy frame      1 time    0.200         
+Last energy frame read 1 time    0.200         
+
+GROMACS reminds you: "Aber wenn der Quarterback kommt, um dir die Brille abzunehmen, sag ihm: Danke, die bleibt wo sie ist" (Wir sind Helden)
+
+
+Statistics over 101 steps [ 0.0000 through 0.2000 ps ], 1 data sets
+All statistics are over 2 points (frames)
+
+Energy                      Average   Err.Est.       RMSD  Tot-Drift
+-------------------------------------------------------------------------------
+Temperature                 252.833         --    25.5192    101.066  (K)
+
+plot_saved: prod_pressure.png
+              :-) GROMACS - gmx energy, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.edr -xvg none
+
+Opened /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Improper-Dih. 
+  5  LJ-14            6  Coulomb-14       7  LJ-(SR)          8  Coulomb-(SR)  
+  9  Potential       10  Kinetic-En.     11  Total-Energy    12  Conserved-En. 
+ 13  Temperature     14  Pressure        15  Constr.-rmsd    16  Box-X         
+ 17  Box-Y           18  Box-Z           19  Volume          20  Density       
+ 21  pV              22  Enthalpy        23  Vir-XX          24  Vir-XY        
+ 25  Vir-XZ          26  Vir-YX          27  Vir-YY          28  Vir-YZ        
+ 29  Vir-ZX          30  Vir-ZY          31  Vir-ZZ          32  Pres-XX       
+ 33  Pres-XY         34  Pres-XZ         35  Pres-YX         36  Pres-YY       
+ 37  Pres-YZ         38  Pres-ZX         39  Pres-ZY         40  Pres-ZZ       
+ 41  #Surf*SurfTen   42  Box-Vel-XX      43  Box-Vel-YY      44  Box-Vel-ZZ    
+ 45  T-System        46  Lamb-System   
+
+
+-------------------------------------------------------
+Program:     gmx energy, version 2020.1-Ubuntu-2020.1-1
+Source file: src/gromacs/gmxana/gmx_energy.cpp (line 298)
+
+Fatal error:
+No energy terms selected
+
+For more information and tips for troubleshooting, please check the GROMACS
+website at http://www.gromacs.org/Documentation/Errors
+-------------------------------------------------------
+
+              :-) GROMACS - gmx energy, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.edr -o md_potential.xvg -xvg none
+
+Opened /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Improper-Dih. 
+  5  LJ-14            6  Coulomb-14       7  LJ-(SR)          8  Coulomb-(SR)  
+  9  Potential       10  Kinetic-En.     11  Total-Energy    12  Conserved-En. 
+ 13  Temperature     14  Pressure        15  Constr.-rmsd    16  Box-X         
+ 17  Box-Y           18  Box-Z           19  Volume          20  Density       
+ 21  pV              22  Enthalpy        23  Vir-XX          24  Vir-XY        
+ 25  Vir-XZ          26  Vir-YX          27  Vir-YY          28  Vir-YZ        
+ 29  Vir-ZX          30  Vir-ZY          31  Vir-ZZ          32  Pres-XX       
+ 33  Pres-XY         34  Pres-XZ         35  Pres-YX         36  Pres-YY       
+ 37  Pres-YZ         38  Pres-ZX         39  Pres-ZY         40  Pres-ZZ       
+ 41  #Surf*SurfTen   42  Box-Vel-XX      43  Box-Vel-YY      44  Box-Vel-ZZ    
+ 45  T-System        46  Lamb-System   
+
+
+Reading energy frame      0 time    0.000         
+Reading energy frame      1 time    0.200         
+Last energy frame read 1 time    0.200         
+
+GROMACS reminds you: "It's an easy game, just don't let the ball past!" (Szilard Pall)
+
+
+Statistics over 101 steps [ 0.0000 through 0.2000 ps ], 1 data sets
+All statistics are over 2 points (frames)
+
+Energy                      Average   Err.Est.       RMSD  Tot-Drift
+-------------------------------------------------------------------------------
+Potential                   -554226         --    4804.91    19029.3  (kJ/mol)
+
+saved_xvg: md_potential.xvg
+              :-) GROMACS - gmx energy, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.edr -xvg none
+
+Opened /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Improper-Dih. 
+  5  LJ-14            6  Coulomb-14       7  LJ-(SR)          8  Coulomb-(SR)  
+  9  Potential       10  Kinetic-En.     11  Total-Energy    12  Conserved-En. 
+ 13  Temperature     14  Pressure        15  Constr.-rmsd    16  Box-X         
+ 17  Box-Y           18  Box-Z           19  Volume          20  Density       
+ 21  pV              22  Enthalpy        23  Vir-XX          24  Vir-XY        
+ 25  Vir-XZ          26  Vir-YX          27  Vir-YY          28  Vir-YZ        
+ 29  Vir-ZX          30  Vir-ZY          31  Vir-ZZ          32  Pres-XX       
+ 33  Pres-XY         34  Pres-XZ         35  Pres-YX         36  Pres-YY       
+ 37  Pres-YZ         38  Pres-ZX         39  Pres-ZY         40  Pres-ZZ       
+ 41  #Surf*SurfTen   42  Box-Vel-XX      43  Box-Vel-YY      44  Box-Vel-ZZ    
+ 45  T-System        46  Lamb-System   
+
+
+-------------------------------------------------------
+Program:     gmx energy, version 2020.1-Ubuntu-2020.1-1
+Source file: src/gromacs/gmxana/gmx_energy.cpp (line 298)
+
+Fatal error:
+No energy terms selected
+
+For more information and tips for troubleshooting, please check the GROMACS
+website at http://www.gromacs.org/Documentation/Errors
+-------------------------------------------------------
+
+              :-) GROMACS - gmx energy, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx energy -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.edr -o md_kinetic.xvg -xvg none
+
+Opened /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  Bond             2  Angle            3  Proper-Dih.      4  Improper-Dih. 
+  5  LJ-14            6  Coulomb-14       7  LJ-(SR)          8  Coulomb-(SR)  
+  9  Potential       10  Kinetic-En.     11  Total-Energy    12  Conserved-En. 
+ 13  Temperature     14  Pressure        15  Constr.-rmsd    16  Box-X         
+ 17  Box-Y           18  Box-Z           19  Volume          20  Density       
+ 21  pV              22  Enthalpy        23  Vir-XX          24  Vir-XY        
+ 25  Vir-XZ          26  Vir-YX          27  Vir-YY          28  Vir-YZ        
+ 29  Vir-ZX          30  Vir-ZY          31  Vir-ZZ          32  Pres-XX       
+ 33  Pres-XY         34  Pres-XZ         35  Pres-YX         36  Pres-YY       
+ 37  Pres-YZ         38  Pres-ZX         39  Pres-ZY         40  Pres-ZZ       
+ 41  #Surf*SurfTen   42  Box-Vel-XX      43  Box-Vel-YY      44  Box-Vel-ZZ    
+ 45  T-System        46  Lamb-System   
+
+
+Reading energy frame      0 time    0.000         
+Reading energy frame      1 time    0.200         
+Last energy frame read 1 time    0.200         
+
+GROMACS reminds you: "Isn't this enough? Just this world? Just this beautiful, complex wonderfully unfathomable world? How does it so fail to hold our attention that we have to diminish it with the invention of cheap, man-made myths and monsters?" (Tim Minchin)
+
+
+Statistics over 101 steps [ 0.0000 through 0.2000 ps ], 1 data sets
+All statistics are over 2 points (frames)
+
+Energy                      Average   Err.Est.       RMSD  Tot-Drift
+-------------------------------------------------------------------------------
+Potential                   -554226         --    4804.91    19029.3  (kJ/mol)
+
+saved_xvg: md_kinetic.xvg
+              :-) GROMACS - gmx check, 2020.1-Ubuntu-2020.1-1 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx check, version 2020.1-Ubuntu-2020.1-1
+Executable:   /usr/bin/gmx
+Data prefix:  /usr
+Working dir:  /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work
+Command line:
+  gmx check -f /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.xtc
+
+
+Reading frame       0 time    0.000   
+# Atoms  33872
+Precision 0.001 (nm)
+
+Reading frame       1 time    0.200   
+Last frame          1 time    0.200   
+
+
+Item        #frames Timestep (ps)
+Step             2    0.2
+Time             2    0.2
+Lambda           0
+Coords           2    0.2
+Velocities       0
+Forces           0
+Box              2    0.2
+
+GROMACS reminds you: "Science... never solves a problem without creating ten more." (George Bernard Shaw)
+
+Checking file /data/98175e30-9a5a-4257-8af1-7c73c7b92dc6/md/1c6b6903-3bbc-487f-a0b3-0d18ce2ef09f/outputs/work/md.xtc
+
+outputs_keys:log,report,traj_pdb,em_log,npt_log,prod_log,em_plot,npt_temp_plot,npt_press_plot,prod_temp_plot,prod_press_plot
